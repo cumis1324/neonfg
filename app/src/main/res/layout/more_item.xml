@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tvEpisodeCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="10dp"
+    android:nextFocusLeft="@id/playInEpisodeItem"
+    app:cardCornerRadius="15dp"
+    android:focusable="true"
+    android:clickable="true"
+    app:cardBackgroundColor="@color/episode_item_bg_color">
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
+            <RelativeLayout
+                android:layout_width="133dp"
+                android:layout_height="75dp"
+                android:layout_centerVertical="true">
+                <TextView
+                    android:id="@+id/markWatchedEpisode2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/blue80"
+                    android:text="Watched"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:textSize="11sp"
+                    android:visibility="gone"
+                    />
+
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/moviepostermore"
+                android:layout_width="133dp"
+                android:layout_height="75dp"
+                android:layout_centerVertical="true"
+                android:scaleType="centerCrop"
+                app:srcCompat="@color/black85" />
+
+
+            <ImageView
+                android:id="@+id/movieLogomore"
+                android:layout_width="133dp"
+                android:layout_height="30dp"
+                android:layout_alignStart="@+id/moviepostermore"
+                android:layout_alignEnd="@+id/moviepostermore"
+                android:layout_gravity="center_horizontal"
+                android:layout_alignBottom="@id/moviepostermore"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/dummyposter"
+                android:visibility="invisible" />
+
+
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/moviepostermore"
+                android:orientation="vertical"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="10dp">
+
+                <TextView
+                    android:id="@+id/moreMoviesname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/jost_regular"
+                    android:text="Winter Has Come"
+                    android:maxLines="2"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/moreoverview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/jost_regular"
+                    android:maxLines="2"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    tools:text="Basically the whole plot of movie Basically the whole plot of movie Basically the whole plot of movie" />
+
+            </TableLayout>
+
+        </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

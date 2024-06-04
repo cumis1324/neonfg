@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tvEpisodeCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:nextFocusLeft="@id/playInEpisodeItem"
+    app:cardCornerRadius="15dp"
+    android:focusable="true"
+    android:clickable="true"
+    app:cardBackgroundColor="@color/episode_item_bg_color">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+        <androidx.cardview.widget.CardView
+
+            android:id="@+id/fotocard2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+
+            app:cardCornerRadius="42.5dp"
+            app:cardBackgroundColor="@color/black">
+        <ImageView
+            android:id="@+id/userImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center"
+            android:src="@drawable/mrbean"
+            />
+        </androidx.cardview.widget.CardView>
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/fotocard2"
+            android:orientation="vertical"
+            android:paddingVertical="5dp"
+            android:paddingHorizontal="10dp">
+            <TextView
+                android:id="@+id/username1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jost_regular"
+                android:text="cumis1324"
+                android:maxLines="2"
+                android:textAlignment="viewStart"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/commentReview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/jost_regular"
+                android:maxLines="2"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                tools:text="gajelas filmnya, kebanyakan wikwiknya" />
+
+        </TableLayout>
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

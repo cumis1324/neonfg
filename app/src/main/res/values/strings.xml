@@ -1,0 +1,79 @@
+<resources>
+    <string name="app_name">nfgplus</string>
+    <string name="save">Save</string>
+    <string name="enter_index_details">Enter Index Details</string>
+    <string name="index_link">Index Link</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="todo">TODO</string>
+    <string name="index_details">Index Details</string>
+    <string name="overview">Overview</string>
+    <string name="download">Download</string>
+    <string name="play">Play</string>
+    <string name="available_files">Available Files</string>
+
+    <string-array name="sort_methods">
+        <item>FileName</item>
+        <item>Title</item>
+        <item>TimeModified</item>
+        <item>ReleaseDate</item>
+        <item>Size</item>
+        <item>IndexLink</item>
+    </string-array>
+
+    <string-array name="index_types">
+        <item>GDIndex</item>
+        <item>GoIndex</item>
+        <item>MapleIndex</item>
+        <item>SimpleProgram</item>
+    </string-array>
+
+    <string-array name="folder_types">
+        <item>Movies</item>
+        <item>TVShows</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="update_available">Update Available</string>
+    <string name="update">update</string>
+    <string name="not_now">Not Now</string>
+    <string name="sort_by">Sort By</string>
+    <string name="movies">Movies</string>
+    <string name="tv_shows">TV Shows</string>
+    <string name="import_export_instructions">When permission is asked for storage allow and restart the app \n Exported Database is stored in Download/Thunder \n (Check if the file \"ThunderBackup.db\" is present in the device after export)\n To import previously exported Database: \n Click Import Database and restart the app</string>
+    <string name="search_for_a_movie_or_a_show">Search for a movie or a show</string>
+    <string name="gdindex">GDIndex</string>
+    <string name="goindex">GoIndex</string>
+    <string name="mapleindex">Maple</string>
+    <string name="simpleprogram">SimpleProgram</string>
+    <string name="enter_link_msg">Enter Index Link</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="_0_movies_detected">Scan to get all movies libraries, scan process may take a long time.
+        You can leave this tab while scanning after you click button below of course :) </string>
+    <string name="scan_movie">Scan Movie</string>
+    <string name="scan_now">Scan Now</string>
+    <string name="movies_scanned">Movies Scanned</string>
+    <string name="versionname">PancaDasa Version</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="e_mail">E-mail</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="sign_in_nfgplus">Sign in nfgplus</string>
+    <string name="sign_in">Sign In</string>
+    <string name="refresh_movie_everday_at">Refresh Movie Everday at</string>
+    <string name="backup">Backup</string>
+    <string name="change_profile_picture">Change Profile Picture</string>
+    <string name="refresh_scan_movie">Refresh Scan Movie</string>
+    <string name="join_our_telegram">Join Our Telegram</string>
+    <string name="series_tvshow_is_not_available_right_now">Series / TVShow is not available right now</string>
+    <string name="no_series_available">Scan to get all Series libraries, scan process may take a long time.
+        You can leave this tab while scanning after you click button below of course :)</string>
+    <string name="top_rated_movies">Top Rated Movies</string>
+    <string name="recently_added">Recently Added</string>
+    <string name="on_trending">On Trending Movies</string>
+    <string name="space_iklan_tersedia">Space Iklan Tersedia</string>
+    <string name="donate_a_coffee">Donate A Coffee</string>
+    <string name="subtitle_style">Subtitle Style</string>
+    <string name="film_indo">Film Indo</string>
+    <string name="scan">Scan</string>
+</resources>
