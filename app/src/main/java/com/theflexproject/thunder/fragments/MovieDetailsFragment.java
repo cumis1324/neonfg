@@ -368,7 +368,7 @@ public class MovieDetailsFragment extends BaseFragment{
 
 
     private void initWidgets(View view) {
-        titleText = view.findViewById(R.id.title_text);
+        titleText = view.findViewById(R.id.titleText);
         logo = view.findViewById(R.id.movieLogo);
         yearText = view.findViewById(R.id.year_text);
         runtime = view.findViewById(R.id.RuntimeText);
@@ -436,12 +436,18 @@ public class MovieDetailsFragment extends BaseFragment{
                                //    quality.setText(qualityStr);
                                //}
 
+                               size.setText(movieDetails.getOriginal_language());
+                               size.setVisibility(View.VISIBLE);
+                               quality.setText(movieDetails.getOriginal_title());
+                               quality.setVisibility(View.VISIBLE);
+
+
                                String logoLink = movieDetails.getLogo_path();
                                System.out.println("Logo Link"+logoLink);
 
-                               if(logoLink!=null && !logoLink.equals("") && movieDetails.getTitle()!=null){
+                               if(logoLink!=null && !logoLink.equals("")){
                                    logo.setVisibility(View.VISIBLE);
-                                   titleText.setText(movieDetails.getOriginal_title());
+                                   titleText.setText(movieDetails.getTitle());
                                    Glide.with(mActivity)
                                            .load(logoLink)
                                            .apply(new RequestOptions()
@@ -451,9 +457,9 @@ public class MovieDetailsFragment extends BaseFragment{
                                            .placeholder(new ColorDrawable(Color.TRANSPARENT))
                                            .into(logo);
                                }
-                               if(logoLink!=null && logoLink.equals("") && movieDetails.getOriginal_title()!=null){
+                               if(logoLink!=null && logoLink.equals("") && movieDetails.getTitle()!=null){
                                    titleText.setVisibility(View.VISIBLE);
-                                   titleText.setText(movieDetails.getOriginal_title());
+                                   titleText.setText(movieDetails.getTitle());
                                    logo.setVisibility(View.GONE);
                                }else {
                                    titleText.setVisibility(View.VISIBLE);

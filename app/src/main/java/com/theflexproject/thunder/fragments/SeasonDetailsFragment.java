@@ -50,6 +50,7 @@ public class SeasonDetailsFragment extends BaseFragment {
 
     String tvShowName;
     TextView tvShowTitleText;
+    TextView titleOri;
     TextView seasonName;
 //    TextView seasonNumber;
     TextView numberOfEpisodes;
@@ -131,6 +132,7 @@ public class SeasonDetailsFragment extends BaseFragment {
 
     private void initWidgets(View view) {
         tvShowTitleText = view.findViewById(R.id.showTitle);
+        titleOri = view.findViewById(R.id.titleOriSeason);
         seasonName = view.findViewById(R.id.seasonTitle);
 //        seasonNumber = view.findViewById(R.id.seasonNumber);
         numberOfEpisodes = view.findViewById(R.id.noOfEpisodesInSeason);
@@ -180,11 +182,12 @@ public class SeasonDetailsFragment extends BaseFragment {
                     mActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-
+                            tvShowTitleText.setText(tvShow.getName());
                             String logoLink = tvShow.getLogo_path();
                             System.out.println("Logo Link"+logoLink);
-
+                            titleOri.setText("Season " + tvShowSeasonDetails.getSeason_number());
                             if(!logoLink.equals("")){
+
                                 logo.setVisibility(View.VISIBLE);
                                 Glide.with(mActivity)
                                         .load(logoLink)

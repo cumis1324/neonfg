@@ -53,6 +53,7 @@ public class TvShowDetailsFragment extends BaseFragment {
 
     int tvShowId;
     TextView tvShowTitleText;
+    TextView titleOri;
     TextView numberOfSeasons;
     TextView numberOfEpisodes;
 
@@ -147,6 +148,7 @@ public class TvShowDetailsFragment extends BaseFragment {
     }
     private void initWidgets(View view) {
         tvShowTitleText = view.findViewById(R.id.tvShowTitle);
+        titleOri = view.findViewById(R.id.titleOri);
         logo = view.findViewById(R.id.tvLogo);
         numberOfSeasons = view.findViewById(R.id.noOfSeasons);
         numberOfEpisodes = view.findViewById(R.id.noOfEpisodes);
@@ -194,10 +196,12 @@ public class TvShowDetailsFragment extends BaseFragment {
 
                             String logoLink = tvShowDetails.getLogo_path();
                             System.out.println("Logo Link"+logoLink);
+                            titleOri.setVisibility(View.VISIBLE);
+                            titleOri.setText(tvShowDetails.getOriginal_name());
 
                             if(!logoLink.equals("")){
                                 logo.setVisibility(View.VISIBLE);
-                                tvShowTitleText.setText(tvShowDetails.getOriginal_name());
+                                tvShowTitleText.setText(tvShowDetails.getName());
                                 Glide.with(mActivity)
                                         .load(logoLink)
                                         .apply(new RequestOptions()
@@ -207,9 +211,9 @@ public class TvShowDetailsFragment extends BaseFragment {
                                         .placeholder(new ColorDrawable(Color.TRANSPARENT))
                                         .into(logo);
                             }
-                            if(logoLink.equals("")&&tvShowDetails.getOriginal_name()!=null){
+                            if(logoLink.equals("")&&tvShowDetails.getName()!=null){
                                 tvShowTitleText.setVisibility(View.VISIBLE);
-                                tvShowTitleText.setText(tvShowDetails.getOriginal_name());
+                                tvShowTitleText.setText(tvShowDetails.getName());
                                 logo.setVisibility(View.GONE);
                             }
                             if(tvShowDetails.getGenres()!=null){

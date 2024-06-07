@@ -39,7 +39,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="300dp">
+                android:layout_height="300dp"
+                android:id="@+id/frame">
 
 
                 <ImageButton
@@ -57,8 +58,17 @@
                     app:cornerRadius="100dp"
                     android:visibility="invisible"/>
 
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/judul"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="170dp">
                 <TextView
                     android:id="@+id/showTitle"
+                    style="@style/sizelabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -70,22 +80,42 @@
                     android:maxHeight="80dp"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="27sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     android:visibility="visible"
-                    tools:text="Movie Title" />
+                    tools:text="Movie Title"
+                    android:layout_below="@id/tvLogoInSeason"
+                    />
+
 
                 <ImageView
                     android:id="@+id/tvLogoInSeason"
                     android:layout_width="175dp"
                     android:layout_height="80dp"
-                    android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginStart="20dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/dummyposter"
-                    android:visibility="invisible" />
-
+                    android:visibility="visible" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/juduloRI"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/judul">
+                <TextView
+                    android:id="@+id/titleOriSeason"
+                    style="@style/sizelabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/jost_medium"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="#CCCCCC"
+                    android:textSize="15sp"
+                    android:text="720p"
+                    android:visibility="visible"
+                    />
             </RelativeLayout>
 
             <RelativeLayout
@@ -238,20 +268,20 @@
                         android:textSize="14sp"
                         android:visibility="gone"
                         tools:text="In the 22nd century, a paraplegic Marine is dispatched to the moon Pandora on a unique mission, but becomes torn between following orders and protecting an alien civilization." />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="@font/jost_medium"
-                        android:text="Episodes"
-                        android:textColor="@color/white"
-                        android:textSize="18sp" />
                     <com.google.android.ads.nativetemplates.TemplateView
                         android:id="@+id/my_template"
                         app:gnt_template_type="@layout/gnt_small_template_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/jost_medium"
+                        android:text="List Episodes"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerEpisodes"
