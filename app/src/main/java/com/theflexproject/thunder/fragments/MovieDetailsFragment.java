@@ -428,20 +428,20 @@ public class MovieDetailsFragment extends BaseFragment{
                            @Override
                            public void run() {
 
-                               size.setText(sizetoReadablesize.humanReadableByteCountBin(Long.parseLong(((Movie) movieDetails).getSize())));
+                               //size.setText(sizetoReadablesize.humanReadableByteCountBin(Long.parseLong(((Movie) movieDetails).getSize())));
 
-                               String qualityStr = MovieQualityExtractor.extractQualtiy(((Movie) movieDetails).getFileName());
-                               if (qualityStr != null) {
-                                   quality.setVisibility(View.VISIBLE);
-                                   quality.setText(qualityStr);
-                               }
+                               //String qualityStr = MovieQualityExtractor.extractQualtiy(((Movie) movieDetails).getFileName());
+                               //if (qualityStr != null) {
+                               //    quality.setVisibility(View.VISIBLE);
+                               //    quality.setText(qualityStr);
+                               //}
 
                                String logoLink = movieDetails.getLogo_path();
                                System.out.println("Logo Link"+logoLink);
 
                                if(logoLink!=null && !logoLink.equals("") && movieDetails.getTitle()!=null){
                                    logo.setVisibility(View.VISIBLE);
-                                   titleText.setText(movieDetails.getTitle());
+                                   titleText.setText(movieDetails.getOriginal_title());
                                    Glide.with(mActivity)
                                            .load(logoLink)
                                            .apply(new RequestOptions()
@@ -451,9 +451,9 @@ public class MovieDetailsFragment extends BaseFragment{
                                            .placeholder(new ColorDrawable(Color.TRANSPARENT))
                                            .into(logo);
                                }
-                               if(logoLink!=null && logoLink.equals("") && movieDetails.getTitle()!=null){
+                               if(logoLink!=null && logoLink.equals("") && movieDetails.getOriginal_title()!=null){
                                    titleText.setVisibility(View.VISIBLE);
-                                   titleText.setText(movieDetails.getTitle());
+                                   titleText.setText(movieDetails.getOriginal_title());
                                    logo.setVisibility(View.GONE);
                                }else {
                                    titleText.setVisibility(View.VISIBLE);

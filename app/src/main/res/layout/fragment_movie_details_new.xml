@@ -295,7 +295,7 @@
                         android:text="955mb"
                         android:textColor="#CCCCCC"
                         android:textSize="15sp"
-                        android:visibility="visible" />
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/videoQualityTextInFileItem1"
@@ -308,7 +308,7 @@
                         android:textColor="#CCCCCC"
                         android:textSize="15sp"
                         android:text="720p"
-                        android:visibility="visible" />
+                        android:visibility="gone" />
 
                 </LinearLayout>
 

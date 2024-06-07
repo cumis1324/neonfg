@@ -197,7 +197,7 @@ public class TvShowDetailsFragment extends BaseFragment {
 
                             if(!logoLink.equals("")){
                                 logo.setVisibility(View.VISIBLE);
-
+                                tvShowTitleText.setText(tvShowDetails.getOriginal_name());
                                 Glide.with(mActivity)
                                         .load(logoLink)
                                         .apply(new RequestOptions()
@@ -207,9 +207,10 @@ public class TvShowDetailsFragment extends BaseFragment {
                                         .placeholder(new ColorDrawable(Color.TRANSPARENT))
                                         .into(logo);
                             }
-                            if(logoLink.equals("")&&tvShowDetails.getName()!=null){
+                            if(logoLink.equals("")&&tvShowDetails.getOriginal_name()!=null){
                                 tvShowTitleText.setVisibility(View.VISIBLE);
-                                tvShowTitleText.setText(tvShowDetails.getName());
+                                tvShowTitleText.setText(tvShowDetails.getOriginal_name());
+                                logo.setVisibility(View.GONE);
                             }
                             if(tvShowDetails.getGenres()!=null){
 //                                genres.setVisibility(View.VISIBLE);

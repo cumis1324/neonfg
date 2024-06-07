@@ -57,34 +57,7 @@
                     app:cornerRadius="100dp"
                     android:visibility="gone"/>
 
-                <TextView
-                    android:id="@+id/tvShowTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:autoSizeMaxTextSize="28sp"
-                    android:autoSizeMinTextSize="16sp"
-                    android:autoSizeTextType="uniform"
-                    android:fontFamily="@font/jost_medium"
-                    android:maxHeight="80dp"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="27sp"
-                    android:textStyle="bold"
-                    android:visibility="visible"
-                    tools:text="Movie Title" />
 
-                <ImageView
-                    android:id="@+id/tvLogo"
-                    android:layout_width="175dp"
-                    android:layout_height="80dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginStart="20dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/dummyposter"
-                    android:visibility="invisible" />
 
             </RelativeLayout>
 
@@ -93,14 +66,47 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="300dp">
+                <RelativeLayout
+                    android:id="@+id/judul"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tvShowTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:autoSizeMaxTextSize="28sp"
+                        android:autoSizeMinTextSize="16sp"
+                        android:autoSizeTextType="uniform"
+                        android:fontFamily="@font/jost_medium"
+                        android:maxHeight="80dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:visibility="visible"
+                        tools:text="Movie Title"
+                        android:layout_below="@id/tvLogo"
+                        />
 
-
+                    <ImageView
+                        android:id="@+id/tvLogo"
+                        android:layout_width="175dp"
+                        android:layout_height="80dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="20dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/dummyposter"
+                        android:visibility="visible" />
+                </RelativeLayout>
                 <RelativeLayout
                     android:id="@+id/labelsTvShow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginVertical="5dp"
+                    android:layout_below="@id/judul"
                     android:gravity="center_horizontal">
 
 
