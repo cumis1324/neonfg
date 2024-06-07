@@ -17,6 +17,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -80,6 +81,8 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     private static final int REQUEST_CODE_PICTURE_IN_PICTURE = 1;
 
     private ImageButton buttonAspectRatio;
+    private TextView playerTitle;
+    Intent intent;
     int uiOptions;
     View decorView;
     private String TAG = "PlayerActivity";
@@ -89,6 +92,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         decorView = getWindow().getDecorView();
+        intent = getIntent();
 
         uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -106,6 +110,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         setContentView();
 
         playerView = findViewById(R.id.player_view);
+        playerTitle = findViewById(R.id.playerTitle);
         playerView.setControllerVisibilityListener(this);
         playerView.requestFocus();
         Rational aspectRatio = new Rational(playerView.getWidth(), playerView.getHeight());
@@ -206,14 +211,22 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
                 });
 
     }
+    private void loadTitle(){
+        String titleString = intent.getStringExtra("title");
+        String yearString = intent.getStringExtra("year");
+        playerTitle.setText(titleString + " (" + yearString + ")");
+        playerTitle.setVisibility(View.VISIBLE);
+    }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
         // Check if device orientation is landscape
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        if (newConfig.orientation != Configuration.ORIENTATION_LANDSCAPE) {
             // Show rewarded ad if loaded
+            loadReward();
+        }else {
             loadReward();
         }
     }
@@ -328,7 +341,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onVisibilityChanged(int visibility) {
-
+        playerTitle.setVisibility(visibility == View.VISIBLE ? View.VISIBLE : View.GONE);
     }
     @Override
     public void onClick(View view) {
@@ -346,7 +359,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
      */
     protected boolean initializePlayer() {
         if (player == null) {
-            Intent intent = getIntent();
+
             String urlString = intent.getStringExtra("url");
             Uri uri = Uri.parse(urlString);
             Log.i("Inside Player",uri.toString());

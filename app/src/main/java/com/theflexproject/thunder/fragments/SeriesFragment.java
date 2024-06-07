@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import io.reactivex.internal.operators.completable.CompletableMergeDelayErrorArray;
 
 public class SeriesFragment extends BaseFragment{
 

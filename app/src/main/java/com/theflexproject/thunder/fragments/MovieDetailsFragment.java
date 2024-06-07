@@ -662,6 +662,9 @@ public class MovieDetailsFragment extends BaseFragment{
                                 System.out.println("selected file"+selectedFile.getFileName());
                                 Intent in = new Intent(getActivity(), PlayerActivity.class);
                                 in.putExtra("url", selectedFile.getUrlString());
+                                in.putExtra("title", selectedFile.getTitle());
+                                String inYear = selectedFile.getRelease_date();
+                                in.putExtra("year", inYear.substring(0,inYear.indexOf('-')));
                                 startActivity(in);
                                 Toast.makeText(getContext(), "Playing " + movieDetails.getTitle() + " " + huntu, Toast.LENGTH_LONG).show();
                                 Toast.makeText(mActivity , selectedFile.getTitle() + huntu + " Selected" , Toast.LENGTH_LONG).show();
