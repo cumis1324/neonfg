@@ -15,7 +15,7 @@ public interface TVShowDao {
     @Query("SELECT  * FROM TVShow")
     List<TVShow> getAll();
 
-    @Query("SELECT * FROM TVShow WHERE poster_path IS NOT NULL GROUP BY name ORDER BY name ASC")
+    @Query("SELECT * FROM TVShow WHERE poster_path IS NOT NULL GROUP BY id ORDER BY name ASC")
     List<TVShow> getAllByTitles();
 
     @Query("SELECT * FROM TVShow WHERE TVShow.name LIKE '%' || :string || '%' OR TVShow.overview like '%' || :string || '%' GROUP BY name")

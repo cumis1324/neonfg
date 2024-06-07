@@ -439,8 +439,9 @@ public class MovieDetailsFragment extends BaseFragment{
                                String logoLink = movieDetails.getLogo_path();
                                System.out.println("Logo Link"+logoLink);
 
-                               if(logoLink!=null && !logoLink.equals("")){
+                               if(logoLink!=null && !logoLink.equals("") && movieDetails.getTitle()!=null){
                                    logo.setVisibility(View.VISIBLE);
+                                   titleText.setText(movieDetails.getTitle());
                                    Glide.with(mActivity)
                                            .load(logoLink)
                                            .apply(new RequestOptions()
@@ -453,6 +454,7 @@ public class MovieDetailsFragment extends BaseFragment{
                                if(logoLink!=null && logoLink.equals("") && movieDetails.getTitle()!=null){
                                    titleText.setVisibility(View.VISIBLE);
                                    titleText.setText(movieDetails.getTitle());
+                                   logo.setVisibility(View.GONE);
                                }else {
                                    titleText.setVisibility(View.VISIBLE);
                                    titleText.setText(movieFileName);

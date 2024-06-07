@@ -144,10 +144,11 @@
                         android:maxHeight="80dp"
                         android:textAlignment="center"
                         android:textColor="@color/white"
-                        android:textSize="27sp"
+                        android:textSize="20sp"
                         android:textStyle="bold"
                         android:visibility="visible"
-                        tools:text="Movie Title" />
+                        tools:text="Movie Title"
+                        android:layout_below="@id/movieLogo"/>
 
                     <ImageView
                         android:id="@+id/movieLogo"
@@ -156,7 +157,7 @@
                         android:layout_centerHorizontal="true"
                         android:scaleType="fitCenter"
                         android:src="@drawable/dummyposter"
-                        android:visibility="invisible" />
+                        android:visibility="visible" />
                 </RelativeLayout>
 
                 <RelativeLayout
