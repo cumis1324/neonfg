@@ -13,6 +13,7 @@ import com.theflexproject.thunder.model.Movie;
 import com.theflexproject.thunder.model.MyMedia;
 import com.theflexproject.thunder.model.TVShowInfo.Episode;
 import com.theflexproject.thunder.utils.MovieQualityExtractor;
+import com.theflexproject.thunder.utils.sizetoReadablesize;
 
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class FileItemDialogAdapter extends RecyclerView.Adapter<FileItemDialogAd
     public void onBindViewHolder(@NonNull FileItemDialogAdapterViewHolder holder , int position) {
         if (mediaList.get(position) instanceof Movie) {
            if (((Movie)mediaList.get(position)).getUrlString() != null) {
-                holder.fileName.setText(((Movie)mediaList.get(position)).getTitle());
+                holder.fileName.setText(sizetoReadablesize.humanReadableByteCountBin(Long.parseLong(((Movie) mediaList.get(position)).getSize())));
              }
             String qualityStr = MovieQualityExtractor.extractQualtiy(((Movie)mediaList.get(position)).getFileName());
             if(qualityStr!=null){
