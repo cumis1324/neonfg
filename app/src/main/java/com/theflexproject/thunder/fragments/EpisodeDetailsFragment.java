@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -333,18 +334,20 @@ public class EpisodeDetailsFragment extends BaseFragment {
         download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Check if the app has the WRITE_EXTERNAL_STORAGE permission
-                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    // Request the permission if it is not granted
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                            REQUEST_WRITE_EXTERNAL_STORAGE_PERMISSION);
-                } else {
-                    // Permission is already granted, proceed with the download
-                    startDownload();
-                }
+                if (Build.VERSION.SDK_INT < 32) {
+                    // Check if the app has the WRITE_EXTERNAL_STORAGE permission
+                    if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        // Request the permission if it is not granted
+                        ActivityCompat.requestPermissions(getActivity(),
+                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                REQUEST_WRITE_EXTERNAL_STORAGE_PERMISSION);
 
+                    } else {
+                        // Permission is already granted, proceed with the download
+                        startDownload();
+                    }
+                }
 
             }
 
