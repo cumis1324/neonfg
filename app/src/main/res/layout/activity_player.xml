@@ -14,13 +14,34 @@
        app:show_shuffle_button="true"
        app:show_subtitle_button="true"
        />
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+      >
+      <TextView
+          android:id="@+id/nfgpluslogo"
+          style="@style/sizelabel"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentEnd="true"
+          android:layout_alignParentBottom="true"
+          android:layout_marginBottom="35dp"
+          android:fontFamily="@font/jost_medium"
+          android:paddingHorizontal="20dp"
+          android:textColor="#CCCCCC"
+          android:textSize="25sp"
+          android:text="nfgplus"
+          android:alpha="0.35"
+          />
+   </RelativeLayout>
+
+
 
    <RelativeLayout
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:background="#88000000"
        android:orientation="vertical">
-
       <RelativeLayout
           android:id="@+id/judulUtama"
           android:layout_width="match_parent"
@@ -53,7 +74,7 @@
              android:paddingHorizontal="20dp"
              android:textColor="#CCCCCC"
              android:textSize="15sp"
-             android:text="Kung Fu panda 4 (2024)"
+             android:text=""
              android:visibility="gone"
              />
       </RelativeLayout>

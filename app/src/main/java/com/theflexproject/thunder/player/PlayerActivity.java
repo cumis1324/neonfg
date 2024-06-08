@@ -221,6 +221,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         String titleEpisode = intent.getStringExtra("episode");
         if (yearString!=null) {
             playerTitle.setText(titleString + " (" + yearString + ")");
+            playerEpsTitle.setVisibility(View.GONE);
         }else {
             playerTitle.setText(titleString);
             playerEpsTitle.setText("Season " + seasonString + " Episode " + epsnumString + " : " + titleEpisode);
