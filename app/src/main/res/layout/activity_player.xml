@@ -22,6 +22,7 @@
        android:orientation="vertical">
 
       <RelativeLayout
+          android:id="@+id/judulUtama"
           android:layout_width="match_parent"
           android:layout_height="wrap_content">
          <TextView
@@ -34,6 +35,24 @@
              android:paddingHorizontal="20dp"
              android:textColor="#CCCCCC"
              android:textSize="20sp"
+             android:text="Kung Fu panda 4 (2024)"
+             android:visibility="gone"
+             />
+      </RelativeLayout>
+      <RelativeLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/judulUtama">
+         <TextView
+             android:id="@+id/playerEpsTitle"
+             style="@style/sizelabel"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_centerHorizontal="false"
+             android:fontFamily="@font/jost_medium"
+             android:paddingHorizontal="20dp"
+             android:textColor="#CCCCCC"
+             android:textSize="15sp"
              android:text="Kung Fu panda 4 (2024)"
              android:visibility="gone"
              />

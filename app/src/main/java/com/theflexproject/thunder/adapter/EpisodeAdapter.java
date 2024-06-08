@@ -40,6 +40,7 @@ import com.theflexproject.thunder.Constants;
 import com.theflexproject.thunder.R;
 import com.theflexproject.thunder.database.DatabaseClient;
 import com.theflexproject.thunder.model.TVShowInfo.Episode;
+import com.theflexproject.thunder.model.TVShowInfo.TVShow;
 import com.theflexproject.thunder.player.PlayerActivity;
 import com.theflexproject.thunder.utils.StringUtils;
 
@@ -53,12 +54,14 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.EpisodeA
     Context context;
     InterstitialAd mInterstitialAd;
     List<Episode> episodeList;
+    TVShow tvShow;
     private EpisodeAdapter.OnItemClickListener listener;
 
-    public EpisodeAdapter(Context context, List<Episode> episodeList, EpisodeAdapter.OnItemClickListener listener) {
+    public EpisodeAdapter(TVShow tvShow, Context context, List<Episode> episodeList, EpisodeAdapter.OnItemClickListener listener) {
         this.context = context;
         this.episodeList = episodeList;
         this.listener= listener;
+        this.tvShow = tvShow;
 
     }
 
@@ -246,6 +249,12 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.EpisodeA
                 addToLastPlayed(episode.getId());
                 Intent in = new Intent(itemView.getContext() , PlayerActivity.class);
                 in.putExtra("url" , episode.getUrlString());
+                String season = String.valueOf(episode.getSeason_number());
+                String epsnum = String.valueOf(episode.getEpisode_number());
+                in.putExtra("season" , season);
+                in.putExtra("number" , epsnum);
+                in.putExtra("episode" , episode.getName());
+                in.putExtra("title" , tvShow.getName());
                 itemView.getContext().startActivity(in);
                 Toast.makeText(itemView.getContext() , "Play" , Toast.LENGTH_LONG).show();
             }

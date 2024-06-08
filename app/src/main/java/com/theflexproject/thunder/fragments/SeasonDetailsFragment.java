@@ -304,7 +304,7 @@ public class SeasonDetailsFragment extends BaseFragment {
                         ScaleCenterItemLayoutManager linearLayoutManager = new ScaleCenterItemLayoutManager(getContext() , LinearLayoutManager.VERTICAL , false);
                         episodesRecycler.setLayoutManager(linearLayoutManager);
                         episodesRecycler.setHasFixedSize(true);
-                        episodeAdapter = new EpisodeAdapter(mActivity, episodes , listener);
+                        episodeAdapter = new EpisodeAdapter(tvShow, mActivity, episodes , listener);
                         episodesRecycler.setAdapter(episodeAdapter);
                         episodeAdapter.notifyDataSetChanged();
                     }

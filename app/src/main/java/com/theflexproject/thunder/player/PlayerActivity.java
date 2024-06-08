@@ -82,6 +82,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
 
     private ImageButton buttonAspectRatio;
     private TextView playerTitle;
+    private TextView playerEpsTitle;
     Intent intent;
     int uiOptions;
     View decorView;
@@ -111,6 +112,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
 
         playerView = findViewById(R.id.player_view);
         playerTitle = findViewById(R.id.playerTitle);
+        playerEpsTitle = findViewById(R.id.playerEpsTitle);
         playerView.setControllerVisibilityListener(this);
         playerView.requestFocus();
         Rational aspectRatio = new Rational(playerView.getWidth(), playerView.getHeight());
@@ -214,7 +216,17 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     private void loadTitle(){
         String titleString = intent.getStringExtra("title");
         String yearString = intent.getStringExtra("year");
-        playerTitle.setText(titleString + " (" + yearString + ")");
+        String seasonString = intent.getStringExtra("season");
+        String epsnumString = intent.getStringExtra("number");
+        String titleEpisode = intent.getStringExtra("episode");
+        if (yearString!=null) {
+            playerTitle.setText(titleString + " (" + yearString + ")");
+        }else {
+            playerTitle.setText(titleString);
+            playerEpsTitle.setText("Season " + seasonString + " Episode " + epsnumString + " : " + titleEpisode);
+            playerEpsTitle.setVisibility(View.VISIBLE);
+        }
+
         playerTitle.setVisibility(View.VISIBLE);
     }
 
@@ -243,6 +255,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     public void onStart() {
         super.onStart();
         if (Build.VERSION.SDK_INT > 23) {
+            loadTitle();
             initializePlayer();
             if (playerView != null) {
                 playerView.onResume();
@@ -342,6 +355,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onVisibilityChanged(int visibility) {
         playerTitle.setVisibility(visibility == View.VISIBLE ? View.VISIBLE : View.GONE);
+        playerEpsTitle.setVisibility(visibility == View.VISIBLE ? View.VISIBLE : View.GONE);
     }
     @Override
     public void onClick(View view) {
