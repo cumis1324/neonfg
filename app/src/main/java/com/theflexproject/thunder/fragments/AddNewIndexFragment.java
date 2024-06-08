@@ -131,6 +131,13 @@ public class AddNewIndexFragment extends BaseFragment {
                     indexLink.setPassword(passWordView.getText().toString());
                     indexLink.setIndexType(typeIndex);
                     indexLink.setFolderType(typeMovie);
+                    IndexLink indexLink2 = new IndexLink();
+                    indexLink2.setLink(demo);
+                    indexLink2.setUsername(userNameView.getText().toString());
+                    indexLink2.setPassword(passWordView.getText().toString());
+                    indexLink2.setIndexType(typeIndex);
+                    indexLink2.setFolderType(typeMovie);
+                    indexLink2.setFolderType(typeSeries);
                     try {
                         if (indexLink.getLink().length() < 1) {
                             indexLinkView.setError("Invalid Link");
@@ -148,6 +155,7 @@ public class AddNewIndexFragment extends BaseFragment {
                                     });
                                 } else if (indexLink.getLink() != null) {
                                     DatabaseClient.getInstance(mActivity).getAppDatabase().indexLinksDao().insert(indexLink);
+                                    DatabaseClient.getInstance(mActivity).getAppDatabase().indexLinksDao().insert(indexLink2);
                                     mActivity.runOnUiThread(new Runnable() {
 
                                         @Override
@@ -171,18 +179,42 @@ public class AddNewIndexFragment extends BaseFragment {
 
                                     System.out.println("Before setting id" + indexLink.getId());
 
+                                    String folderType2 = indexLink2.getFolderType();
+                                    String indexType2 = indexLink2.getIndexType();
+
+                                    String link2 = indexLink2.getLink();
+                                    String user2 = indexLink2.getUsername();
+                                    String pass2 = indexLink2.getPassword();
+
+                                    System.out.println("Before setting id" + indexLink.getId());
+                                    System.out.println("Before setting id" + indexLink2.getId());
+
                                     IndexLink indexLinkAgain = DatabaseClient.getInstance(mActivity)
                                             .getAppDatabase()
                                             .indexLinksDao()
                                             .find(link);
+                                    IndexLink indexLinkAgain2 = DatabaseClient.getInstance(mActivity)
+                                            .getAppDatabase()
+                                            .indexLinksDao()
+                                            .find(link2);
 
                                     int index_id = indexLinkAgain.getId();
 
                                     System.out.println("After setting id" + indexLinkAgain.getId());
 
+                                    int index_id2 = indexLinkAgain.getId();
+
+                                    System.out.println("After setting id" + indexLinkAgain2.getId());
+
                                     if (folderType.equals("Movies")) {
                                         if (indexType.equals("GDIndex")) {
                                             postRequestGDIndex(link, user, pass, false, index_id);
+                                        }
+
+                                    }
+                                    if (folderType2.equals("Series")) {
+                                        if (indexType.equals("GDIndex")) {
+                                            postRequestGDIndex(link2, user2, pass2, true, index_id2);
                                         }
 
                                     }

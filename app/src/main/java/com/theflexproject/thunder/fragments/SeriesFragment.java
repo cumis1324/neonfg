@@ -121,6 +121,11 @@ public class SeriesFragment extends BaseFragment{
 
     }
 
+    public boolean onBackPressed(){
+
+        return false;
+    }
+
     private void  loadTrendingSeries() {
         Thread thread = new Thread(new Runnable() {
             @Override
