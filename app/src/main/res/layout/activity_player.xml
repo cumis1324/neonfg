@@ -18,6 +18,15 @@
        android:layout_width="match_parent"
        android:layout_height="match_parent"
       >
+      <ProgressBar
+          android:id="@+id/buffering"
+          android:layout_width="80dp"
+          android:layout_height="80dp"
+          android:layout_centerInParent="true"
+          android:elevation="8dp"
+          android:indeterminateTint="#cccccc"
+          android:padding="8dp"
+          android:visibility="gone" />
       <TextView
           android:id="@+id/nfgpluslogo"
           style="@style/sizelabel"

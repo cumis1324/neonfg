@@ -17,6 +17,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -83,6 +84,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     private ImageButton buttonAspectRatio;
     private TextView playerTitle;
     private TextView playerEpsTitle;
+    private ProgressBar buffering;
     Intent intent;
     int uiOptions;
     View decorView;
@@ -113,6 +115,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         playerView = findViewById(R.id.player_view);
         playerTitle = findViewById(R.id.playerTitle);
         playerEpsTitle = findViewById(R.id.playerEpsTitle);
+        buffering = findViewById(R.id.buffering);
         playerView.setControllerVisibilityListener(this);
         playerView.requestFocus();
         Rational aspectRatio = new Rational(playerView.getWidth(), playerView.getHeight());
@@ -257,9 +260,11 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         super.onStart();
         if (Build.VERSION.SDK_INT > 23) {
             loadTitle();
+            buffering.setVisibility(View.VISIBLE);
             initializePlayer();
             if (playerView != null) {
                 playerView.onResume();
+                buffering.setVisibility(View.GONE);
             }
         }
     }
@@ -444,6 +449,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
             startAutoPlay = player.getPlayWhenReady();
             startItemIndex = player.getCurrentMediaItemIndex();
             startPosition = Math.max(0, player.getContentPosition());
+            buffering.setVisibility(View.GONE);
         }
     }
 
