@@ -315,7 +315,7 @@ public class EpisodeDetailsFragment extends BaseFragment {
                     startActivity(intent);
                 } else {
                     //Play video
-                    addToLastPlayed();
+
                     Intent in = new Intent(getActivity() , PlayerActivity.class);
                     in.putExtra("url" , largestFile.getUrlString());
                     String season = String.valueOf(episode.getSeason_number());
@@ -326,6 +326,7 @@ public class EpisodeDetailsFragment extends BaseFragment {
                     in.putExtra("title" , tvShow.getName());
                     startActivity(in);
                     Toast.makeText(getContext() , "Play" , Toast.LENGTH_LONG).show();
+                    addToLastPlayed();
                 }
             }
         });
