@@ -317,6 +317,12 @@ public class EpisodeDetailsFragment extends BaseFragment {
                     addToLastPlayed();
                     Intent in = new Intent(getActivity() , PlayerActivity.class);
                     in.putExtra("url" , largestFile.getUrlString());
+                    String season = String.valueOf(episode.getSeason_number());
+                    String epsnum = String.valueOf(episode.getEpisode_number());
+                    in.putExtra("season" , season);
+                    in.putExtra("number" , epsnum);
+                    in.putExtra("episode" , episode.getName());
+                    in.putExtra("title" , tvShow.getName());
                     startActivity(in);
                     Toast.makeText(getContext() , "Play" , Toast.LENGTH_LONG).show();
                 }
