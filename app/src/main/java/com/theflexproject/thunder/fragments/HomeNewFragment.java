@@ -68,7 +68,7 @@ public class HomeNewFragment extends BaseFragment {
         });
 
         // Disable user swiping in the ViewPager2
-        viewPagerLibrary.setUserInputEnabled(true);
+        viewPagerLibrary.setUserInputEnabled(false);
     }
 
     private void initWidgets() {

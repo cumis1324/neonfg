@@ -364,16 +364,17 @@ public class SettingsFragment extends BaseFragment {
         String username = dataSnapshot.child("username").getValue(String.class);
         String firstName = dataSnapshot.child("firstName").getValue(String.class);
         String lastName = dataSnapshot.child("lastName").getValue(String.class);
+        String email = dataSnapshot.child("email").getValue(String.class);
 
         // Display user data in the UI
         if (username != null) {
-            userProfile.setText(username);
+            userProfile.setText("Hallo, " + username);
             userProfile.setVisibility(View.VISIBLE);
         }
 
         if (firstName != null && lastName != null) {
-            String fullName = firstName + " " + lastName;
-            userfullname.setText(fullName);
+
+            userfullname.setText(email);
             userfullname.setVisibility(View.VISIBLE);
         }
     }
