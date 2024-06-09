@@ -118,7 +118,6 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         playerTitle = findViewById(R.id.playerTitle);
         nfgpluslog = findViewById(R.id.nfgpluslogo);
         playerEpsTitle = findViewById(R.id.playerEpsTitle);
-        buffering = findViewById(R.id.buffering);
         playerView.setControllerVisibilityListener(this);
         playerView.requestFocus();
         Rational aspectRatio = new Rational(playerView.getWidth(), playerView.getHeight());
