@@ -79,7 +79,7 @@
                     android:nextFocusUp="@id/indexlink"
                     android:nextFocusDown="@id/password"
                     android:paddingTop="12dp"
-                    android:#878787
+                    android:textColor="#878787"
                     android:textColorHint="#878787"
                     android:textColorLink="#A3A3A3"
                     android:textSize="18sp"
@@ -121,7 +121,7 @@
                     android:nextFocusUp="@id/username"
                     android:nextFocusDown="@id/firstname"
                     android:paddingTop="12dp"
-                    android:#878787
+                    android:textColor="#878787"
                     android:textColorHint="#878787"
                     android:textColorLink="#A3A3A3"
                     android:textSize="18sp" />
@@ -163,7 +163,7 @@
                     android:nextFocusUp="@id/password"
                     android:nextFocusDown="@id/lastname"
                     android:paddingTop="12dp"
-                    android:#878787
+                    android:textColor="#878787"
                     android:textColorHint="#878787"
                     android:textColorLink="#A3A3A3"
                     android:textSize="18sp" />
@@ -204,7 +204,7 @@
                     android:nextFocusUp="@id/firstname"
                     android:nextFocusDown="@id/email"
                     android:paddingTop="12dp"
-                    android:#878787
+                    android:textColor="#878787"
                     android:textColorHint="#878787"
                     android:textColorLink="#A3A3A3"
                     android:textSize="18sp" />
@@ -246,7 +246,7 @@
                     android:nextFocusUp="@id/lastname"
                     android:nextFocusDown="@id/phonenumber"
                     android:paddingTop="12dp"
-                    android:#878787
+                    android:textColor="#878787"
                     android:textColorHint="#878787"
                     android:textColorLink="#A3A3A3"
                     android:textSize="18sp" />
@@ -288,7 +288,7 @@
                     android:nextFocusUp="@id/email"
                     android:nextFocusDown="@id/signupbtn"
                     android:paddingTop="12dp"
-                    android:#878787
+                    android:textColor="#878787"
                     android:textColorHint="#878787"
                     android:textColorLink="#A3A3A3"
                     android:textSize="18sp" />
