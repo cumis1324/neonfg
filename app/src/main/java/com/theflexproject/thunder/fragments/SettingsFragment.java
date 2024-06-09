@@ -372,7 +372,7 @@ public class SettingsFragment extends BaseFragment {
             userProfile.setVisibility(View.VISIBLE);
         }
 
-        if (firstName != null && lastName != null) {
+        if (email!=null) {
 
             userfullname.setText(email);
             userfullname.setVisibility(View.VISIBLE);
