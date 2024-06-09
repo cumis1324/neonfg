@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     HomeNewFragment homeFragment = new HomeNewFragment();
+    HomeFragment    homeVerif = new HomeFragment();
     MovieDetailsFragment movieDetailsFragment = new MovieDetailsFragment();
     SearchFragment searchFragment = new SearchFragment();
     LibraryFragment libraryFragment = new LibraryFragment();
@@ -139,7 +140,11 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.activity_main);
             initWidgets();
             setUpBottomNavigationView();
-            getSupportFragmentManager().beginTransaction().replace(R.id.container , homeFragment).commit();
+            if ("M20Oxpp64gZ480Lqus4afv6x2n63".equals(currentUser.getUid())) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, homeVerif).commit();
+            } else {
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, homeFragment).commit();
+            }
             AppDatabase db = Room.databaseBuilder(getApplicationContext() ,
                             AppDatabase.class , "MyToDos")
                     .build();
@@ -258,11 +263,20 @@ public class MainActivity extends AppCompatActivity {
     private void setUpBottomNavigationView() {
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if(item.getItemId()==R.id.homeFragment){
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .setCustomAnimations(R.anim.from_right,R.anim.to_left,R.anim.from_left,R.anim.to_right)
-                        .replace(R.id.container , homeFragment)
-                        .commit();
+                if ("M20Oxpp64gZ480Lqus4afv6x2n63".equals(currentUser.getUid())) {
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .setCustomAnimations(R.anim.from_right, R.anim.to_left, R.anim.from_left, R.anim.to_right)
+                            .replace(R.id.container, homeVerif)
+                            .commit();
+                }
+                else{
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .setCustomAnimations(R.anim.from_right, R.anim.to_left, R.anim.from_left, R.anim.to_right)
+                            .replace(R.id.container, homeFragment)
+                            .commit();
+                }
                 return true;
             }else if(item.getItemId()==R.id.searchFragment){
                 getSupportFragmentManager()

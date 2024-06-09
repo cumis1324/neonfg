@@ -85,6 +85,7 @@ public class AddNewIndexFragment extends BaseFragment {
 
             String url = "https://drive.nfgplusmirror.workers.dev/1:/Movie/";
             String demo = "https://drive.nfgplusmirror.workers.dev/1:/Demo/";
+            String demoSeries = "https://drive3.nfgplusmirror.workers.dev/0:/demoSeries/";
             String series = "https://drive.nfgplusmirror.workers.dev/1:/Series/";
             String movie = "https://drive2.nfgplusmirror.workers.dev/0:/Movie/";
             String series1 = "https://drive2.nfgplusmirror.workers.dev/0:/Series/";
@@ -132,11 +133,10 @@ public class AddNewIndexFragment extends BaseFragment {
                     indexLink.setIndexType(typeIndex);
                     indexLink.setFolderType(typeMovie);
                     IndexLink indexLink2 = new IndexLink();
-                    indexLink2.setLink(demo);
+                    indexLink2.setLink(demoSeries);
                     indexLink2.setUsername(userNameView.getText().toString());
                     indexLink2.setPassword(passWordView.getText().toString());
                     indexLink2.setIndexType(typeIndex);
-                    indexLink2.setFolderType(typeMovie);
                     indexLink2.setFolderType(typeSeries);
                     try {
                         if (indexLink.getLink().length() < 1) {
@@ -202,22 +202,23 @@ public class AddNewIndexFragment extends BaseFragment {
 
                                     System.out.println("After setting id" + indexLinkAgain.getId());
 
-                                    int index_id2 = indexLinkAgain.getId();
+                                    int index_id2 = indexLinkAgain2.getId();
 
                                     System.out.println("After setting id" + indexLinkAgain2.getId());
 
+                                    if (folderType2.equals("Series")) {
+                                        if (indexType2.equals("GDIndex")) {
+                                            postRequestGDIndex(link2, user2, pass2, true, index_id2);
+                                        }
+
+                                    }
                                     if (folderType.equals("Movies")) {
                                         if (indexType.equals("GDIndex")) {
                                             postRequestGDIndex(link, user, pass, false, index_id);
                                         }
 
                                     }
-                                    if (folderType2.equals("Series")) {
-                                        if (indexType.equals("GDIndex")) {
-                                            postRequestGDIndex(link2, user2, pass2, true, index_id2);
-                                        }
 
-                                    }
 
                                      mActivity.runOnUiThread(new Runnable() {
                                         @Override

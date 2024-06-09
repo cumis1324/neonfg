@@ -11,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.theflexproject.thunder.R;
 import com.theflexproject.thunder.adapter.FragmentHomeAdapter;
 
@@ -67,7 +68,7 @@ public class HomeNewFragment extends BaseFragment {
         });
 
         // Disable user swiping in the ViewPager2
-        viewPagerLibrary.setUserInputEnabled(false);
+        viewPagerLibrary.setUserInputEnabled(true);
     }
 
     private void initWidgets() {

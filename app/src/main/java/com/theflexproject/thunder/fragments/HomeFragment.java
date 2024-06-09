@@ -28,6 +28,9 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.Firebase;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.theflexproject.thunder.R;
 import com.theflexproject.thunder.RefreshJobService;
 import com.theflexproject.thunder.adapter.BannerRecyclerAdapter;
@@ -36,6 +39,7 @@ import com.theflexproject.thunder.adapter.IndexAdapter;
 import com.theflexproject.thunder.adapter.MediaAdapter;
 import com.theflexproject.thunder.adapter.ScaleCenterItemLayoutManager;
 import com.theflexproject.thunder.database.DatabaseClient;
+import com.theflexproject.thunder.model.FirebaseManager;
 import com.theflexproject.thunder.model.IndexLink;
 import com.theflexproject.thunder.model.Movie;
 import com.theflexproject.thunder.model.MyMedia;
@@ -75,7 +79,8 @@ public class HomeFragment extends BaseFragment {
     RecyclerView recentlyReleasedRecyclerView;
 
     TextView topRatedMoviesRecyclerViewTitle;
-    TextView trendingTitle;
+    TextView trendingTitle, verifTitle;
+
     TextView filmIndoTitle;
     RecyclerView filmIndoView;
     MediaAdapter filmIndoAdapter;
@@ -153,6 +158,14 @@ public class HomeFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        verifTitle = view.findViewById(R.id.verifTitle);
+        FirebaseManager firebaseManager;
+        firebaseManager = new FirebaseManager();
+        FirebaseUser currentUser;
+        currentUser = firebaseManager.getCurrentUser();
+        if ("M20Oxpp64gZ480Lqus4afv6x2n63".equals(currentUser.getUid())) {
+            verifTitle.setVisibility(View.VISIBLE);
+        }
         floatingActionButton = mActivity.findViewById(R.id.scanContainer);
         scanButton = mActivity.findViewById(R.id.floating_scan);
         watchlistRecyclerView = view.findViewById(R.id.watchListMediaRecycler);
