@@ -9,35 +9,15 @@
     app:cardUseCompatPadding="false"
     android:clickable="true"
     android:focusable="true"
-    android:background="@color/exo_black_opacity_70"
+    android:background="@color/black"
     tools:context=".SignInActivity">
     <RelativeLayout
             android:id="@+id/signincontainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/transparent">
+            >
 
-            <LinearLayout
-                android:id="@+id/textContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_below="@id/passwordContainer"
-                android:gravity="center_vertical">
 
-                <TextView
-                    android:id="@+id/trysignup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="26dp"
-                    android:focusable="false"
-                    android:fontFamily="@font/jost_regular"
-                    android:text="If you don't have nfgplus account, Click Register below."
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-            </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/emailContainer"
@@ -50,6 +30,7 @@
                 android:gravity="center_vertical"
                 android:textColorHint="#50FFFFFF"
                 android:textCursorDrawable="@null"
+                android:background="@color/black_overlay"
                 app:hintAnimationEnabled="false"
                 app:hintEnabled="false"
                 >
@@ -65,8 +46,8 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
-                    android:background="@color/black_overlay"
                     android:ems="10"
+                    android:background="#cccccc"
                     android:focusable="true"
                     android:fontFamily="@font/jost_regular"
                     android:gravity="start|center_vertical"
@@ -106,7 +87,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
-                    android:background="@color/exo_black_opacity_70"
+                    android:background="#cccccc"
                     android:ems="10"
                     android:focusable="true"
                     android:fontFamily="@font/jost_regular"
@@ -138,7 +119,7 @@
                 android:focusable="false"
                 android:fontFamily="@font/jost_bold"
 
-                android:text="@string/sign_in_nfgplus"
+                android:text="Login"
                 android:textColor="@color/white"
                 android:textSize="25dp" />
 
@@ -161,60 +142,102 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/signincontainer"
+        android:background="@color/blue"
+        android:layout_marginTop="15dp"
         >
 
         <Button
-            android:id="@+id/signuppbtn"
-            android:layout_width="wrap_content"
+            android:id="@+id/signinbtn"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginStart="20dp"
-            android:background="@drawable/rounded_corner_labels"
-            android:fontFamily="@font/jost_regular"
-            android:text="Register"
+            android:layout_centerHorizontal="true"
             android:layout_marginEnd="20dp"
+            android:focusable="true"
+            android:background="transparent"
+            android:fontFamily="@font/jost_regular"
+            android:text="Login"
             android:textColor="@color/download_button_bg_color" />
     </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/textContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/signbtncont"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/trysignup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="26dp"
+            android:focusable="false"
+            android:fontFamily="@font/jost_regular"
+            android:text="If you don't have nfgplus account, Click Register below."
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+    </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="100dp"
         >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/loginContainer"
+            android:background="@color/blue"
+            >
         <Button
             android:layout_alignParentTop="true"
-            android:id="@+id/signinbtn"
+            android:id="@+id/signuppbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:background="#FFFFFF"
+            android:background="transparent"
             android:fontFamily="@font/jost_regular"
-            android:text="Login"
+            android:text="Register"
             android:textColor="@color/download_button_bg_color" />
+    </RelativeLayout>
         <TextView
             android:id="@+id/or"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/signinbtn"
+            android:layout_below="@id/loginContainer"
             android:layout_centerHorizontal="true"
-            android:text="Or"
+            android:text="or"
             style= "@style/sizelabel"
             android:textColor="@color/white"
             android:textSize="25sp"
             android:fontFamily="@font/jost_regular"
             />
-        <Button
+        <RelativeLayout
             android:layout_below="@id/or"
-            style="@style/sizelabel"
-            android:id="@+id/google_signin_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:background="@color/white"
-            android:fontFamily="@font/jost_regular"
-            android:text="Login with Google Account"
-            android:textColor="#cccccc" />
-
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/googleg_standard_color_18"
+                android:layout_toLeftOf="@id/google_signin_button"
+                android:layout_marginEnd="5dp"
+                android:layout_centerVertical="true"/>
+            <Button
+            android:id="@+id/google_signin_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@color/transparent"
+            android:fontFamily="@font/jost_light"
+            android:text="Sign in with Google Account"
+                android:textSize="11sp"
+            android:textColor="@color/black" />
+        </RelativeLayout>
     </RelativeLayout>
     <ProgressBar
             android:id="@+id/progress_circular"
