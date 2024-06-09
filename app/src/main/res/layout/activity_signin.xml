@@ -55,7 +55,7 @@
                     android:inputType="textEmailAddress"
                     android:nextFocusDown="@id/password"
                     android:paddingTop="12dp"
-                    android:textColor="@color/white"
+                    android:textColor="#878787"
                     android:textColorHint="#878787"
                     android:textColorLink="#A3A3A3"
                     android:textSize="18sp" />
@@ -97,7 +97,7 @@
                     android:nextFocusUp="@id/email"
                     android:nextFocusDown="@id/signinbtn"
                     android:paddingTop="12dp"
-                    android:textColor="@color/white"
+                    android:textColor="#878787"
                     android:textColorHint="#878787"
                     android:textColorLink="#A3A3A3"
                     android:textSize="18sp" />
@@ -144,6 +144,9 @@
         android:layout_below="@id/signincontainer"
         android:background="@color/blue"
         android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         >
 
         <Button
@@ -153,7 +156,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginEnd="20dp"
             android:focusable="true"
-            android:background="transparent"
+            android:background="@color/transparent"
             android:fontFamily="@font/jost_regular"
             android:text="Login"
             android:textColor="@color/download_button_bg_color" />
@@ -190,6 +193,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/loginContainer"
             android:background="@color/blue"
+            android:gravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             >
         <Button
             android:layout_alignParentTop="true"
@@ -197,7 +203,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:background="transparent"
+            android:background="@color/transparent"
             android:fontFamily="@font/jost_regular"
             android:text="Register"
             android:textColor="@color/download_button_bg_color" />
@@ -219,6 +225,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
+            android:gravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             >
             <ImageView
                 android:layout_width="wrap_content"
