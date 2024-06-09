@@ -108,9 +108,7 @@ public class HomeFragment extends BaseFragment {
     List<Movie> recentlyReleasedMovies;
     List<Movie> topRatedMovies;
     List<Movie> trending;
-    List<Movie> lastPlayedList;
-    List<Movie> fav;
-    List<Movie> played;
+    List<Movie> lastPlayedList, fav, played;
     List<Movie> ogMovies;
     List<Movie> topOld;
     List<Movie> filmIndo;
