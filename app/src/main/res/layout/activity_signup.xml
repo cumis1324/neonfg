@@ -9,14 +9,13 @@
     app:cardUseCompatPadding="false"
     android:clickable="true"
     android:focusable="true"
-    android:background="@color/exo_black_opacity_70"
+    android:background="@color/black"
     tools:context=".SignUpActivity">
     <!--    app:cardCornerRadius="20dp"-->
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/exo_black_opacity_70"
         android:paddingTop="100dp">
         <RelativeLayout
             android:id="@+id/signupcontainer"
@@ -37,12 +36,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
-                    android:layout_marginStart="26dp"
+                    android:layout_marginStart="15dp"
                     android:focusable="false"
                     android:fontFamily="@font/jost_regular"
                     android:text="Make an account to enjoy this app"
                     android:textColor="@color/white"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
@@ -71,7 +70,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
-                    android:background="@color/black_overlay"
+                    android:background="#cccccc"
                     android:ems="10"
                     android:focusable="true"
                     android:fontFamily="@font/jost_regular"
@@ -112,7 +111,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
-                    android:background="@color/black_overlay"
+                    android:background="#cccccc"
                     android:ems="10"
                     android:focusable="true"
                     android:fontFamily="@font/jost_regular"
@@ -155,7 +154,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
-                    android:background="@color/black_overlay"
+                    android:background="#cccccc"
                     android:ems="10"
                     android:focusable="true"
                     android:fontFamily="@font/jost_regular"
@@ -196,7 +195,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
-                    android:background="@color/black_overlay"
+                    android:background="#cccccc"
                     android:ems="10"
                     android:focusable="true"
                     android:fontFamily="@font/jost_regular"
@@ -237,7 +236,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
-                    android:background="@color/black_overlay"
+                    android:background="#cccccc"
                     android:ems="10"
                     android:focusable="true"
                     android:fontFamily="@font/jost_regular"
@@ -279,7 +278,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
-                    android:background="@color/black_overlay"
+                    android:background="#cccccc"
                     android:ems="10"
                     android:focusable="true"
                     android:fontFamily="@font/jost_regular"
@@ -323,7 +322,10 @@
                 android:layout_below="@id/phoneContainer"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="10dp">
-
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/blue">
                 <Button
                     android:id="@+id/signupbtn"
                     android:layout_width="match_parent"
@@ -332,12 +334,12 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:background="@drawable/rounded_corner_labels"
+                    android:background="@color/transparent"
                     android:fontFamily="@font/jost_regular"
                     android:nextFocusUp="@id/phonenumber"
                     android:text="@string/sign_up"
                     android:textColor="@color/download_button_bg_color" />
-
+                </RelativeLayout>
                 <ProgressBar
                     android:id="@+id/progress_circular"
                     android:layout_width="48dp"
