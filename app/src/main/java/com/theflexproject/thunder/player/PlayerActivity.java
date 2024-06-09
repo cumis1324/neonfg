@@ -16,6 +16,7 @@ import android.util.Rational;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -79,6 +80,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     private boolean startAutoPlay;
     private int startItemIndex;
     private long startPosition;
+    private TextView nfgpluslog;
     private static final int REQUEST_CODE_PICTURE_IN_PICTURE = 1;
 
     private ImageButton buttonAspectRatio;
@@ -114,6 +116,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
 
         playerView = findViewById(R.id.player_view);
         playerTitle = findViewById(R.id.playerTitle);
+        nfgpluslog = findViewById(R.id.nfgpluslogo);
         playerEpsTitle = findViewById(R.id.playerEpsTitle);
         buffering = findViewById(R.id.buffering);
         playerView.setControllerVisibilityListener(this);
@@ -260,11 +263,9 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         super.onStart();
         if (Build.VERSION.SDK_INT > 23) {
             loadTitle();
-            buffering.setVisibility(View.VISIBLE);
             initializePlayer();
             if (playerView != null) {
                 playerView.onResume();
-                buffering.setVisibility(View.GONE);
             }
         }
     }
@@ -284,9 +285,11 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
             // Hide unnecessary UI elements for Picture-in-Picture mode
             // Example: controlView.setVisibility(View.GONE);
 
+            nfgpluslog.setVisibility(View.GONE);
         } else {
             // Restore UI elements when exiting Picture-in-Picture mode
             // Example: controlView.setVisibility(View.VISIBLE);
+            nfgpluslog.setVisibility(View.VISIBLE);
             showControls();
         }
     }

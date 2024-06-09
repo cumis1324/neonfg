@@ -96,7 +96,7 @@
                     android:layout_marginStart="20dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/dummyposter"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/juduloRI"
