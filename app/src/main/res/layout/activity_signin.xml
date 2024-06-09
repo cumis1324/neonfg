@@ -11,21 +11,10 @@
     android:focusable="true"
     android:background="@color/exo_black_opacity_70"
     tools:context=".SignInActivity">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/exo_black_opacity_70"
-    >
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="100dp"
-        android:background="@color/transparent">
-        <RelativeLayout
+    <RelativeLayout
             android:id="@+id/signincontainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="100dp"
+            android:layout_height="wrap_content"
             android:background="@color/transparent">
 
             <LinearLayout
@@ -44,7 +33,7 @@
                     android:layout_marginStart="26dp"
                     android:focusable="false"
                     android:fontFamily="@font/jost_regular"
-                    android:text="If you don't have an account, Click Register below."
+                    android:text="If you don't have nfgplus account, Click Register below."
                     android:textColor="@color/white"
                     android:textSize="18sp" />
 
@@ -143,9 +132,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="80dp"
                 android:layout_marginEnd="60dp"
                 android:focusable="false"
                 android:fontFamily="@font/jost_bold"
@@ -167,47 +155,67 @@
                 android:text="Already Registered"
                 android:textColor="@color/white"
                 android:visibility="gone" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:paddingTop="300dp"
-                >
-                <Button
-                    android:id="@+id/signinbtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginStart="20dp"
-                    android:background="@drawable/rounded_corner_labels"
-                    android:fontFamily="@font/jost_regular"
-                    android:text="@string/sign_in"
-                    android:textColor="@color/download_button_bg_color" />
-                <Button
-                    android:id="@+id/signuppbtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginStart="20dp"
-                    android:background="@drawable/rounded_corner_labels"
-                    android:fontFamily="@font/jost_regular"
-                    android:text="Register"
-                    android:layout_marginEnd="20dp"
-                    android:textColor="@color/download_button_bg_color" />
-            </LinearLayout>
-
         </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/signbtncont"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/signincontainer"
+        >
 
-    </androidx.core.widget.NestedScrollView>
+        <Button
+            android:id="@+id/signuppbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/rounded_corner_labels"
+            android:fontFamily="@font/jost_regular"
+            android:text="Register"
+            android:layout_marginEnd="20dp"
+            android:textColor="@color/download_button_bg_color" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"
+        >
+        <Button
+            android:layout_alignParentTop="true"
+            android:id="@+id/signinbtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:background="#FFFFFF"
+            android:fontFamily="@font/jost_regular"
+            android:text="Login"
+            android:textColor="@color/download_button_bg_color" />
+        <TextView
+            android:id="@+id/or"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/signinbtn"
+            android:layout_centerHorizontal="true"
+            android:text="Or"
+            style= "@style/sizelabel"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:fontFamily="@font/jost_regular"
+            />
+        <Button
+            android:layout_below="@id/or"
+            style="@style/sizelabel"
+            android:id="@+id/google_signin_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="@color/white"
+            android:fontFamily="@font/jost_regular"
+            android:text="Login with Google Account"
+            android:textColor="#cccccc" />
 
-
-
-
-
+    </RelativeLayout>
     <ProgressBar
             android:id="@+id/progress_circular"
             android:layout_width="48dp"
@@ -216,8 +224,5 @@
             android:indeterminateTint="@color/white"
             android:padding="8dp"
             android:visibility="gone" />
-
-</RelativeLayout>
-
 
 </RelativeLayout>

@@ -47,7 +47,7 @@ public class SignUpActivity extends AppCompatActivity {
         blurTop();
 
         mAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+            databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 
         editTextUsername = findViewById(R.id.username);
         editTextPassword = findViewById(R.id.password);

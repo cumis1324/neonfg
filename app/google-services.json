@@ -15,7 +15,23 @@
       },
       "oauth_client": [
         {
-          "client_id": "482142495652-lf62g37hob4pms6kc8pl1ecmosgufb30.apps.googleusercontent.com",
+          "client_id": "482142495652-4fsrn6v2u75glp2uvo233tj725qtflda.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gelaskaca.nfgplus",
+            "certificate_hash": "a17564cfd23e900c25bc38e4863465f1b53b461e"
+          }
+        },
+        {
+          "client_id": "482142495652-plj0n55msb2509s8pbbkmmsohm0qpkk5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gelaskaca.nfgplus",
+            "certificate_hash": "bfe4fdc5a217c1d7aa3a7f53a9d9c2eb41a5e0ad"
+          }
+        },
+        {
+          "client_id": "482142495652-eg3o4jed06raos720s9bieqsaseb7hik.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -28,41 +44,13 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "482142495652-lf62g37hob4pms6kc8pl1ecmosgufb30.apps.googleusercontent.com",
+              "client_id": "482142495652-eg3o4jed06raos720s9bieqsaseb7hik.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:482142495652:android:6fed09441f4c2fd3fe9731",
-        "android_client_info": {
-          "package_name": "com.theflexproject.thunder"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "482142495652-lf62g37hob4pms6kc8pl1ecmosgufb30.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyC6MV1H1ScENiIW0K2X_VFru9gjj3T-f80"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "482142495652-lf62g37hob4pms6kc8pl1ecmosgufb30.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
+      "admob_app_id": "ca-app-pub-7142401354409440~1389765379"
     }
   ],
   "configuration_version": "1"

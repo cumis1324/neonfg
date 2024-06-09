@@ -11,6 +11,8 @@
     <string name="download">Download</string>
     <string name="play">Play</string>
     <string name="available_files">Available Files</string>
+    <string name="default_web_client_id">482142495652-lf62g37hob4pms6kc8pl1ecmosgufb30.apps.googleusercontent.com</string>
+
 
     <string-array name="sort_methods">
         <item>FileName</item>
@@ -58,7 +60,7 @@
     <string name="last_name">Last Name</string>
     <string name="e_mail">E-mail</string>
     <string name="phone_number">Phone Number</string>
-    <string name="sign_in_nfgplus">Sign in nfgplus</string>
+    <string name="sign_in_nfgplus">Sign in nfgplus Account</string>
     <string name="sign_in">Sign In</string>
     <string name="refresh_movie_everday_at">Refresh Movie Everday at</string>
     <string name="backup">Backup</string>
