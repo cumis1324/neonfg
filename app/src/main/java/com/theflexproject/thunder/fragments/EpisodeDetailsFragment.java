@@ -324,6 +324,8 @@ public class EpisodeDetailsFragment extends BaseFragment {
                     in.putExtra("number" , epsnum);
                     in.putExtra("episode" , episode.getName());
                     in.putExtra("title" , tvShow.getName());
+                    String tmdbId = String.valueOf(episode.getId());
+                    in.putExtra("tmdbId", tmdbId);
                     startActivity(in);
                     Toast.makeText(getContext() , "Play" , Toast.LENGTH_LONG).show();
                     addToLastPlayed();

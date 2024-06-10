@@ -663,6 +663,8 @@ public class MovieDetailsFragment extends BaseFragment{
                                 Intent in = new Intent(getActivity(), PlayerActivity.class);
                                 in.putExtra("url", selectedFile.getUrlString());
                                 in.putExtra("title", selectedFile.getTitle());
+                                String tmdbId = String.valueOf(selectedFile.getId());
+                                in.putExtra("tmdbId", tmdbId);
                                 String inYear = selectedFile.getRelease_date();
                                 in.putExtra("year", inYear.substring(0,inYear.indexOf('-')));
                                 startActivity(in);

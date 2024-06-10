@@ -56,8 +56,19 @@ import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAd;
 import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAdLoadCallback;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.theflexproject.thunder.R;
+import com.theflexproject.thunder.model.FirebaseManager;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class PlayerActivity extends AppCompatActivity implements View.OnClickListener, StyledPlayerView.ControllerVisibilityListener {
@@ -91,12 +102,19 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     View decorView;
     private String TAG = "PlayerActivity";
     private RewardedAd rewardedAd;
+    FirebaseManager manager;
+    private FirebaseUser currentUser;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         decorView = getWindow().getDecorView();
         intent = getIntent();
+        manager = new FirebaseManager();
+        currentUser = manager.getCurrentUser();
+        String tmdbId = intent.getStringExtra("tmdbId");
+        databaseReference = FirebaseDatabase.getInstance().getReference("History/"+tmdbId);
 
         uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -119,6 +137,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         playerEpsTitle = findViewById(R.id.playerEpsTitle);
         playerView.setControllerVisibilityListener(this);
         playerView.requestFocus();
+        loadTitle();
         Rational aspectRatio = new Rational(playerView.getWidth(), playerView.getHeight());
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             PictureInPictureParams params = new PictureInPictureParams.Builder()
@@ -235,6 +254,11 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         playerTitle.setVisibility(View.VISIBLE);
     }
 
+    private void savePlayed(){
+
+
+    }
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -259,7 +283,6 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         super.onStart();
         if (Build.VERSION.SDK_INT > 23) {
             initializePlayer();
-            loadTitle();
             if (playerView != null) {
                 playerView.onResume();
             }
@@ -367,6 +390,16 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
+
+    private String formatDuration(long milliseconds) {
+        long seconds = milliseconds / 1000;
+        long hours = seconds / 3600;
+        long minutes = (seconds % 3600) / 60;
+        long secs = seconds % 60;
+
+        return String.format("%02d:%02d:%02d", hours, minutes, secs);
+    }
+
     // Internal methods
 
     protected void setContentView() {
@@ -399,6 +432,31 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
 
 
         }
+        String userId = manager.getCurrentUser().getUid();
+        DatabaseReference userReference = databaseReference.child(userId).child("lastPosition");
+        userReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // Get the last position from the database
+                    Long lastPosition = dataSnapshot.getValue(Long.class);
+                    if (lastPosition != null) {
+                        // Update the startPosition with the retrieved value
+                        startPosition = lastPosition;
+
+                        // Seek the player to the last position
+                        player.seekTo(startPosition);
+                        String formattedPosition = formatDuration(startPosition);
+                        Toast.makeText(getApplicationContext(), "Resuming to your last position "+ formattedPosition, Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle onCancelled event
+            }
+        });
         boolean haveStartPosition = startItemIndex != C.INDEX_UNSET;
         if (haveStartPosition) {
             player.seekTo(startItemIndex, startPosition);
@@ -449,9 +507,16 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
             startAutoPlay = player.getPlayWhenReady();
             startItemIndex = player.getCurrentMediaItemIndex();
             startPosition = Math.max(0, player.getContentPosition());
+            String userId = manager.getCurrentUser().getUid();
+            DatabaseReference userReference = databaseReference.child(userId);
+            Map<String, Object> userMap = new HashMap<>();
+            userMap.put("lastPosition", startPosition);
+            userReference.setValue(userMap);
+
 
         }
     }
+
 
     protected void clearStartPosition() {
         startAutoPlay = true;

@@ -253,6 +253,8 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.EpisodeA
                 in.putExtra("number" , epsnum);
                 in.putExtra("episode" , episode.getName());
                 in.putExtra("title" , tvShow.getName());
+                String tmdbId = String.valueOf(episode.getId());
+                in.putExtra("tmdbId", tmdbId);
                 itemView.getContext().startActivity(in);
                 Toast.makeText(itemView.getContext() , "Play" , Toast.LENGTH_LONG).show();
             }
