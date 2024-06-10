@@ -27,6 +27,7 @@
         android:layout_height="match_parent"
         android:padding="10dp">
 
+
         <ImageView
             android:id="@+id/episodeStill"
             android:layout_width="133dp"
@@ -65,6 +66,15 @@
                 app:iconGravity="textStart"
                 app:iconSize="45sp"
                 app:iconTint="@color/download_button_bg_color" />
+            <View
+                android:id="@+id/progress_overlay3"
+                android:layout_width="0dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_height="10dp"
+                android:background="@color/blue"
+                android:visibility="visible" />
         </RelativeLayout>
 
         <TableLayout
