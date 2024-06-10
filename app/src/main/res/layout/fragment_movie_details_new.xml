@@ -8,22 +8,41 @@
     android:clickable="true"
     android:background="@color/black"
     android:orientation="vertical">
-
-
-    <ImageView
-        android:id="@+id/movieBackdrop"
+    <View
+        android:id="@+id/progress_overlay"
+        android:layout_width="0dp"
+        android:layout_below="@id/frameBackdrop"
+        android:layout_height="10dp"
+        android:background="@color/blue"
+        android:visibility="visible" />
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        tools:src="@drawable/dummyposter" />
+        android:id="@+id/frameBackdrop">
+        <ImageView
+            android:id="@+id/movieBackdrop"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/dummyposter" />
+        <ImageView
+            android:id="@+id/movieLogo"
+            android:layout_width="175dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitCenter"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/dummyposter"
+            android:visibility="visible" />
+
+    </RelativeLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:orientation="vertical">
-
-
+        
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -48,8 +67,8 @@
             android:orientation="horizontal"
             android:src="@drawable/ic_play"
             app:cornerRadius="100dp" />
-
-
+        
+        
     </RelativeLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -124,46 +143,25 @@
 
             <RelativeLayout
                 android:id="@+id/relativeContainer"
-                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <RelativeLayout
-                    android:id="@+id/judul"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
 
-
-                    <ImageView
-                        android:id="@+id/movieLogo"
-                        android:layout_width="175dp"
-                        android:layout_height="80dp"
-                        android:layout_centerHorizontal="true"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/dummyposter"
-                        android:visibility="invisible" />
-                </RelativeLayout>
                 <RelativeLayout
                     android:id="@+id/judulOriginal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/judul">
+                    android:layout_height="wrap_content">
                     <TextView
+                        android:id="@+id/namaMovie"
                         style="@style/sizelabel"
-                        android:id="@+id/titleText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:autoSizeMaxTextSize="28sp"
-                        android:autoSizeMinTextSize="16sp"
-                        android:autoSizeTextType="uniform"
                         android:fontFamily="@font/jost_medium"
-                        android:maxHeight="80dp"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
+                        android:paddingHorizontal="20dp"
+                        android:textColor="#CCCCCC"
                         android:textSize="20sp"
-                        android:textStyle="bold"
+                        android:text="Title Movie"
                         android:visibility="gone"
-                        tools:text="Movie Title"
                         />
                     <TextView
                         android:id="@+id/videoQualityTextInFileItem1"
@@ -177,7 +175,8 @@
                         android:textSize="15sp"
                         android:text="720p"
                         android:visibility="gone"
-                        android:layout_below="@id/titleText"/>
+                        android:layout_below="@id/namaMovie"
+                        />
                 </RelativeLayout>
                 <RelativeLayout
                     android:id="@+id/labels"
@@ -328,7 +327,17 @@
                     android:layout_marginHorizontal="20dp"
                     android:orientation="vertical">
 
-
+                    <TextView
+                        android:id="@+id/title3"
+                        style="@style/sizelabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/jost_medium"
+                        android:textColor="#CCCCCC"
+                        android:textSize="20sp"
+                        android:text="Nama Movie"
+                        android:visibility="visible"
+                        />
 
                     <TextView
                         android:id="@+id/overviewtext"

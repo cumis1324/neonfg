@@ -24,6 +24,11 @@ import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAd;
 import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAdLoadCallback;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 
@@ -83,6 +88,7 @@ import com.theflexproject.thunder.adapter.FileItemAdapter;
 import com.theflexproject.thunder.adapter.MoreMoviesAdapterr;
 import com.theflexproject.thunder.adapter.ScaleCenterItemLayoutManager;
 import com.theflexproject.thunder.database.DatabaseClient;
+import com.theflexproject.thunder.model.FirebaseManager;
 import com.theflexproject.thunder.model.Genre;
 import com.theflexproject.thunder.model.Movie;
 import com.theflexproject.thunder.model.MyMedia;
@@ -121,7 +127,7 @@ public class MovieDetailsFragment extends BaseFragment{
     int movieId;
     String movieFileName;
     ImageView logo;
-    TextView titleText;
+    TextView namaMovie;
     TextView yearText;
     TextView runtime;
     ImageButton play;
@@ -176,8 +182,10 @@ public class MovieDetailsFragment extends BaseFragment{
     private TemplateView template;
     private InterstitialAd mInterstitialAd;
     private RewardedAd rewardedAd;
-
-
+    FirebaseManager manager;
+    private DatabaseReference databaseReference;
+    View progressOverlay;
+    TextView title;
 
     public MovieDetailsFragment() {
         // Required empty public constructor
@@ -204,7 +212,9 @@ public class MovieDetailsFragment extends BaseFragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        manager = new FirebaseManager();
+        title = view.findViewById(R.id.title3);
+        progressOverlay = view.findViewById(R.id.progress_overlay);
         size = view.findViewById(R.id.sizeTextInFileItem1);
         quality = view.findViewById(R.id.videoQualityTextInFileItem1);
         relativeContainer = view.findViewById(R.id.relativeContainer);
@@ -218,6 +228,7 @@ public class MovieDetailsFragment extends BaseFragment{
         loadNative();
         initWidgets(view);
         loadDetails();
+
 
     }
 
@@ -369,7 +380,7 @@ public class MovieDetailsFragment extends BaseFragment{
 
 
     private void initWidgets(View view) {
-        titleText = view.findViewById(R.id.titleText);
+        namaMovie = view.findViewById(R.id.namaMovie);
         logo = view.findViewById(R.id.movieLogo);
         yearText = view.findViewById(R.id.year_text);
         runtime = view.findViewById(R.id.RuntimeText);
@@ -428,7 +439,8 @@ public class MovieDetailsFragment extends BaseFragment{
                        mActivity.runOnUiThread(new Runnable() {
                            @Override
                            public void run() {
-
+                               String titleText = movieDetails.getTitle();
+                               title.setText(titleText);
                                //size.setText(sizetoReadablesize.humanReadableByteCountBin(Long.parseLong(((Movie) movieDetails).getSize())));
 
                                //String qualityStr = MovieQualityExtractor.extractQualtiy(((Movie) movieDetails).getFileName());
@@ -436,6 +448,38 @@ public class MovieDetailsFragment extends BaseFragment{
                                //    quality.setVisibility(View.VISIBLE);
                                //    quality.setText(qualityStr);
                                //}
+                               String tmdbId = String.valueOf(movieDetails.getId());
+                               databaseReference = FirebaseDatabase.getInstance().getReference("History/"+tmdbId);
+                               String userId = manager.getCurrentUser().getUid();
+                               DatabaseReference userReference = databaseReference.child(userId).child("lastPosition");
+                               userReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                   @Override
+                                   public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                       if (dataSnapshot.exists()) {
+                                           // Get the last position from the database
+                                           Long lastPosition = dataSnapshot.getValue(Long.class);
+                                           if (lastPosition != null) {
+                                               // Update the startPosition with the retrieved value
+
+
+                                               // Calculate progress and update progress overlay here
+                                               long runtime = (long) movieDetails.getRuntime() * 60 * 1000;
+                                               double progress = (double) lastPosition / runtime;
+                                               // Convert progress to width of the poster image
+                                               int progressWidth = (int) (backdrop.getWidth() * progress);
+                                               // Set the width of the progress overlay
+                                               progressOverlay.getLayoutParams().width = progressWidth;
+                                               progressOverlay.requestLayout();
+                                           }
+                                       }
+                                   }
+
+                                   @Override
+                                   public void onCancelled(@NonNull DatabaseError databaseError) {
+                                       // Handle onCancelled event
+                                   }
+                               });
+
 
                                size.setText(movieDetails.getOriginal_language());
                                size.setVisibility(View.VISIBLE);
@@ -448,7 +492,8 @@ public class MovieDetailsFragment extends BaseFragment{
 
                                if(logoLink!=null && !logoLink.equals("")){
                                    logo.setVisibility(View.VISIBLE);
-                                   titleText.setText(movieDetails.getTitle());
+                                   namaMovie.setVisibility(View.VISIBLE);
+                                   namaMovie.setText(titleText);
                                    Glide.with(mActivity)
                                            .load(logoLink)
                                            .apply(new RequestOptions()
@@ -459,12 +504,12 @@ public class MovieDetailsFragment extends BaseFragment{
                                            .into(logo);
                                }
                                if(logoLink!=null && logoLink.equals("") && movieDetails.getTitle()!=null){
-                                   titleText.setVisibility(View.VISIBLE);
-                                   titleText.setText(movieDetails.getTitle());
+                                   namaMovie.setVisibility(View.VISIBLE);
+                                   namaMovie.setText(titleText);
                                    logo.setVisibility(View.GONE);
                                }else {
-                                   titleText.setVisibility(View.VISIBLE);
-                                   titleText.setText(movieFileName);
+                                   namaMovie.setVisibility(View.VISIBLE);
+                                   namaMovie.setText(movieFileName);
                                }
 
                                if(movieDetails.getRuntime()>0){
@@ -673,19 +718,9 @@ public class MovieDetailsFragment extends BaseFragment{
 
                             }
                         };
-                        //if (selectedFile != null) {
-                          //  addToLastPlayed();
-                           // Intent in = new Intent(getActivity(), PlayerActivity.class);
-                           // in.putExtra("url", selectedFile.getUrlString());
-                           // startActivity(in);
-                           // Toast.makeText(getContext(), "Playing " + movieDetails.getTitle(), Toast.LENGTH_LONG).show();
-                       // } else {
+
                             addToLastPlayed();
-                         //   Intent in = new Intent(getActivity(), PlayerActivity.class);
-                           // in.putExtra("url", movieDetails.getUrlString());
-                           // startActivity(in);
-                           // Toast.makeText(getContext(), "Playing " + movieDetails.getTitle(), Toast.LENGTH_LONG).show();
-                       // }
+
 
                     }catch (Exception e){
                         e.printStackTrace();
