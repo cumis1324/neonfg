@@ -243,8 +243,6 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         if (newConfig.orientation != Configuration.ORIENTATION_LANDSCAPE) {
             // Show rewarded ad if loaded
             loadReward();
-        }else {
-            loadReward();
         }
     }
     @Override
@@ -260,7 +258,6 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     public void onStart() {
         super.onStart();
         if (Build.VERSION.SDK_INT > 23) {
-            loadTitle();
             initializePlayer();
             if (playerView != null) {
                 playerView.onResume();
