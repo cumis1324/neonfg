@@ -259,6 +259,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         super.onStart();
         if (Build.VERSION.SDK_INT > 23) {
             initializePlayer();
+            loadTitle();
             if (playerView != null) {
                 playerView.onResume();
             }
@@ -395,6 +396,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
             player.setAudioAttributes(AudioAttributes.DEFAULT, /* handleAudioFocus= */ true);
             player.setPlayWhenReady(startAutoPlay);
             playerView.setPlayer(player);
+
 
         }
         boolean haveStartPosition = startItemIndex != C.INDEX_UNSET;
