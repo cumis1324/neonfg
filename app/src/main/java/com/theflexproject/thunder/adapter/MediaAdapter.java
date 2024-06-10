@@ -12,6 +12,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,9 +20,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.theflexproject.thunder.Constants;
 import com.theflexproject.thunder.R;
 import com.theflexproject.thunder.database.DatabaseClient;
+import com.theflexproject.thunder.model.FirebaseManager;
 import com.theflexproject.thunder.model.Movie;
 import com.theflexproject.thunder.model.MyMedia;
 import com.theflexproject.thunder.model.TVShowInfo.Episode;
@@ -36,6 +43,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaAdapter
 
     Context context;
     List<MyMedia> mediaList;
+
     private MediaAdapter.OnItemClickListener listener;
 
     public MediaAdapter(Context context, List<MyMedia> mediaList, MediaAdapter.OnItemClickListener listener) {
@@ -54,6 +62,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaAdapter
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MediaAdapterHolder holder, int position) {
+
 
         if(mediaList.get(position) instanceof Movie) {
             Movie movie = ((Movie)mediaList.get(position));
@@ -145,8 +154,11 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaAdapter
         TextView textStar;
         TextView watched;
 
+
+
         public MediaAdapterHolder(@NonNull View itemView) {
             super(itemView);
+
             name = itemView.findViewById(R.id.nameInMediaItem);
             poster= itemView.findViewById(R.id.posterInMediaItem);
             movieYear = itemView.findViewById(R.id.yearInMediaItem);
@@ -156,6 +168,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaAdapter
             season2 = itemView.findViewById(R.id.season2);
 
             itemView.setOnClickListener(this);
+
         }
 
         @Override

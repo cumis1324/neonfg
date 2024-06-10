@@ -103,7 +103,6 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     private String TAG = "PlayerActivity";
     private RewardedAd rewardedAd;
     FirebaseManager manager;
-    private FirebaseUser currentUser;
     private DatabaseReference databaseReference;
 
     @Override
@@ -112,7 +111,6 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         decorView = getWindow().getDecorView();
         intent = getIntent();
         manager = new FirebaseManager();
-        currentUser = manager.getCurrentUser();
         String tmdbId = intent.getStringExtra("tmdbId");
         databaseReference = FirebaseDatabase.getInstance().getReference("History/"+tmdbId);
 
