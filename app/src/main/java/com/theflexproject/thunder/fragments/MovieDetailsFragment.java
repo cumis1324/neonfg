@@ -97,8 +97,11 @@ import com.theflexproject.thunder.utils.MovieQualityExtractor;
 import com.theflexproject.thunder.utils.StringUtils;
 import com.theflexproject.thunder.utils.sizetoReadablesize;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
@@ -933,7 +936,9 @@ public class MovieDetailsFragment extends BaseFragment{
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                DatabaseClient.getInstance(getContext()).getAppDatabase().movieDao().updatePlayed(movieDetails.getId());
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+                String currentDateTime = ZonedDateTime.now(java.time.ZoneId.of("GMT+07:00")).format(formatter);
+                DatabaseClient.getInstance(getContext()).getAppDatabase().movieDao().updatePlayed(movieDetails.getId(), currentDateTime+" added");
             }
         });
         thread.start();

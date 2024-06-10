@@ -36,7 +36,10 @@ import com.theflexproject.thunder.player.PlayerActivity;
 import com.theflexproject.thunder.utils.MovieQualityExtractor;
 import com.theflexproject.thunder.utils.sizetoReadablesize;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
@@ -92,7 +95,9 @@ public class FileItemAdapter extends RecyclerView.Adapter<FileItemAdapter.FileIt
                     Thread thread = new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            DatabaseClient.getInstance(context).getAppDatabase().movieDao().updatePlayed(((Movie)mediaList.get(position)).getId());
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+                            String currentDateTime = ZonedDateTime.now(java.time.ZoneId.of("GMT+07:00")).format(formatter);
+                            DatabaseClient.getInstance(context).getAppDatabase().movieDao().updatePlayed(((Movie)mediaList.get(position)).getId(), currentDateTime + " added");
                         }
                     });
                     thread.start();
