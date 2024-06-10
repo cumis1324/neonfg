@@ -86,7 +86,6 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     private ImageButton buttonAspectRatio;
     private TextView playerTitle;
     private TextView playerEpsTitle;
-    private ProgressBar buffering;
     Intent intent;
     int uiOptions;
     View decorView;
@@ -244,8 +243,6 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         if (newConfig.orientation != Configuration.ORIENTATION_LANDSCAPE) {
             // Show rewarded ad if loaded
             loadReward();
-        }else {
-            loadReward();
         }
     }
     @Override
@@ -261,7 +258,6 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     public void onStart() {
         super.onStart();
         if (Build.VERSION.SDK_INT > 23) {
-            loadTitle();
             initializePlayer();
             if (playerView != null) {
                 playerView.onResume();
@@ -451,7 +447,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
             startAutoPlay = player.getPlayWhenReady();
             startItemIndex = player.getCurrentMediaItemIndex();
             startPosition = Math.max(0, player.getContentPosition());
-            buffering.setVisibility(View.GONE);
+
         }
     }
 
