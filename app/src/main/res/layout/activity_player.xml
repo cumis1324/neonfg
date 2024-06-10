@@ -40,7 +40,6 @@
    <RelativeLayout
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:background="#88000000"
        android:orientation="vertical">
       <RelativeLayout
           android:id="@+id/judulUtama"
