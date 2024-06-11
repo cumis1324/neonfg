@@ -44,6 +44,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -100,8 +101,10 @@ import com.theflexproject.thunder.utils.sizetoReadablesize;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
@@ -455,22 +458,18 @@ public class MovieDetailsFragment extends BaseFragment{
                                databaseReference = FirebaseDatabase.getInstance().getReference("History/"+tmdbId);
                                String userId = manager.getCurrentUser().getUid();
                                DatabaseReference userReference = databaseReference.child(userId).child("lastPosition");
+                               DatabaseReference lastP = databaseReference.child(userId).child("lastPlayed");
+
+// Listener for lastPosition
                                userReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                    @Override
                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                        if (dataSnapshot.exists()) {
-                                           // Get the last position from the database
                                            Long lastPosition = dataSnapshot.getValue(Long.class);
                                            if (lastPosition != null) {
-                                               // Update the startPosition with the retrieved value
-
-
-                                               // Calculate progress and update progress overlay here
                                                long runtime = (long) movieDetails.getRuntime() * 60 * 1000;
                                                double progress = (double) lastPosition / runtime;
-                                               // Convert progress to width of the poster image
                                                int progressWidth = (int) (backdrop.getWidth() * progress);
-                                               // Set the width of the progress overlay
                                                progressOverlay.getLayoutParams().width = progressWidth;
                                                progressOverlay.requestLayout();
                                            }
@@ -482,6 +481,30 @@ public class MovieDetailsFragment extends BaseFragment{
                                        // Handle onCancelled event
                                    }
                                });
+
+// Listener for lastPlayed
+                               lastP.addListenerForSingleValueEvent(new ValueEventListener() {
+                                   @Override
+                                   public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                       if (dataSnapshot.exists()) {
+                                           String lastPlayed = dataSnapshot.getValue(String.class);
+                                           if (lastPlayed != null) {
+                                               DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+                                               String currentDateTime = ZonedDateTime.now(java.time.ZoneId.of("GMT+07:00")).format(formatter);
+                                               // Update the played field in your local database asynchronously
+                                               AsyncTask.execute(() -> {
+                                                   DatabaseClient.getInstance(getContext()).getAppDatabase().movieDao().updatePlayed(movieDetails.getId(), lastPlayed+" added");
+                                               });
+                                           }
+                                       }
+                                   }
+
+                                   @Override
+                                   public void onCancelled(@NonNull DatabaseError databaseError) {
+                                       // Handle onCancelled event
+                                   }
+                               });
+
 
 
                                size.setText(movieDetails.getOriginal_language());
@@ -678,7 +701,7 @@ public class MovieDetailsFragment extends BaseFragment{
             play.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    addToLastPlayed();
+
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(largestFile.getUrlString()));
                     intent.setDataAndType(Uri.parse(largestFile.getUrlString()), "video/*");
                     startActivity(intent);
@@ -722,7 +745,7 @@ public class MovieDetailsFragment extends BaseFragment{
                             }
                         };
 
-                            addToLastPlayed();
+
 
 
                     }catch (Exception e){
@@ -936,9 +959,9 @@ public class MovieDetailsFragment extends BaseFragment{
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
-                String currentDateTime = ZonedDateTime.now(java.time.ZoneId.of("GMT+07:00")).format(formatter);
-                DatabaseClient.getInstance(getContext()).getAppDatabase().movieDao().updatePlayed(movieDetails.getId(), currentDateTime+" added");
+
+
+
             }
         });
         thread.start();

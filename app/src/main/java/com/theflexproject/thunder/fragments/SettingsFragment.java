@@ -383,6 +383,8 @@ public class SettingsFragment extends BaseFragment {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
+
+
                 lastPlayedList = DatabaseClient
                         .getInstance(mActivity)
                         .getAppDatabase()

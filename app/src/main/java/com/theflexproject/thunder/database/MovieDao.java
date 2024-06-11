@@ -19,7 +19,7 @@ public interface MovieDao {
 
     @Query("SELECT * FROM Movie WHERE id=:id and disabled=0")
     List<Movie> getAllById(int id);
-    @Query("SELECT * FROM Movie WHERE poster_path IS NOT NULL AND disabled = 0 AND (played = ' added' AND genres IN (SELECT genres FROM Movie WHERE id=:id)) AND genres IS NOT NULL GROUP BY id ORDER BY popularity DESC")
+    @Query("SELECT * FROM Movie WHERE poster_path IS NOT NULL AND disabled = 0 AND (played IS NOT NULL AND genres IN (SELECT genres FROM Movie WHERE id=:id)) AND genres IS NOT NULL GROUP BY id ORDER BY popularity DESC")
     List<Movie> getmorebyid(int id);
 
     @Query("SELECT * FROM Movie WHERE id=:id and disabled=0 ORDER BY size DESC limit 1 ")
@@ -43,15 +43,15 @@ public interface MovieDao {
     List<Movie> getTrending();
     @Query("SELECT * FROM Movie WHERE poster_path IS NOT NULL and disabled=0 GROUP BY id ORDER BY  genres Limit 10")
     List<Movie> getgenres();
-    @Query("SELECT * FROM Movie WHERE poster_path IS NOT NULL AND disabled = 0 AND (played = ' added' AND genres IN (SELECT genres FROM Movie WHERE vote_count > 5000)) AND genres IS NOT NULL GROUP BY id ORDER BY vote_count DESC")
+    @Query("SELECT * FROM Movie WHERE poster_path IS NOT NULL AND disabled = 0 AND (played IS NOT NULL AND genres IN (SELECT genres FROM Movie WHERE vote_count > 5000)) AND genres IS NOT NULL GROUP BY id ORDER BY vote_count DESC")
     List<Movie> getrecomendation();
-    @Query("SELECT * FROM Movie WHERE poster_path IS NOT NULL AND disabled = 0 AND (played = ' added' AND genres IN (SELECT genres FROM Movie WHERE vote_count > 5000)) AND release_date < '2011-01-01' AND release_date IS NOT NULL GROUP BY id ORDER BY release_date ASC")
+    @Query("SELECT * FROM Movie WHERE poster_path IS NOT NULL AND disabled = 0 AND (played IS NOT NULL AND genres IN (SELECT genres FROM Movie WHERE vote_count > 5000)) AND release_date < '2011-01-01' AND release_date IS NOT NULL GROUP BY id ORDER BY release_date ASC")
     List<Movie> getOgMovies();
-    @Query("SELECT * FROM Movie WHERE poster_path IS NOT NULL AND disabled = 0 AND (played = ' added' AND genres IN (SELECT genres FROM Movie WHERE played = 1)) AND genres IS NOT NULL GROUP BY id ORDER BY popularity DESC")
+    @Query("SELECT * FROM Movie WHERE poster_path IS NOT NULL AND disabled = 0 AND (played IS NOT NULL AND genres IN (SELECT genres FROM Movie WHERE played = 1)) AND genres IS NOT NULL GROUP BY id ORDER BY popularity DESC")
     List<Movie> getMoreMovied();
     @Query("SELECT * FROM Movie WHERE poster_path IS NOT NULL AND disabled = 0 AND vote_count > 5000 GROUP BY id ORDER BY release_date ASC LIMIT 10")
     List<Movie> getTopOld();
-    @Query("SELECT * FROM Movie WHERE poster_path IS NOT NULL AND disabled = 0 AND (played = ' added' AND genres IN (SELECT genres FROM Movie WHERE addToList = 1)) AND genres IS NOT NULL GROUP BY id ORDER BY popularity DESC")
+    @Query("SELECT * FROM Movie WHERE poster_path IS NOT NULL AND disabled = 0 AND (played IS NOT NULL AND genres IN (SELECT genres FROM Movie WHERE addToList = 1)) AND genres IS NOT NULL GROUP BY id ORDER BY popularity DESC")
     List<Movie> getRecombyfav();
     @Query("SELECT * FROM Movie WHERE poster_path IS NOT NULL AND disabled = 0 AND original_language = 'id' GROUP BY id ORDER BY release_date DESC")
     List<Movie> getFilmIndo();

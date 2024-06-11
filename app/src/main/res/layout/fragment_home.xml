@@ -83,7 +83,7 @@
                 android:fontFamily="@font/jost_medium"
                 android:paddingStart="20dp"
                 android:text="New Released"
-                android:visibility="gone"
+                android:visibility="invisible"
 
                 android:textColor="@color/white"
                 android:layout_marginTop="10dp"

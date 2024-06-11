@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -65,9 +66,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.theflexproject.thunder.R;
+import com.theflexproject.thunder.database.DatabaseClient;
 import com.theflexproject.thunder.model.FirebaseManager;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -388,6 +393,15 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    public void addToPlayed(){
+        Integer tmdbId = Integer.valueOf(intent.getStringExtra("tmdbId"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+        String currentDateTime = ZonedDateTime.now(java.time.ZoneId.of("GMT+07:00")).format(formatter);
+        // Update the played field in your local database asynchronously
+        AsyncTask.execute(() -> {
+            DatabaseClient.getInstance(getApplicationContext()).getAppDatabase().movieDao().updatePlayed(tmdbId, currentDateTime+" added");
+        });
+    }
 
     private String formatDuration(long milliseconds) {
         long seconds = milliseconds / 1000;
@@ -455,6 +469,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
                 // Handle onCancelled event
             }
         });
+
         boolean haveStartPosition = startItemIndex != C.INDEX_UNSET;
         if (haveStartPosition) {
             player.seekTo(startItemIndex, startPosition);
@@ -502,13 +517,17 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
 
     private void updateStartPosition() {
         if (player != null) {
+            addToPlayed();
             startAutoPlay = player.getPlayWhenReady();
             startItemIndex = player.getCurrentMediaItemIndex();
             startPosition = Math.max(0, player.getContentPosition());
             String userId = manager.getCurrentUser().getUid();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+            String currentDateTime = ZonedDateTime.now(java.time.ZoneId.of("GMT+07:00")).format(formatter);
             DatabaseReference userReference = databaseReference.child(userId);
             Map<String, Object> userMap = new HashMap<>();
             userMap.put("lastPosition", startPosition);
+            userMap.put("lastPlayed", currentDateTime);
             userReference.setValue(userMap);
 
 

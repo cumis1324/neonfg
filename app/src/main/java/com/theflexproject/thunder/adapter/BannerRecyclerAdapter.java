@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.theflexproject.thunder.R;
+import com.theflexproject.thunder.database.DatabaseClient;
 import com.theflexproject.thunder.model.FirebaseManager;
 import com.theflexproject.thunder.model.Movie;
 
@@ -96,6 +98,27 @@ public class BannerRecyclerAdapter extends RecyclerView.Adapter<BannerRecyclerAd
         databaseReference = FirebaseDatabase.getInstance().getReference("History");
         DatabaseReference userReference = databaseReference.child(tmdbId + "/" + userId);
         DatabaseReference p = userReference.child("lastPosition");
+        DatabaseReference lastP = databaseReference.child(userId).child("lastPlayed");
+
+        lastP.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String lastPlayed = dataSnapshot.getValue(String.class);
+                    if (lastPlayed != null) {
+                        // Update the played field in your local database asynchronously
+                        AsyncTask.execute(() -> {
+                            DatabaseClient.getInstance(context).getAppDatabase().movieDao().updatePlayed(mediaList.get(position).getId(), lastPlayed+" added");
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle onCancelled event
+            }
+        });
 
         p.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -105,17 +128,9 @@ public class BannerRecyclerAdapter extends RecyclerView.Adapter<BannerRecyclerAd
                     if (lastPosition != null) {
                         long runtime = (long) mediaList.get(position).getRuntime() * 60 * 1000;
                         double progress = (double) lastPosition / runtime;
-
-                        holder.poster.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                            @Override
-                            public void onGlobalLayout() {
-                                holder.poster.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-
-                                int progressWidth = (int) (holder.poster.getWidth() * progress);
-                                holder.progressOverlay.getLayoutParams().width = progressWidth;
-                                holder.progressOverlay.requestLayout();
-                            }
-                        });
+                        int progressWidth = (int) (holder.poster.getWidth() * progress);
+                        holder.progressOverlay.getLayoutParams().width = progressWidth;
+                        holder.progressOverlay.requestLayout();
                     }
                 }
             }
