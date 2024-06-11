@@ -108,7 +108,7 @@ public class BannerRecyclerAdapter extends RecyclerView.Adapter<BannerRecyclerAd
                     if (lastPlayed != null) {
                         // Update the played field in your local database asynchronously
                         AsyncTask.execute(() -> {
-                            DatabaseClient.getInstance(context).getAppDatabase().movieDao().updatePlayed(mediaList.get(position).getId(), lastPlayed+" added");
+                            DatabaseClient.getInstance(context).getAppDatabase().movieDao().updatePlayed(Integer.parseInt(tmdbId), lastPlayed+" added");
                         });
                     }
                 }
