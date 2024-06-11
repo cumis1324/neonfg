@@ -51,6 +51,8 @@ import com.theflexproject.thunder.utils.StringUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -390,7 +392,9 @@ public class EpisodeDetailsFragment extends BaseFragment {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                DatabaseClient.getInstance(getContext()).getAppDatabase().episodeDao().updatePlayed(episode.getId());
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+                String currentDateTime = ZonedDateTime.now(java.time.ZoneId.of("GMT+07:00")).format(formatter);
+                DatabaseClient.getInstance(getContext()).getAppDatabase().episodeDao().updatePlayed(episode.getId(), currentDateTime+" added");
             }
         });
         thread.start();

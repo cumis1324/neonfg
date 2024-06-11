@@ -46,8 +46,11 @@ import com.theflexproject.thunder.model.TVShowInfo.TVShow;
 import com.theflexproject.thunder.model.TVShowInfo.TVShowSeasonDetails;
 import com.theflexproject.thunder.player.PlayerActivity;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class TvShowDetailsFragment extends BaseFragment {
 
@@ -376,7 +379,9 @@ public class TvShowDetailsFragment extends BaseFragment {
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        DatabaseClient.getInstance(getContext()).getAppDatabase().episodeDao().updatePlayed(nextEpisode.getId());
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+                        String currentDateTime = ZonedDateTime.now(java.time.ZoneId.of("GMT+07:00")).format(formatter);
+                        DatabaseClient.getInstance(getContext()).getAppDatabase().episodeDao().updatePlayed(nextEpisode.getId(), currentDateTime+" added");
                     }
                 });
                 thread.start();

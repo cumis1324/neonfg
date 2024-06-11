@@ -32,8 +32,11 @@ public interface EpisodeDao {
     @Query("SELECT * FROM Episode WHERE id=:id and disabled =0 ORDER BY cast(size as unsigned) desc limit 1")
     Episode byEpisodeIdLargest(int id);
 
-    @Query("UPDATE Episode SET played = 1 WHERE id = :episodeId and disabled =0")
-    void updatePlayed(int episodeId);
+    @Query("SELECT * FROM Episode WHERE played like '% added' and disabled =0")
+    List<Episode> getPlayed();
+
+    @Query("UPDATE Episode SET played =:dateTime WHERE id = :episodeId and disabled =0")
+    void updatePlayed(int episodeId, String dateTime);
 
     @Query("SELECT * FROM Episode WHERE show_id=:show_id AND season_id=:season_id and disabled =0 GROUP BY id ORDER BY episode_number ASC")
     List<Episode> getFromThisSeason(int show_id, int season_id);

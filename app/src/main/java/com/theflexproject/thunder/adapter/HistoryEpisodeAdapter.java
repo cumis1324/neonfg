@@ -59,17 +59,17 @@ import java.util.Locale;
 import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
 
-public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.EpisodeAdapterHolder> {
+public class HistoryEpisodeAdapter extends RecyclerView.Adapter<HistoryEpisodeAdapter.HistoryEpisodeAdapterHolder> {
 
     Context context;
     InterstitialAd mInterstitialAd;
     List<Episode> episodeList;
     TVShow tvShow;
-    private EpisodeAdapter.OnItemClickListener listener;
+    private HistoryEpisodeAdapter.OnItemClickListener listener;
     FirebaseManager manager;
     private DatabaseReference databaseReference;
 
-    public EpisodeAdapter(TVShow tvShow, Context context, List<Episode> episodeList, EpisodeAdapter.OnItemClickListener listener) {
+    public HistoryEpisodeAdapter(TVShow tvShow, Context context, List<Episode> episodeList, HistoryEpisodeAdapter.OnItemClickListener listener) {
         this.context = context;
         this.episodeList = episodeList;
         this.listener = listener;
@@ -87,15 +87,20 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.EpisodeA
 
     @NonNull
     @Override
-    public EpisodeAdapterHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.episode_item, parent, false);
-        return new EpisodeAdapterHolder(view);
+    public HistoryEpisodeAdapterHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.history_episode_item, parent, false);
+        return new HistoryEpisodeAdapterHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull EpisodeAdapterHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull HistoryEpisodeAdapterHolder holder, @SuppressLint("RecyclerView") int position) {
         if (episodeList != null) {
             Episode episode = episodeList.get(position);
+            tvShow = DatabaseClient.getInstance(context.getApplicationContext()).getAppDatabase().tvShowDao().find(episode.show_id);
+            String seriesName = tvShow.getName();
+            if (seriesName!= null){
+                holder.judulSeries.setText(seriesName);
+            }
             if (episode.getEpisode_number() > 9 && episode.getEpisode_number() > 999) {
                 holder.episodeNumber.setText("E" + episode.getEpisode_number());
             } else {
@@ -123,9 +128,6 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.EpisodeA
                 String result = StringUtils.runtimeIntegerToString(episode.getRuntime());
                 holder.runtime.setVisibility(View.VISIBLE);
                 holder.runtime.setText(result);
-            }
-            if (episode.getPlayed() != 0) {
-                holder.watched.setVisibility(View.VISIBLE);
             }
 
             holder.play.setOnClickListener(view -> holder.playEpisode(episode));
@@ -174,7 +176,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.EpisodeA
         return episodeList.size();
     }
 
-    public class EpisodeAdapterHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class HistoryEpisodeAdapterHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         BlurView blurView;
         ViewGroup rootView;
         View decorView;
@@ -185,25 +187,27 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.EpisodeA
         TextView episodeNumber;
         TextView runtime;
         TextView overview;
+        TextView judulSeries;
         Button play;
         TextView watched;
         View progressOverlay;
 
-        public EpisodeAdapterHolder(@NonNull View itemView) {
+        public HistoryEpisodeAdapterHolder(@NonNull View itemView) {
             super(itemView);
-            progressOverlay = itemView.findViewById(R.id.progress_overlay3);
-            blurView = itemView.findViewById(R.id.blurView3);
+            progressOverlay = itemView.findViewById(R.id.progress_overlay4);
+            blurView = itemView.findViewById(R.id.blurView4);
             decorView = ((Activity) context).getWindow().getDecorView();
             rootView = decorView.findViewById(android.R.id.content);
 
-            episodeName = itemView.findViewById(R.id.episodeNameInItem);
-            episodeStill = itemView.findViewById(R.id.episodeStill);
-            seasonNumber = itemView.findViewById(R.id.seasonNumberInItem);
-            episodeNumber = itemView.findViewById(R.id.episodeNumberInItem);
-            runtime = itemView.findViewById(R.id.RuntimeInItem);
-            overview = itemView.findViewById(R.id.overviewDescInItem);
-            watched = itemView.findViewById(R.id.markWatchedEpisode);
-            play = itemView.findViewById(R.id.playInEpisodeItem);
+            episodeName = itemView.findViewById(R.id.episodeNameInItem2);
+            episodeStill = itemView.findViewById(R.id.episodeStill2);
+            seasonNumber = itemView.findViewById(R.id.seasonNumberInItem2);
+            episodeNumber = itemView.findViewById(R.id.episodeNumberInItem2);
+            runtime = itemView.findViewById(R.id.RuntimeInItem2);
+            overview = itemView.findViewById(R.id.overviewDescInItem2);
+            watched = itemView.findViewById(R.id.markWatchedEpisode2);
+            play = itemView.findViewById(R.id.playInEpisodeItem2);
+            judulSeries = itemView.findViewById(R.id.judulSeries);
 
             blurBottom();
 

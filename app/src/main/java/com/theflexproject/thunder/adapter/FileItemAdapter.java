@@ -144,7 +144,9 @@ public class FileItemAdapter extends RecyclerView.Adapter<FileItemAdapter.FileIt
                     Thread thread = new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            DatabaseClient.getInstance(context).getAppDatabase().episodeDao().updatePlayed(((Episode)mediaList.get(position)).getId());
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+                            String currentDateTime = ZonedDateTime.now(java.time.ZoneId.of("GMT+07:00")).format(formatter);
+                            DatabaseClient.getInstance(context).getAppDatabase().episodeDao().updatePlayed(((Episode)mediaList.get(position)).getId(), currentDateTime+" added");
                         }
                     });
                     thread.start();

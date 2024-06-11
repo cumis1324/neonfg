@@ -399,7 +399,12 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         String currentDateTime = ZonedDateTime.now(java.time.ZoneId.of("GMT+07:00")).format(formatter);
         // Update the played field in your local database asynchronously
         AsyncTask.execute(() -> {
-            DatabaseClient.getInstance(getApplicationContext()).getAppDatabase().movieDao().updatePlayed(tmdbId, currentDateTime+" added");
+            String yearString = intent.getStringExtra("year");
+            if(yearString!=null) {
+                DatabaseClient.getInstance(getApplicationContext()).getAppDatabase().movieDao().updatePlayed(tmdbId, currentDateTime + " added");
+            }else{
+                DatabaseClient.getInstance(getApplicationContext()).getAppDatabase().episodeDao().updatePlayed(tmdbId, currentDateTime + " added");
+            }
         });
     }
 

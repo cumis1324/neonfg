@@ -47,6 +47,7 @@ import com.theflexproject.thunder.model.FirebaseManager;
 import com.theflexproject.thunder.model.GitHubResponse;
 import com.theflexproject.thunder.model.Movie;
 import com.theflexproject.thunder.model.MyMedia;
+import com.theflexproject.thunder.model.TVShowInfo.Episode;
 import com.theflexproject.thunder.model.TVShowInfo.TVShow;
 import com.theflexproject.thunder.utils.CheckForUpdates;
 import com.theflexproject.thunder.utils.SettingsManager;
@@ -80,6 +81,7 @@ public class SettingsFragment extends BaseFragment {
     RecyclerView lastPlayedMoviesRecyclerView;
 
     List<Movie> lastPlayedList;
+    List<Episode> episodeList;
     List<MyMedia> watchlist;
 
     TextView watchlistRecyclerViewTitle;
