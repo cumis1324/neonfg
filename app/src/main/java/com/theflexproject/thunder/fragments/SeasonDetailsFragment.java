@@ -109,27 +109,8 @@ public class SeasonDetailsFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view , @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view , savedInstanceState);
-        template = view.findViewById(R.id.my_template);
-        loadNative();
         initWidgets(view);
         loadDetails();
-
-    }
-    private void loadNative() {
-        MobileAds.initialize(mActivity);
-        AdLoader adLoader = new AdLoader.Builder(mActivity, "ca-app-pub-7142401354409440/7261340471")
-                .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
-                    @Override
-                    public void onNativeAdLoaded(NativeAd nativeAd) {
-                        NativeTemplateStyle styles = new
-                                NativeTemplateStyle.Builder().build();
-                        template.setStyles(styles);
-                        template.setNativeAd(nativeAd);
-                    }
-                })
-                .build();
-
-        adLoader.loadAd(new AdRequest.Builder().build());
 
     }
 

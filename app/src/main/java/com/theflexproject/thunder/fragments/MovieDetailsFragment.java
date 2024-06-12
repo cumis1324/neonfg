@@ -223,7 +223,7 @@ public class MovieDetailsFragment extends BaseFragment{
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("https://stream.trakteer.id/running-text-default.html?rt_count=5&rt_speed=normal&rt_1_clr1=rgba%280%2C+0%2C+0%2C+1%29&rt_septype=image&rt_txtshadow=true&rt_showsuppmsg=true&creator_name=nfgplus-official&page_url=trakteer.id/nfgplusofficial&mod=3&key=trstream-hV0jDdrlk82mv3aZnzpA&hash=a6z74q7pkgn3mlqy");
+        webView.loadUrl("https://stream.trakteer.id/running-text-default.html?rt_count=5&rt_speed=fast&rt_1_clr1=rgba%280%2C+0%2C+0%2C+1%29&rt_septype=image&rt_txtshadow=true&rt_showsuppmsg=true&creator_name=nfgplus-official&page_url=trakteer.id/nfgplusofficial&mod=3&key=trstream-hV0jDdrlk82mv3aZnzpA&hash=a6z74q7pkgn3mlqy");
         title = view.findViewById(R.id.title3);
         progressOverlay = view.findViewById(R.id.progress_overlay);
         size = view.findViewById(R.id.sizeTextInFileItem1);
@@ -231,7 +231,7 @@ public class MovieDetailsFragment extends BaseFragment{
         relativeContainer = view.findViewById(R.id.relativeContainer);
         moreMovieView = view.findViewById(R.id.recyclerEpisodes2);
         saweria = view.findViewById(R.id.saweria);
-        template = view.findViewById(R.id.my_template);
+
         MobileAds.initialize(mActivity);
         initWidgets(view);
         loadDetails();

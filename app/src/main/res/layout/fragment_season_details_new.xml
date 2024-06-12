@@ -28,10 +28,46 @@
             android:layout_weight="0.2"
             android:background="@drawable/gradient_top_bottom_bg" />
     </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/judul"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="170dp">
+        <TextView
+            android:id="@+id/showTitle"
+            style="@style/sizelabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:autoSizeMaxTextSize="28sp"
+            android:autoSizeMinTextSize="16sp"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/jost_medium"
+            android:maxHeight="80dp"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="visible"
+            tools:text="Movie Title"
+            android:layout_below="@id/tvLogoInSeason"
+            />
 
+
+        <ImageView
+            android:id="@+id/tvLogoInSeason"
+            android:layout_width="175dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="20dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/dummyposter"
+            android:visibility="gone" />
+    </RelativeLayout>
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/judul">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -39,7 +75,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="wrap_content"
                 android:id="@+id/frame">
 
 
@@ -56,53 +92,17 @@
                     android:orientation="horizontal"
                     android:src="@drawable/ic_play"
                     app:cornerRadius="100dp"
-                    android:visibility="invisible"/>
+                    android:visibility="gone"/>
 
 
             </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/judul"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="170dp">
-                <TextView
-                    android:id="@+id/showTitle"
-                    style="@style/sizelabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:autoSizeMaxTextSize="28sp"
-                    android:autoSizeMinTextSize="16sp"
-                    android:autoSizeTextType="uniform"
-                    android:fontFamily="@font/jost_medium"
-                    android:maxHeight="80dp"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:visibility="visible"
-                    tools:text="Movie Title"
-                    android:layout_below="@id/tvLogoInSeason"
-                    />
 
-
-                <ImageView
-                    android:id="@+id/tvLogoInSeason"
-                    android:layout_width="175dp"
-                    android:layout_height="80dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginStart="20dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/dummyposter"
-                    android:visibility="gone" />
-            </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/juduloRI"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/judul">
+                >
                 <TextView
                     android:id="@+id/titleOriSeason"
                     style="@style/sizelabel"
@@ -119,11 +119,11 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:layout_below="@id/juduloRI"
                 android:id="@+id/relativeContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="300dp">
-
+                >
 
                 <RelativeLayout
                     android:id="@+id/labelsTvShowSeason"
@@ -268,11 +268,7 @@
                         android:textSize="14sp"
                         android:visibility="gone"
                         tools:text="In the 22nd century, a paraplegic Marine is dispatched to the moon Pandora on a unique mission, but becomes torn between following orders and protecting an alien civilization." />
-                    <com.google.android.ads.nativetemplates.TemplateView
-                        android:id="@+id/my_template"
-                        app:gnt_template_type="@layout/gnt_small_template_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

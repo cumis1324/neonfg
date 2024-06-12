@@ -14,6 +14,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TableRow;
@@ -63,7 +67,7 @@ public class TvShowDetailsFragment extends BaseFragment {
     TextView overview;
     TextView listOfFiles;
     ImageButton play;
-    ImageButton changeTMDB;
+
     ImageButton addToList;
 
 
@@ -100,11 +104,8 @@ public class TvShowDetailsFragment extends BaseFragment {
     MediaAdapter.OnItemClickListener listenerSeasonItem;
 
     Episode nextEpisode;
-    private ImageButton saweria;
-    private ImageButton paypal;
-    private ImageButton dana;
-    private ImageButton spay;
-    private TemplateView template;
+    private Button saweria;
+
 
     public TvShowDetailsFragment() {
         // Required empty public constructor
@@ -123,35 +124,21 @@ public class TvShowDetailsFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view , @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view , savedInstanceState);
-        saweria = view.findViewById(R.id.downloadButton2);
-        paypal = view.findViewById(R.id.changeSourceButton2);
-        dana = view.findViewById(R.id.addToListButton2);
-        spay = view.findViewById(R.id.shareButton2);
-        template = view.findViewById(R.id.my_template);
-        loadNative();
+        saweria = view.findViewById(R.id.saweria);
+
+
         initWidgets(view);
         loadDetails();
     }
-    private void loadNative() {
-        MobileAds.initialize(mActivity);
-        AdLoader adLoader = new AdLoader.Builder(mActivity, "ca-app-pub-7142401354409440/7261340471")
-                .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
-                    @Override
-                    public void onNativeAdLoaded(NativeAd nativeAd) {
-                        NativeTemplateStyle styles = new
-                                NativeTemplateStyle.Builder().build();
-                        template.setStyles(styles);
-                        template.setNativeAd(nativeAd);
-                    }
-                })
-                .build();
 
-        adLoader.loadAd(new AdRequest.Builder().build());
-
-    }
     private void initWidgets(View view) {
+        WebView webView = view.findViewById(R.id.webview2);
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webView.setWebViewClient(new WebViewClient());
+        webView.loadUrl("https://stream.trakteer.id/running-text-default.html?rt_count=5&rt_speed=fast&rt_1_clr1=rgba%280%2C+0%2C+0%2C+1%29&rt_septype=image&rt_txtshadow=true&rt_showsuppmsg=true&creator_name=nfgplus-official&page_url=trakteer.id/nfgplusofficial&mod=3&key=trstream-hV0jDdrlk82mv3aZnzpA&hash=a6z74q7pkgn3mlqy");
         tvShowTitleText = view.findViewById(R.id.tvShowTitle);
-        titleOri = view.findViewById(R.id.titleOri);
+        titleOri = view.findViewById(R.id.fakebutton2);
         logo = view.findViewById(R.id.tvLogo);
         numberOfSeasons = view.findViewById(R.id.noOfSeasons);
         numberOfEpisodes = view.findViewById(R.id.noOfEpisodes);
@@ -164,7 +151,6 @@ public class TvShowDetailsFragment extends BaseFragment {
         episodeTitle = view.findViewById(R.id.episodeNameInTv);
         ratingsText = view.findViewById(R.id.ratingsTVText);
         play = view.findViewById(R.id.playInTVShowDetails);
-        changeTMDB = view.findViewById(R.id.changeShowTMDBId);
         addToList = view.findViewById(R.id.addToListButtonTV);
 
     }
@@ -387,10 +373,8 @@ public class TvShowDetailsFragment extends BaseFragment {
                 thread.start();
             }
         });
-        spay.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://sppay.shopee.co.id/qr/00ccc6eccf9a0f4cc900"))));
-        dana.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://link.dana.id/qr/685glq8"))));
-        saweria.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://saweria.co/nfgplus"))));
-        paypal.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.com/paypalme/nfgplus?country.x=ID&locale.x=en_US"))));
+        saweria.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://trakteer.id/nfgplusofficial/tip"))));
+
         addToList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -427,16 +411,7 @@ public class TvShowDetailsFragment extends BaseFragment {
         });
 
 
-        changeTMDB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ChangeTMDBFragment changeTMDBFragment = new ChangeTMDBFragment(tvShowDetails);
 
-                mActivity.getSupportFragmentManager().beginTransaction()
-                        .setCustomAnimations(R.anim.fade_in,R.anim.fade_out)
-                        .add(R.id.container,changeTMDBFragment).addToBackStack(null).commit();
-            }
-        });
 
 
         listenerSeasonItem = (view , position) -> {

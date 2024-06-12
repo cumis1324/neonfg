@@ -420,6 +420,13 @@
                             android:layout_centerHorizontal="true"
                             android:layout_toLeftOf="@id/saweria"
                             android:src="@drawable/cendol"/>
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_toRightOf="@id/saweria"
+                            android:src="@drawable/cendol"/>
                         <Button
                             android:id="@+id/saweria"
                             android:layout_width="wrap_content"

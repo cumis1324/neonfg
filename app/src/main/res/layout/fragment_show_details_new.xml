@@ -28,87 +28,161 @@
             android:layout_weight="0.2"
             android:background="@drawable/gradient_top_bottom_bg" />
     </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:id="@+id/frameLogoSeason">
+        <ImageView
+            android:layout_alignParentBottom="true"
+            android:id="@+id/tvLogo"
+            android:layout_width="175dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="20dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/dummyposter"
+            android:visibility="visible" />
+        <ImageButton
+            android:id="@+id/playInTVShowDetails"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/play_shape"
+            android:backgroundTint="@color/download_button_bg_color"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/jost_regular"
+            android:orientation="horizontal"
+            android:src="@drawable/ic_play"
+            app:cornerRadius="100dp"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/imageButtonContainer"
+        android:layout_below="@id/frameLogoSeason"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/light_blue_900"
+
+        >
+
+        <ImageButton
+            android:tooltipText="Favorit"
+            android:id="@+id/addToListButtonTV"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:clickable="true"
+            android:layout_toLeftOf="@id/downloadButton"
+            android:backgroundTint="@color/transparent"
+            android:focusable="true"
+            android:nextFocusRight="@id/downloadButton"
+            android:nextFocusDown="@id/downloadButton"
+            android:scaleType="centerInside"
+            android:background="@drawable/play_shape"
+            android:src="@drawable/ic_add"
+            />
+
+
+
+        <ImageButton
+            android:id="@+id/downloadButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_toLeftOf="@id/fakebutton2"
+            android:background="@color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:backgroundTint="@color/download_button_bg_color"
+            android:nextFocusLeft="@id/addToListButton"
+            android:nextFocusRight="@id/changeSourceButton"
+            android:nextFocusUp="@id/addToListButton"
+            android:nextFocusDown="@id/changeSourceButton"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_download"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:id="@+id/fakebutton2"
+            style="@style/sizelabel"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/jost_medium"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:text="Kung Panda THE LEGEND OF AANG"
+            android:visibility="invisible"
+            android:layout_centerVertical="true"
+            android:ellipsize="end"
+            />
+
+        <ImageButton
+            android:id="@+id/changeSourceButton"
+            android:layout_width="50dp"
+            android:visibility="gone"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@id/fakebutton2"
+            android:background="@color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:nextFocusLeft="@id/downloadButton"
+            android:nextFocusUp="@id/downloadButton"
+            android:nextFocusRight="@id/shareButton"
+            android:nextFocusDown="@id/shareButton"
+            android:scaleType="centerInside"
+            android:backgroundTint="@color/download_button_bg_color"
+            android:src="@drawable/ic_settings"
+            />
+
+
+
+        <ImageButton
+            android:id="@+id/shareButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@id/changeSourceButton"
+            android:background="@color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:nextFocusLeft="@id/changeSourceButton"
+            android:nextFocusUp="@id/changeSourceButton"
+            android:scaleType="centerInside"
+            android:backgroundTint="@color/download_button_bg_color"
+            android:src="@drawable/ic_share_24"
+            />
+
+
+        <!--                    android:background="@drawable/tab_bg_color"-->
+
+
+    </RelativeLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/imageButtonContainer">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="300dp">
 
-
-                <ImageButton
-                    android:id="@+id/playInTVShowDetails"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/play_shape"
-                    android:backgroundTint="@color/download_button_bg_color"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:fontFamily="@font/jost_regular"
-                    android:orientation="horizontal"
-                    android:src="@drawable/ic_play"
-                    app:cornerRadius="100dp"
-                    android:visibility="gone"/>
-
-
-
-            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/relativeContainer"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="300dp">
-                <RelativeLayout
-                    android:id="@+id/judul"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/tvShowTitle"
-                        style="@style/sizelabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-                        android:autoSizeMaxTextSize="28sp"
-                        android:autoSizeMinTextSize="16sp"
-                        android:autoSizeTextType="uniform"
-                        android:fontFamily="@font/jost_medium"
-                        android:maxHeight="80dp"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:visibility="visible"
-                        tools:text="Movie Title"
-                        android:layout_below="@id/tvLogo"
-                        />
+                android:layout_height="match_parent">
 
-
-                    <ImageView
-                        android:id="@+id/tvLogo"
-                        android:layout_width="175dp"
-                        android:layout_height="80dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginStart="20dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/dummyposter"
-                        android:visibility="visible" />
-                </RelativeLayout>
                 <RelativeLayout
                     android:id="@+id/juduloRI"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/judul">
+                 >
                 <TextView
-                    android:id="@+id/titleOri"
+                    android:id="@+id/titleOri4"
                     style="@style/sizelabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -118,7 +192,7 @@
                     android:textColor="#CCCCCC"
                     android:textSize="15sp"
                     android:text="720p"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     />
                 </RelativeLayout>
                 <RelativeLayout
@@ -192,7 +266,7 @@
 
                 </RelativeLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:id="@+id/genresRow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -218,9 +292,11 @@
                         android:textSize="14sp"
                         android:visibility="visible" />
 
-                </LinearLayout>
+                </RelativeLayout>
+
 
                 <LinearLayout
+
                     android:id="@+id/continueWatching"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -230,7 +306,7 @@
                     android:gravity="start"
                     android:orientation="horizontal"
                     android:paddingVertical="5dp"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
 
                     <TextView
@@ -274,14 +350,25 @@
                         android:visibility="gone" />
 
                 </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_below="@id/genresRow"
+                    android:id="@+id/donasiOverlay"
+                    >
 
-
+                    <WebView
+                        android:id="@+id/webview2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </RelativeLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/continueWatching"
+                    android:layout_below="@id/donasiOverlay"
                     android:layout_marginHorizontal="20dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    >
 
 
                     <TextView
@@ -295,7 +382,25 @@
                         android:visibility="gone">
 
                     </TextView>
+                    <TextView
+                            android:id="@+id/tvShowTitle"
+                            style="@style/sizelabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:autoSizeMaxTextSize="28sp"
+                            android:autoSizeMinTextSize="16sp"
+                            android:autoSizeTextType="uniform"
+                            android:fontFamily="@font/jost_medium"
+                            android:maxHeight="80dp"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:visibility="visible"
+                            tools:text="Movie Title"
 
+                            />
                     <TextView
                         android:id="@+id/overviewDescTVShow"
                         android:layout_width="match_parent"
@@ -306,300 +411,37 @@
                         android:textSize="14sp"
                         android:visibility="visible"
                         tools:text="In the 22nd century, a paraplegic Marine is dispatched to the moon Pandora on a unique mission, but becomes torn between following orders and protecting an alien civilization." />
-                    <com.google.android.ads.nativetemplates.TemplateView
-                        android:id="@+id/my_template"
-                        app:gnt_template_type="@layout/gnt_medium_template_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/imageButtonContainer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:layout_marginVertical="5dp"
-                        android:layout_marginBottom="20dp">
-
-                        <ImageButton
-                            android:id="@+id/addToListButtonTV"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:background="@drawable/play_shape"
-                            android:backgroundTint="@color/download_button_bg_color"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:nextFocusRight="@id/downloadButton"
-                            android:nextFocusDown="@id/downloadButton"
-                            android:scaleType="centerInside"
-                            android:src="@drawable/ic_add"
-                            app:layout_constraintBottom_toTopOf="@id/addToListText"
-                            app:layout_constraintEnd_toStartOf="@id/changeShowTMDBId"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/addToListText"
-                            style="@style/sizelabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginVertical="8dp"
-                            android:ellipsize="end"
-                            android:fontFamily="@font/jost_regular"
-                            android:gravity="start"
-                            android:maxLines="1"
-                            android:scrollHorizontally="true"
-                            android:text="Add to List"
-                            android:textColor="#CCCCCC"
-                            android:textSize="14sp"
-                            android:visibility="visible"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="@id/addToListButtonTV"
-                            app:layout_constraintStart_toStartOf="@id/addToListButtonTV"
-                            app:layout_constraintTop_toBottomOf="@id/addToListButtonTV" />
-
-                        <!--                    android:background="@drawable/tab_bg_color"-->
-
-
-                        <!--                    android:background="@drawable/tab_bg_color"-->
-
-
-                        <ImageButton
-                            android:id="@+id/changeShowTMDBId"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_alignParentStart="true"
-                            android:background="@drawable/play_shape"
-                            android:backgroundTint="@color/download_button_bg_color"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:nextFocusLeft="@id/downloadButton"
-                            android:nextFocusUp="@id/downloadButton"
-                            android:scaleType="centerInside"
-                            android:src="@drawable/ic_edit"
-                            android:visibility="invisible"
-                            app:layout_constraintBottom_toTopOf="@id/sourceText"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintHorizontal_chainStyle="packed"
-                            app:layout_constraintStart_toEndOf="@id/addToListButtonTV"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-
-                        <TextView
-                            android:id="@+id/sourceText"
-                            style="@style/sizelabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginVertical="8dp"
-                            android:ellipsize="end"
-                            android:fontFamily="@font/jost_regular"
-                            android:gravity="start"
-                            android:maxLines="1"
-                            android:scrollHorizontally="true"
-                            android:text="Change id"
-                            android:textColor="#CCCCCC"
-                            android:textSize="14sp"
-                            android:visibility="invisible"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="@id/changeShowTMDBId"
-                            app:layout_constraintStart_toStartOf="@id/changeShowTMDBId"
-                            app:layout_constraintTop_toBottomOf="@id/changeShowTMDBId" />
-                        <!--                    android:background="@drawable/tab_bg_color"-->
-
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <TextView
-                        android:id="@+id/moremoviestitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/jost_medium"
-                        android:text="@string/donate_a_coffee"
-                        android:textColor="@color/white"
-                        android:background="@color/gnt_blue"
-                        android:textSize="18sp"
-                        android:visibility="visible"/>
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/gnt_blue">
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/imageButtonContainer2"
-                            android:layout_width="match_parent"
+                        android:background="#BE1E2D"
+                        >
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_toLeftOf="@id/saweria"
+                            android:src="@drawable/cendol"/>
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_toRightOf="@id/saweria"
+                            android:src="@drawable/cendol"/>
+                        <Button
+                            android:id="@+id/saweria"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@color/black85"
-                            >
-                            <ImageButton
-                                android:visibility="visible"
-                                android:id="@+id/addToListButton2"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                android:layout_toStartOf="@id/downloadButton2"
-                                android:layout_toEndOf="@id/changeSourceButton2"
-                                android:clickable="true"
-                                android:backgroundTint="@color/download_button_bg_color"
-
-                                android:focusable="true"
-                                android:nextFocusRight="@id/downloadButton2"
-                                android:nextFocusDown="@id/downloadButton2"
-                                android:scaleType="centerInside"
-                                android:src="@drawable/dana"
-                                android:background="@color/transparent"
-                                app:layout_constraintStart_toEndOf="@id/downloadButton2"
-                                app:layout_constraintBottom_toTopOf="@id/addToListText2"
-                                app:layout_constraintEnd_toStartOf="@+id/downloadButton2"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <TextView
-                                android:id="@+id/addToListText2"
-                                style="@style/sizelabel"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/jost_regular"
-                                android:gravity="start"
-                                android:maxLines="1"
-                                android:layout_marginVertical="8dp"
-                                app:layout_constraintTop_toBottomOf="@id/addToListButton2"
-                                app:layout_constraintEnd_toEndOf="@id/addToListButton2"
-                                app:layout_constraintStart_toStartOf="@id/addToListButton2"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                android:scrollHorizontally="true"
-                                android:text="Dana"
-                                android:textColor="#CCCCCC"
-                                android:textSize="14sp"
-                                android:visibility="visible" />
-
-
-                            <ImageButton
-                                android:id="@+id/downloadButton2"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_alignParentEnd="true"
-                                android:background="@color/transparent"
-                                android:clickable="true"
-                                android:focusable="true"
-                                android:backgroundTint="@color/download_button_bg_color"
-                                android:nextFocusLeft="@id/addToListButton2"
-                                android:nextFocusRight="@id/changeSourceButton2"
-                                android:nextFocusUp="@id/addToListButton2"
-                                android:nextFocusDown="@id/changeSourceButton2"
-                                android:scaleType="centerInside"
-                                android:src="@drawable/saweria"
-                                app:layout_constraintBottom_toTopOf="@id/downloadText2"
-                                app:layout_constraintEnd_toEndOf="@id/addToListButton2"
-                                app:layout_constraintStart_toStartOf="@id/changeSourceButton2"
-                                app:layout_constraintTop_toTopOf="parent"
-                                />
-
-                            <TextView
-                                android:id="@+id/downloadText2"
-                                style="@style/sizelabel"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/jost_regular"
-                                android:gravity="start"
-                                android:maxLines="1"
-                                android:layout_marginVertical="8dp"
-                                app:layout_constraintTop_toBottomOf="@id/downloadButton2"
-                                app:layout_constraintEnd_toEndOf="@id/downloadButton2"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="@id/downloadButton2"
-                                android:scrollHorizontally="true"
-                                android:text="Saweria"
-                                android:textColor="#CCCCCC"
-                                android:textSize="14sp"
-                                android:visibility="visible" />
-
-                            <ImageButton
-                                android:id="@+id/changeSourceButton2"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_alignParentStart="true"
-                                android:background="@drawable/play_shape"
-                                android:clickable="true"
-                                app:layout_constraintEnd_toStartOf="@id/shareButton2"
-                                android:contentDescription="Paypal"
-                                android:focusable="true"
-                                android:nextFocusLeft="@id/downloadButton2"
-                                android:nextFocusUp="@id/downloadButton2"
-                                android:nextFocusRight="@id/shareButton2"
-                                android:nextFocusDown="@id/shareButton2"
-                                android:scaleType="centerInside"
-                                android:backgroundTint="@color/transparent"
-                                android:src="@drawable/paypal"
-                                app:layout_constraintBottom_toTopOf="@id/sourceText2"
-                                app:layout_constraintHorizontal_bias="0.5"
-                                app:layout_constraintHorizontal_chainStyle="packed"
-                                app:layout_constraintStart_toEndOf="@id/downloadButton2"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-
-                            <TextView
-                                android:id="@+id/sourceText2"
-                                style="@style/sizelabel"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/jost_regular"
-                                android:gravity="start"
-                                android:maxLines="1"
-                                android:layout_marginVertical="8dp"
-                                app:layout_constraintTop_toBottomOf="@id/changeSourceButton2"
-                                app:layout_constraintEnd_toEndOf="@id/changeSourceButton2"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="@id/changeSourceButton2"
-                                android:scrollHorizontally="true"
-                                android:text="Paypal"
-                                android:textColor="#CCCCCC"
-                                android:textSize="14sp"
-                                android:visibility="visible" />
-                            <ImageButton
-                                android:visibility="visible"
-                                android:id="@+id/shareButton2"
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
-                                android:layout_alignParentStart="true"
-                                android:background="@color/transparent"
-                                android:clickable="true"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                android:focusable="true"
-                                android:nextFocusLeft="@id/changeSourceButton2"
-                                android:nextFocusUp="@id/changeSourceButton2"
-                                android:scaleType="centerInside"
-                                android:backgroundTint="@color/download_button_bg_color"
-                                android:src="@drawable/shopeepay"
-                                app:layout_constraintBottom_toTopOf="@id/shareText2"
-                                app:layout_constraintHorizontal_bias="0.5"
-                                app:layout_constraintHorizontal_chainStyle="packed"
-                                app:layout_constraintStart_toStartOf="@id/changeSourceButton2"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-
-                            <TextView
-                                android:id="@+id/shareText2"
-                                style="@style/sizelabel"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/jost_regular"
-                                android:gravity="start"
-                                android:maxLines="1"
-                                android:layout_marginVertical="8dp"
-                                app:layout_constraintTop_toBottomOf="@id/shareButton2"
-                                app:layout_constraintEnd_toEndOf="@id/shareButton2"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="@id/shareButton2"
-                                android:scrollHorizontally="true"
-                                android:text="Share"
-                                android:textColor="#CCCCCC"
-                                android:textSize="14sp"
-                                android:visibility="invisible" />
-                            <!--                    android:background="@drawable/tab_bg_color"-->
-
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                            android:fontFamily="@font/jost_medium"
+                            android:text="Trakteer cendol disini"
+                            android:background="@color/transparent"
+                            android:textColor="@color/white"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerInParent="true"
+                            android:textSize="18sp"
+                            android:visibility="visible"/>
                     </RelativeLayout>
                     <TextView
                         android:id="@+id/SeasonRecyclerTitle"
@@ -618,7 +460,7 @@
                         android:layout_marginTop="14dp"
                         android:clipToPadding="false"
                         android:nestedScrollingEnabled="false"
-                        android:paddingBottom="90dp" />
+                        android:paddingBottom="110dp" />
                 </LinearLayout>
 
             </RelativeLayout>
