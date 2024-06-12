@@ -181,10 +181,7 @@ public class MovieDetailsFragment extends BaseFragment{
     private FrameLayout adContainerView;
     private RelativeLayout relativeContainer;
 
-    private ImageButton saweria;
-    private ImageButton paypal;
-    private ImageButton dana;
-    private ImageButton spay;
+    private Button saweria;
     private TemplateView template;
     private InterstitialAd mInterstitialAd;
     private RewardedAd rewardedAd;
@@ -222,16 +219,12 @@ public class MovieDetailsFragment extends BaseFragment{
         title = view.findViewById(R.id.title3);
         progressOverlay = view.findViewById(R.id.progress_overlay);
         size = view.findViewById(R.id.sizeTextInFileItem1);
-        quality = view.findViewById(R.id.videoQualityTextInFileItem1);
+        quality = view.findViewById(R.id.fakebutton);
         relativeContainer = view.findViewById(R.id.relativeContainer);
         moreMovieView = view.findViewById(R.id.recyclerEpisodes2);
-        saweria = view.findViewById(R.id.downloadButton2);
-        paypal = view.findViewById(R.id.changeSourceButton2);
-        dana = view.findViewById(R.id.addToListButton2);
-        spay = view.findViewById(R.id.shareButton2);
+        saweria = view.findViewById(R.id.saweria);
         template = view.findViewById(R.id.my_template);
         MobileAds.initialize(mActivity);
-        loadNative();
         initWidgets(view);
         loadDetails();
 
@@ -304,85 +297,7 @@ public class MovieDetailsFragment extends BaseFragment{
                 });
 
     }
-    private void loadAds(){
-        AdRequest adRequest = new AdRequest.Builder().build();
 
-        InterstitialAd.load(mActivity, "ca-app-pub-7142401354409440/5207281951", adRequest,
-                new InterstitialAdLoadCallback() {
-                    @Override
-                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                        // The mInterstitialAd reference will be null until an ad is loaded.
-                        mInterstitialAd = interstitialAd;
-                        Log.i(TAG, "onAdLoaded");
-
-                        // Set full-screen content callback
-                        mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
-                            @Override
-                            public void onAdClicked() {
-                                // Called when a click is recorded for an ad.
-                                Log.d(TAG, "Ad was clicked.");
-                            }
-
-                            @Override
-                            public void onAdDismissedFullScreenContent() {
-                                // Called when ad is dismissed.
-                                // Set the ad reference to null so you don't show the ad a second time.
-                                Log.d(TAG, "Ad dismissed fullscreen content.");
-                                mInterstitialAd = null;
-                            }
-
-                            @Override
-                            public void onAdFailedToShowFullScreenContent(AdError adError) {
-                                // Called when ad fails to show.
-                                Log.e(TAG, "Ad failed to show fullscreen content.");
-                                mInterstitialAd = null;
-                            }
-
-                            @Override
-                            public void onAdImpression() {
-                                // Called when an impression is recorded for an ad.
-                                Log.d(TAG, "Ad recorded an impression.");
-                            }
-
-                            @Override
-                            public void onAdShowedFullScreenContent() {
-                                // Called when ad is shown.
-                                Log.d(TAG, "Ad showed fullscreen content.");
-                            }
-                        });
-
-                        // Show the ad
-                        if (mInterstitialAd != null) {
-                            mInterstitialAd.show(mActivity);
-                        }
-                    }
-
-                    @Override
-                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                        // Handle the error
-                        Log.d(TAG, loadAdError.toString());
-                        mInterstitialAd = null;
-                    }
-                });
-    }
-
-    private void loadNative() {
-
-        AdLoader adLoader = new AdLoader.Builder(mActivity, "ca-app-pub-7142401354409440/7261340471")
-                .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
-                    @Override
-                    public void onNativeAdLoaded(NativeAd nativeAd) {
-                        NativeTemplateStyle styles = new
-                                NativeTemplateStyle.Builder().build();
-                        template.setStyles(styles);
-                        template.setNativeAd(nativeAd);
-                    }
-                })
-                .build();
-        template.setVisibility(View.VISIBLE);
-        adLoader.loadAd(new AdRequest.Builder().build());
-        
-    }
 
 
     private void initWidgets(View view) {
@@ -392,11 +307,7 @@ public class MovieDetailsFragment extends BaseFragment{
         runtime = view.findViewById(R.id.RuntimeText);
         overview = view.findViewById(R.id.overviewdesc);
         backdrop = view.findViewById(R.id.movieBackdrop);
-        director = view.findViewById(R.id.Director);
-        writer = view.findViewById(R.id.WrittenBy);
         genres = view.findViewById(R.id.Genres);
-        directorText = view.findViewById(R.id.DirectorText);
-        writerText = view.findViewById(R.id.WrittenByText);
         genresText = view.findViewById(R.id.GenresText);
         ratings = view.findViewById(R.id.ratings);
         dot1 = view.findViewById(R.id.dot);
@@ -518,8 +429,10 @@ public class MovieDetailsFragment extends BaseFragment{
 
                                if(logoLink!=null && !logoLink.equals("")){
                                    logo.setVisibility(View.VISIBLE);
-                                   namaMovie.setVisibility(View.VISIBLE);
-                                   namaMovie.setText(titleText);
+                                       namaMovie.setVisibility(View.VISIBLE);
+                                       namaMovie.setText(titleText);
+
+
                                    Glide.with(mActivity)
                                            .load(logoLink)
                                            .apply(new RequestOptions()
@@ -530,8 +443,13 @@ public class MovieDetailsFragment extends BaseFragment{
                                            .into(logo);
                                }
                                if(logoLink!=null && logoLink.equals("") && movieDetails.getTitle()!=null){
-                                   namaMovie.setVisibility(View.VISIBLE);
-                                   namaMovie.setText(titleText);
+
+                                       namaMovie.setVisibility(View.VISIBLE);
+                                       namaMovie.setText(titleText);
+
+
+
+
                                    logo.setVisibility(View.GONE);
                                }else {
                                    namaMovie.setVisibility(View.VISIBLE);
@@ -677,10 +595,7 @@ public class MovieDetailsFragment extends BaseFragment{
 
     private void setMyOnClickListeners(){
 
-        spay.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://sppay.shopee.co.id/qr/00ccc6eccf9a0f4cc900"))));
-        dana.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://link.dana.id/qr/685glq8"))));
-        saweria.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://saweria.co/nfgplus"))));
-        paypal.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.com/paypalme/nfgplus?country.x=ID&locale.x=en_US"))));
+        saweria.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://trakteer.id/nfgplusofficial/tip"))));
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {

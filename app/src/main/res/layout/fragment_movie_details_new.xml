@@ -25,6 +25,27 @@
             android:layout_height="200dp"
             android:scaleType="centerCrop"
             tools:src="@drawable/dummyposter" />
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"
+            android:background="@drawable/gradient_top_bottom_bg" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
         <ImageView
             android:id="@+id/movieLogo"
             android:layout_width="175dp"
@@ -34,22 +55,106 @@
             android:layout_alignParentBottom="true"
             android:src="@drawable/dummyposter"
             android:visibility="visible" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/imageButtonContainer"
+        android:layout_below="@id/progress_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/light_blue_900"
+
+        >
+
+        <ImageButton
+            android:tooltipText="Favorit"
+            android:id="@+id/addToListButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:clickable="true"
+            android:layout_toLeftOf="@id/downloadButton"
+            android:backgroundTint="@color/transparent"
+            android:focusable="true"
+            android:nextFocusRight="@id/downloadButton"
+            android:nextFocusDown="@id/downloadButton"
+            android:scaleType="centerInside"
+            android:background="@drawable/play_shape"
+            android:src="@drawable/ic_add"
+            />
+
+
+
+        <ImageButton
+            android:id="@+id/downloadButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_toLeftOf="@id/fakebutton"
+            android:background="@color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:backgroundTint="@color/download_button_bg_color"
+            android:nextFocusLeft="@id/addToListButton"
+            android:nextFocusRight="@id/changeSourceButton"
+            android:nextFocusUp="@id/addToListButton"
+            android:nextFocusDown="@id/changeSourceButton"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_download"
+            />
+
+        <TextView
+            android:id="@+id/fakebutton"
+            style="@style/sizelabel"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/jost_medium"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:text="Kung Panda THE LEGEND OF AANG"
+            android:visibility="invisible"
+            android:layout_centerVertical="true"
+            android:ellipsize="end"
+            />
+
+        <ImageButton
+            android:id="@+id/changeSourceButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@id/fakebutton"
+            android:background="@color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:nextFocusLeft="@id/downloadButton"
+            android:nextFocusUp="@id/downloadButton"
+            android:nextFocusRight="@id/shareButton"
+            android:nextFocusDown="@id/shareButton"
+            android:scaleType="centerInside"
+            android:backgroundTint="@color/download_button_bg_color"
+            android:src="@drawable/ic_settings"
+            />
+
+
+
+        <ImageButton
+            android:id="@+id/shareButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@id/changeSourceButton"
+            android:background="@color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:nextFocusLeft="@id/changeSourceButton"
+            android:nextFocusUp="@id/changeSourceButton"
+            android:scaleType="centerInside"
+            android:backgroundTint="@color/download_button_bg_color"
+            android:src="@drawable/ic_share_24"
+            />
+
+
+        <!--                    android:background="@drawable/tab_bg_color"-->
+
 
     </RelativeLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:orientation="vertical">
-        
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.2"
-            android:background="@drawable/gradient_top_bottom_bg" />
-
-    </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="200dp">
@@ -74,72 +179,14 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="210dp">
+        android:layout_below="@id/imageButtonContainer">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <!-- Add this TextView for the countdown -->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/iklan_container"
-                android:visibility="gone">
-            <TextView
-                android:id="@+id/countdownText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentTop="true"
-                />
-            <Button
-                android:id="@+id/closebutton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/transparent"
-                android:textColor="@color/white"
-                android:text="Close Ad"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentTop="true"
-                android:visibility="invisible"/>
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/closebutton"
-                    android:background="@color/white"
-                    android:id="@+id/spaceframe">
-                <Button
-                    android:id="@+id/space1"
-                    android:layout_width="match_parent"
-                    android:layout_height="75dp"
-                    android:background="@color/transparent"
-                    android:textColor="@color/exo_black_opacity_70"
-                    android:text="@string/space_iklan_tersedia"
-                    android:layout_centerHorizontal="true"
-                     />
-                </FrameLayout>
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/spaceframe"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/white"
-                    android:id="@+id/spaceframe2">
-                    <Button
-                        android:id="@+id/space2"
-                        android:layout_width="match_parent"
-                        android:layout_height="75dp"
-                        android:background="@color/transparent"
-                        android:textColor="@color/exo_black_opacity_70"
-                        android:text="@string/space_iklan_tersedia"
-                        android:layout_centerHorizontal="true"
-                        />
-                </FrameLayout>
 
-            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/relativeContainer"
@@ -163,20 +210,7 @@
                         android:text="Title Movie"
                         android:visibility="gone"
                         />
-                    <TextView
-                        android:id="@+id/videoQualityTextInFileItem1"
-                        style="@style/sizelabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:fontFamily="@font/jost_medium"
-                        android:paddingHorizontal="20dp"
-                        android:textColor="#CCCCCC"
-                        android:textSize="15sp"
-                        android:text="720p"
-                        android:visibility="gone"
-                        android:layout_below="@id/namaMovie"
-                        />
+
                 </RelativeLayout>
                 <RelativeLayout
                     android:id="@+id/labels"
@@ -319,7 +353,6 @@
 
                 </LinearLayout>
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -361,463 +394,31 @@
                         android:textSize="14sp"
                         android:visibility="visible"
                         tools:text="In the 22nd century, a paraplegic Marine is dispatched to the moon Pandora on a unique mission, but becomes torn between following orders and protecting an alien civilization." />
-                    <com.google.android.ads.nativetemplates.TemplateView
-                        android:id="@+id/my_template"
-                        app:gnt_template_type="@layout/gnt_medium_template_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:visibility="gone"
-                        />
-                    <TableLayout
-                        android:id="@+id/detailsTable"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:visibility="gone">
-
-                        <TableRow
-                            android:id="@+id/Director"
-                            android:padding="5dp"
-                            android:visibility="visible">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight=".4"
-                                android:fontFamily="@font/jost_regular"
-                                android:text="Director :"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:id="@+id/DirectorText"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight=".6"
-                                android:fontFamily="@font/jost_regular"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
-
-                        </TableRow>
-
-                        <TableRow
-                            android:id="@+id/WrittenBy"
-                            android:padding="5dp"
-                            android:visibility="visible">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight=".4"
-                                android:fontFamily="@font/jost_regular"
-                                android:text="Written By :"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:id="@+id/WrittenByText"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight=".6"
-
-                                android:fontFamily="@font/jost_regular"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
 
 
-                        </TableRow>
-
-                        <TableRow
-                            android:id="@+id/Genres"
-                            android:padding="5dp"
-                            android:visibility="visible">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight=".4"
-                                android:fontFamily="@font/jost_regular"
-                                android:text="Genres :"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
-
-                        </TableRow>
-
-                    </TableLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/imageButtonContainer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginVertical="5dp"
-                        android:layout_gravity="bottom">
-
-                        <ImageButton
-                            android:id="@+id/addToListButton"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            android:layout_toStartOf="@id/downloadButton"
-                            android:layout_toEndOf="@id/changeSourceButton"
-                            android:clickable="true"
-                            android:backgroundTint="@color/download_button_bg_color"
-
-                            android:focusable="true"
-                            android:nextFocusRight="@id/downloadButton"
-                            android:nextFocusDown="@id/downloadButton"
-                            android:scaleType="centerInside"
-                            android:background="@drawable/play_shape"
-                            android:src="@drawable/ic_add"
-                            app:layout_constraintStart_toEndOf="@id/downloadButton"
-                            app:layout_constraintBottom_toTopOf="@id/addToListText"
-                            app:layout_constraintEnd_toStartOf="@+id/downloadButton"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/addToListText"
-                            style="@style/sizelabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:fontFamily="@font/jost_regular"
-                            android:gravity="start"
-                            android:maxLines="1"
-                            android:layout_marginVertical="8dp"
-                            app:layout_constraintTop_toBottomOf="@id/addToListButton"
-                            app:layout_constraintEnd_toEndOf="@id/addToListButton"
-                            app:layout_constraintStart_toStartOf="@id/addToListButton"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            android:scrollHorizontally="true"
-                            android:text="Add to List"
-                            android:textColor="#CCCCCC"
-                            android:textSize="14sp"
-                            android:visibility="visible" />
-
-
-                        <ImageButton
-                            android:id="@+id/downloadButton"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_alignParentEnd="true"
-                            android:background="@drawable/play_shape"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:backgroundTint="@color/download_button_bg_color"
-                            android:nextFocusLeft="@id/addToListButton"
-                            android:nextFocusRight="@id/changeSourceButton"
-                            android:nextFocusUp="@id/addToListButton"
-                            android:nextFocusDown="@id/changeSourceButton"
-                            android:scaleType="centerInside"
-                            android:src="@drawable/ic_download"
-                            app:layout_constraintBottom_toTopOf="@id/downloadText"
-                            app:layout_constraintEnd_toEndOf="@id/addToListButton"
-                            app:layout_constraintStart_toStartOf="@id/changeSourceButton"
-                            app:layout_constraintTop_toTopOf="parent"
-                           />
-
-                        <TextView
-                            android:id="@+id/downloadText"
-                            style="@style/sizelabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:fontFamily="@font/jost_regular"
-                            android:gravity="start"
-                            android:maxLines="1"
-                            android:layout_marginVertical="8dp"
-                            app:layout_constraintTop_toBottomOf="@id/downloadButton"
-                            app:layout_constraintEnd_toEndOf="@id/downloadButton"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="@id/downloadButton"
-                            android:scrollHorizontally="true"
-                            android:text="Download"
-                            android:textColor="#CCCCCC"
-                            android:textSize="14sp"
-                            android:visibility="visible" />
-
-                        <ImageButton
-                            android:id="@+id/changeSourceButton"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_alignParentStart="true"
-                            android:background="@drawable/play_shape"
-                            android:clickable="true"
-                            app:layout_constraintEnd_toStartOf="@id/shareButton"
-                            android:contentDescription="discord"
-                            android:focusable="true"
-                            android:nextFocusLeft="@id/downloadButton"
-                            android:nextFocusUp="@id/downloadButton"
-                            android:nextFocusRight="@id/shareButton"
-                            android:nextFocusDown="@id/shareButton"
-                            android:scaleType="centerInside"
-                            android:backgroundTint="@color/download_button_bg_color"
-                            android:src="@drawable/ic_settings"
-                            app:layout_constraintBottom_toTopOf="@id/sourceText"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintHorizontal_chainStyle="packed"
-                            app:layout_constraintStart_toEndOf="@id/downloadButton"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-
-                        <TextView
-                            android:id="@+id/sourceText"
-                            style="@style/sizelabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:fontFamily="@font/jost_regular"
-                            android:gravity="start"
-                            android:maxLines="1"
-                            android:layout_marginVertical="8dp"
-                            app:layout_constraintTop_toBottomOf="@id/changeSourceButton"
-                            app:layout_constraintEnd_toEndOf="@id/changeSourceButton"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="@id/changeSourceButton"
-                            android:scrollHorizontally="true"
-                            android:text="Quality"
-                            android:textColor="#CCCCCC"
-                            android:textSize="14sp"
-                            android:visibility="visible" />
-                        <ImageButton
-                            android:id="@+id/shareButton"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_alignParentStart="true"
-                            android:background="@drawable/play_shape"
-                            android:clickable="true"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            android:contentDescription="discord"
-                            android:focusable="true"
-                            android:nextFocusLeft="@id/changeSourceButton"
-                            android:nextFocusUp="@id/changeSourceButton"
-                            android:scaleType="centerInside"
-                            android:backgroundTint="@color/download_button_bg_color"
-                            android:src="@drawable/ic_share_24"
-                            app:layout_constraintBottom_toTopOf="@id/shareText"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintHorizontal_chainStyle="packed"
-                            app:layout_constraintStart_toStartOf="@id/changeSourceButton"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-
-                        <TextView
-                            android:id="@+id/shareText"
-                            style="@style/sizelabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:fontFamily="@font/jost_regular"
-                            android:gravity="start"
-                            android:maxLines="1"
-                            android:layout_marginVertical="8dp"
-                            app:layout_constraintTop_toBottomOf="@id/shareButton"
-                            app:layout_constraintEnd_toEndOf="@id/shareButton"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="@id/shareButton"
-                            android:scrollHorizontally="true"
-                            android:text="Share"
-                            android:textColor="#CCCCCC"
-                            android:textSize="14sp"
-                            android:visibility="visible" />
-                        <!--                    android:background="@drawable/tab_bg_color"-->
-
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                    <TextView
-                        android:id="@+id/moremoviestitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/jost_medium"
-                        android:text="@string/donate_a_coffee"
-                        android:textColor="@color/white"
-                        android:background="@color/gnt_blue"
-                        android:textSize="18sp"
-                        android:visibility="visible"/>
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/gnt_blue">
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/imageButtonContainer2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/black85"
-                       >
-                        <ImageButton
-                            android:visibility="visible"
-                            android:id="@+id/addToListButton2"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            android:layout_toStartOf="@id/downloadButton2"
-                            android:layout_toEndOf="@id/changeSourceButton2"
-                            android:clickable="true"
-                            android:backgroundTint="@color/download_button_bg_color"
-
-                            android:focusable="true"
-                            android:nextFocusRight="@id/downloadButton2"
-                            android:nextFocusDown="@id/downloadButton2"
-                            android:scaleType="centerInside"
-                            android:src="@drawable/dana"
+                        android:background="#BE1E2D"
+                        >
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@id/saweria"
+                            android:src="@drawable/cendol"/>
+                        <Button
+                            android:id="@+id/saweria"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/jost_medium"
+                            android:text="Donate a Cendol here"
                             android:background="@color/transparent"
-                            app:layout_constraintStart_toEndOf="@id/downloadButton2"
-                            app:layout_constraintBottom_toTopOf="@id/addToListText2"
-                            app:layout_constraintEnd_toStartOf="@+id/downloadButton2"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/addToListText2"
-                            style="@style/sizelabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:fontFamily="@font/jost_regular"
-                            android:gravity="start"
-                            android:maxLines="1"
-                            android:layout_marginVertical="8dp"
-                            app:layout_constraintTop_toBottomOf="@id/addToListButton2"
-                            app:layout_constraintEnd_toEndOf="@id/addToListButton2"
-                            app:layout_constraintStart_toStartOf="@id/addToListButton2"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            android:scrollHorizontally="true"
-                            android:text="Dana"
-                            android:textColor="#CCCCCC"
-                            android:textSize="14sp"
-                            android:visibility="visible" />
-
-
-                        <ImageButton
-                            android:id="@+id/downloadButton2"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_alignParentEnd="true"
-                            android:background="@color/transparent"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:backgroundTint="@color/download_button_bg_color"
-                            android:nextFocusLeft="@id/addToListButton2"
-                            android:nextFocusRight="@id/changeSourceButton2"
-                            android:nextFocusUp="@id/addToListButton2"
-                            android:nextFocusDown="@id/changeSourceButton2"
-                            android:scaleType="centerInside"
-                            android:src="@drawable/saweria"
-                            app:layout_constraintBottom_toTopOf="@id/downloadText2"
-                            app:layout_constraintEnd_toEndOf="@id/addToListButton2"
-                            app:layout_constraintStart_toStartOf="@id/changeSourceButton2"
-                            app:layout_constraintTop_toTopOf="parent"
-                            />
-
-                        <TextView
-                            android:id="@+id/downloadText2"
-                            style="@style/sizelabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:fontFamily="@font/jost_regular"
-                            android:gravity="start"
-                            android:maxLines="1"
-                            android:layout_marginVertical="8dp"
-                            app:layout_constraintTop_toBottomOf="@id/downloadButton2"
-                            app:layout_constraintEnd_toEndOf="@id/downloadButton2"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="@id/downloadButton2"
-                            android:scrollHorizontally="true"
-                            android:text="Saweria"
-                            android:textColor="#CCCCCC"
-                            android:textSize="14sp"
-                            android:visibility="visible" />
-
-                        <ImageButton
-                            android:id="@+id/changeSourceButton2"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_alignParentStart="true"
-                            android:background="@drawable/play_shape"
-                            android:clickable="true"
-                            app:layout_constraintEnd_toStartOf="@id/shareButton2"
-                            android:contentDescription="Paypal"
-                            android:focusable="true"
-                            android:nextFocusLeft="@id/downloadButton2"
-                            android:nextFocusUp="@id/downloadButton2"
-                            android:nextFocusRight="@id/shareButton2"
-                            android:nextFocusDown="@id/shareButton2"
-                            android:scaleType="centerInside"
-                            android:backgroundTint="@color/transparent"
-                            android:src="@drawable/paypal"
-                            app:layout_constraintBottom_toTopOf="@id/sourceText2"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintHorizontal_chainStyle="packed"
-                            app:layout_constraintStart_toEndOf="@id/downloadButton2"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-
-                        <TextView
-                            android:id="@+id/sourceText2"
-                            style="@style/sizelabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:fontFamily="@font/jost_regular"
-                            android:gravity="start"
-                            android:maxLines="1"
-                            android:layout_marginVertical="8dp"
-                            app:layout_constraintTop_toBottomOf="@id/changeSourceButton2"
-                            app:layout_constraintEnd_toEndOf="@id/changeSourceButton2"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="@id/changeSourceButton2"
-                            android:scrollHorizontally="true"
-                            android:text="Paypal"
-                            android:textColor="#CCCCCC"
-                            android:textSize="14sp"
-                            android:visibility="visible" />
-                        <ImageButton
-                            android:visibility="visible"
-                            android:id="@+id/shareButton2"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:layout_alignParentStart="true"
-                            android:background="@color/transparent"
-                            android:clickable="true"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            android:focusable="true"
-                            android:nextFocusLeft="@id/changeSourceButton2"
-                            android:nextFocusUp="@id/changeSourceButton2"
-                            android:scaleType="centerInside"
-                            android:backgroundTint="@color/download_button_bg_color"
-                            android:src="@drawable/shopeepay"
-                            app:layout_constraintBottom_toTopOf="@id/shareText2"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintHorizontal_chainStyle="packed"
-                            app:layout_constraintStart_toStartOf="@id/changeSourceButton2"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-
-                        <TextView
-                            android:id="@+id/shareText2"
-                            style="@style/sizelabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:fontFamily="@font/jost_regular"
-                            android:gravity="start"
-                            android:maxLines="1"
-                            android:layout_marginVertical="8dp"
-                            app:layout_constraintTop_toBottomOf="@id/shareButton2"
-                            app:layout_constraintEnd_toEndOf="@id/shareButton2"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="@id/shareButton2"
-                            android:scrollHorizontally="true"
-                            android:text="Share"
-                            android:textColor="#CCCCCC"
-                            android:textSize="14sp"
-                            android:visibility="invisible" />
-                        <!--                    android:background="@drawable/tab_bg_color"-->
-
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                            android:textColor="@color/white"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerInParent="true"
+                            android:textSize="18sp"
+                            android:visibility="visible"/>
                     </RelativeLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
