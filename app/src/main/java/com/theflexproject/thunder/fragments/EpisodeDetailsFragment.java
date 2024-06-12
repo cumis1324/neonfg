@@ -56,6 +56,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 
 public class EpisodeDetailsFragment extends BaseFragment {
@@ -150,7 +151,7 @@ public class EpisodeDetailsFragment extends BaseFragment {
 
 
         play = view.findViewById(R.id.playInEpisodeDetails);
-        download = view.findViewById(R.id.downloadButton);
+        download = view.findViewById(R.id.downloadButton3);
 
 
     }
@@ -341,10 +342,10 @@ public class EpisodeDetailsFragment extends BaseFragment {
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT < 32) {
                     // Check if the app has the WRITE_EXTERNAL_STORAGE permission
-                    if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
                             != PackageManager.PERMISSION_GRANTED) {
                         // Request the permission if it is not granted
-                        ActivityCompat.requestPermissions(getActivity(),
+                        ActivityCompat.requestPermissions(requireActivity(),
                                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                                 REQUEST_WRITE_EXTERNAL_STORAGE_PERMISSION);
 
@@ -352,6 +353,8 @@ public class EpisodeDetailsFragment extends BaseFragment {
                         // Permission is already granted, proceed with the download
                         startDownload();
                     }
+                }else {
+                    startDownload();
                 }
 
             }

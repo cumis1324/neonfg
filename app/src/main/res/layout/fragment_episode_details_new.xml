@@ -478,7 +478,7 @@
 
 
                         <ImageButton
-                            android:id="@+id/downloadButton"
+                            android:id="@+id/downloadButton3"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:layout_alignParentEnd="true"

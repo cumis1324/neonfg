@@ -108,6 +108,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
@@ -687,10 +688,10 @@ public class MovieDetailsFragment extends BaseFragment{
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT < 32) {
                     // Check if the app has the WRITE_EXTERNAL_STORAGE permission
-                    if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
                             != PackageManager.PERMISSION_GRANTED) {
                         // Request the permission if it is not granted
-                        ActivityCompat.requestPermissions(getActivity(),
+                        ActivityCompat.requestPermissions(requireActivity(),
                                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                                 REQUEST_WRITE_EXTERNAL_STORAGE_PERMISSION);
                     }else {
