@@ -196,10 +196,10 @@
                 <RelativeLayout
                     android:id="@+id/judulOriginal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp">
                     <TextView
                         android:id="@+id/namaMovie"
-                        style="@style/sizelabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
@@ -353,10 +353,22 @@
 
                 </LinearLayout>
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:id="@+id/donasiOverlay"
+                    android:layout_below="@id/sizeLabel">
+
+                    <WebView
+                        android:id="@+id/webview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </RelativeLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/sizeLabel"
+                    android:layout_below="@id/donasiOverlay"
                     android:layout_marginHorizontal="20dp"
                     android:orientation="vertical">
 
@@ -405,6 +417,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"
                             android:layout_toLeftOf="@id/saweria"
                             android:src="@drawable/cendol"/>
                         <Button
@@ -412,7 +425,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/jost_medium"
-                            android:text="Donate a Cendol here"
+                            android:text="Trakteer cendol disini"
                             android:background="@color/transparent"
                             android:textColor="@color/white"
                             android:layout_centerHorizontal="true"
