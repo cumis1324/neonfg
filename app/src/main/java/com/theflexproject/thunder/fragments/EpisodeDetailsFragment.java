@@ -8,6 +8,7 @@ import static com.theflexproject.thunder.player.PlayerActivity.KEY_POSITION;
 import static com.theflexproject.thunder.player.PlayerActivity.KEY_TRACK_SELECTION_PARAMETERS;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
@@ -62,6 +63,8 @@ import com.theflexproject.thunder.model.TVShowInfo.Episode;
 import com.theflexproject.thunder.model.TVShowInfo.TVShow;
 import com.theflexproject.thunder.model.TVShowInfo.TVShowSeasonDetails;
 import com.theflexproject.thunder.player.PlayerActivity;
+import com.theflexproject.thunder.player.PlayerHelper;
+import com.theflexproject.thunder.player.VideoPlayer;
 import com.theflexproject.thunder.utils.StringUtils;
 
 import java.text.ParseException;
@@ -114,8 +117,7 @@ public class EpisodeDetailsFragment extends BaseFragment {
     RecyclerView recyclerViewEpisodeFiles;
     List<Episode> episodeFileList;
     FileItemAdapter fileAdapter;
-    private StyledPlayerView playerView2;
-    protected @Nullable ExoPlayer player2;
+    private StyledPlayerView playerView;
     private TrackSelectionParameters trackSelectionParameters;
     private long startPosition;
     private boolean startAutoPlay;
@@ -123,6 +125,11 @@ public class EpisodeDetailsFragment extends BaseFragment {
     private MediaItem mediaItem;
     FirebaseManager manager;
     private DatabaseReference databaseReference;
+    private static final int FULLSCREEN_REQUEST_CODE = 1;
+
+    private PlayerHelper playerHelper;
+    // Set your media URI here
+    private long currentPosition = 0;
 
     public EpisodeDetailsFragment() {
         // Required empty public constructor
@@ -148,32 +155,19 @@ public class EpisodeDetailsFragment extends BaseFragment {
 
     @Override
     public void onViewCreated(@NonNull View view , @Nullable Bundle savedInstanceState) {
-
+        playerHelper = new PlayerHelper();
         initWidgets(view);
         loadDetails();
         manager = new FirebaseManager();
         String tmdbId = String.valueOf(episode.getId());
         databaseReference = FirebaseDatabase.getInstance().getReference("History/"+tmdbId);
-        playerView2 = view.findViewById(R.id.playerViewE);
-        if (savedInstanceState != null) {
-            trackSelectionParameters =
-                    TrackSelectionParameters.fromBundle(
-                            Objects.requireNonNull(savedInstanceState.getBundle(KEY_TRACK_SELECTION_PARAMETERS)));
-            startAutoPlay = savedInstanceState.getBoolean(KEY_AUTO_PLAY);
-            startItemIndex = savedInstanceState.getInt(KEY_ITEM_INDEX);
-            startPosition = savedInstanceState.getLong(KEY_POSITION);
+        playerView = view.findViewById(R.id.player_view);
 
-        } else {
-            trackSelectionParameters = new TrackSelectionParameters.Builder(/* context= */ requireContext()).build();
-            clearStartPosition();
-        }
+
 
         super.onViewCreated(view , savedInstanceState);
     }
 
-    private void clearStartPosition() {
-
-    }
 
     private void initWidgets(View view) {
         fullScreen = view.findViewById(R.id.fullScreen);
@@ -338,8 +332,15 @@ public class EpisodeDetailsFragment extends BaseFragment {
         thread.start();
     }
 
-
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == FULLSCREEN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            if (data != null) {
+                currentPosition = data.getLongExtra("position", 0);
+            }
+        }
+    }
     private void setOnClickListner() {
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -352,6 +353,7 @@ public class EpisodeDetailsFragment extends BaseFragment {
             }
         });
         thread.start();
+
 
         SharedPreferences sharedPreferences = mActivity.getSharedPreferences("Settings" , Context.MODE_PRIVATE);
         boolean savedEXT = sharedPreferences.getBoolean("EXTERNAL_SETTING" , false);
@@ -368,7 +370,10 @@ public class EpisodeDetailsFragment extends BaseFragment {
                 } else {
                     //Play video
 
-                    Intent in = new Intent(getActivity() , PlayerActivity.class);
+                    Intent in = new Intent(getActivity() , VideoPlayer.class);
+                    in.putExtra("mediaUri", largestFile.getUrlString());
+                    currentPosition = playerHelper.getCurrentPosition();
+                    in.putExtra("position", currentPosition);
                     in.putExtra("url" , largestFile.getUrlString());
                     String season = String.valueOf(episode.getSeason_number());
                     String epsnum = String.valueOf(episode.getEpisode_number());
@@ -378,7 +383,7 @@ public class EpisodeDetailsFragment extends BaseFragment {
                     in.putExtra("title" , tvShow.getName());
                     String tmdbId = String.valueOf(episode.getId());
                     in.putExtra("tmdbId", tmdbId);
-                    startActivity(in);
+                    startActivityForResult(in, FULLSCREEN_REQUEST_CODE);
                     Toast.makeText(getContext() , "Play" , Toast.LENGTH_LONG).show();
                     addToLastPlayed();
                 }
@@ -469,21 +474,12 @@ public class EpisodeDetailsFragment extends BaseFragment {
         thread.start();
     }
 
-    //exopplayer
-
     private void playVideo(String videoUrl) {
-        if (player2 == null) {
-            // Initialize ExoPlayer
-            player2 = new ExoPlayer.Builder(requireContext()).build();
-            playerView2.setPlayer(player2);
-
-            // Set the media item to be played.
-            mediaItem = MediaItem.fromUri(Uri.parse(videoUrl));
-            player2.setMediaItem(mediaItem);
-
-            // Prepare the player
-            player2.prepare();
-        }
+            playerHelper.initializePlayer(getContext(), playerView, videoUrl);
+            playerHelper.seekTo(currentPosition);
+        playerView.setControllerVisibilityListener((StyledPlayerView.ControllerVisibilityListener) visibility -> {
+            fullScreen.setVisibility(visibility == View.VISIBLE ? View.VISIBLE : View.GONE);
+        });
         String userId = manager.getCurrentUser().getUid();
         DatabaseReference userReference = databaseReference.child(userId).child("lastPosition");
         userReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -497,7 +493,7 @@ public class EpisodeDetailsFragment extends BaseFragment {
                         startPosition = lastPosition;
 
                         // Seek the player to the last position
-                        player2.seekTo(startPosition);
+                        playerHelper.seekTo(startPosition);
                     }
                 }
             }
@@ -509,57 +505,46 @@ public class EpisodeDetailsFragment extends BaseFragment {
         });
 
         boolean haveStartPosition = startItemIndex != C.INDEX_UNSET;
-        if (haveStartPosition) {
-            player2.seekTo(startItemIndex, startPosition);
-        }
-        player2.setMediaItem(mediaItem, /* resetPosition= */ !haveStartPosition);
-        playerView2.setVisibility(View.VISIBLE);
-        player2.play();
+
+        playerView.setVisibility(View.VISIBLE);
+
 
     }
+
+
     @Override
     public void onStop() {
         super.onStop();
-        if (player2 != null) {
-            player2.pause();
+
             updateTrackSelectorParameters();
             updateStartPosition();
-        }
+            currentPosition = playerHelper.getCurrentPosition();
+            onPause();
+
     }
     public void onResume() {
         super.onResume();
-        if (Build.VERSION.SDK_INT <= 23 || player2 == null) {
 
 
-            if (playerView2 != null) {
-                playerView2.onResume();
+            if (playerView != null) {
+                playerView.onResume();
+                playerHelper.seekTo(currentPosition);
             }
-        }
+
 
     }
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        updateTrackSelectorParameters();
-        updateStartPosition();
-        outState.putBundle(KEY_TRACK_SELECTION_PARAMETERS, trackSelectionParameters.toBundle());
-        outState.putBoolean(KEY_AUTO_PLAY, startAutoPlay);
-        outState.putInt(KEY_ITEM_INDEX, startItemIndex);
-        outState.putLong(KEY_POSITION, startPosition);
-    }
+
 
     private void updateTrackSelectorParameters() {
-        if (player2 != null) {
-            trackSelectionParameters = player2.getTrackSelectionParameters();
-        }
+
     }
 
     private void updateStartPosition() {
-        if (player2 != null) {
+
             addToLastPlayed();
-            startAutoPlay = player2.getPlayWhenReady();
-            startItemIndex = player2.getCurrentMediaItemIndex();
-            startPosition = Math.max(0, player2.getContentPosition());
+            startAutoPlay = playerHelper.getPlayWhenReady();
+            startItemIndex = playerHelper.getCurrentMediaItemIndex();
+            startPosition = Math.max(0, playerHelper.getCurrentPosition());
             String userId = manager.getCurrentUser().getUid();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
             String currentDateTime = ZonedDateTime.now(java.time.ZoneId.of("GMT+07:00")).format(formatter);
@@ -570,19 +555,15 @@ public class EpisodeDetailsFragment extends BaseFragment {
             userReference.setValue(userMap);
 
 
-        }
-    }
-
-    public void onVisibilityChanged(int visibility) {
-        fullScreen.setVisibility(visibility == View.VISIBLE ? View.VISIBLE : View.GONE);
 
     }
+
 
     @Override
     public void onPause() {
         super.onPause();
-        if (player2 != null) {
-            player2.pause();
-        }
+
     }
+
+
 }
