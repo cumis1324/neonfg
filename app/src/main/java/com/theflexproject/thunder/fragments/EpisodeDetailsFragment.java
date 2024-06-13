@@ -2,6 +2,10 @@ package com.theflexproject.thunder.fragments;
 
 import static android.content.Context.DOWNLOAD_SERVICE;
 import static com.theflexproject.thunder.Constants.TMDB_BACKDROP_IMAGE_BASE_URL;
+import static com.theflexproject.thunder.player.PlayerActivity.KEY_AUTO_PLAY;
+import static com.theflexproject.thunder.player.PlayerActivity.KEY_ITEM_INDEX;
+import static com.theflexproject.thunder.player.PlayerActivity.KEY_POSITION;
+import static com.theflexproject.thunder.player.PlayerActivity.KEY_TRACK_SELECTION_PARAMETERS;
 
 import android.Manifest;
 import android.app.DownloadManager;
@@ -37,14 +41,22 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
+import com.google.android.exoplayer2.trackselection.TrackSelectionParameters;
 import com.google.android.exoplayer2.ui.StyledPlayerView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.theflexproject.thunder.Constants;
 import com.theflexproject.thunder.R;
 import com.theflexproject.thunder.adapter.FileItemAdapter;
 import com.theflexproject.thunder.adapter.ScaleCenterItemLayoutManager;
 import com.theflexproject.thunder.database.DatabaseClient;
+import com.theflexproject.thunder.model.FirebaseManager;
 import com.theflexproject.thunder.model.MyMedia;
 import com.theflexproject.thunder.model.TVShowInfo.Episode;
 import com.theflexproject.thunder.model.TVShowInfo.TVShow;
@@ -57,8 +69,10 @@ import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -102,6 +116,13 @@ public class EpisodeDetailsFragment extends BaseFragment {
     FileItemAdapter fileAdapter;
     private StyledPlayerView playerView2;
     protected @Nullable ExoPlayer player2;
+    private TrackSelectionParameters trackSelectionParameters;
+    private long startPosition;
+    private boolean startAutoPlay;
+    private int startItemIndex;
+    private MediaItem mediaItem;
+    FirebaseManager manager;
+    private DatabaseReference databaseReference;
 
     public EpisodeDetailsFragment() {
         // Required empty public constructor
@@ -130,9 +151,28 @@ public class EpisodeDetailsFragment extends BaseFragment {
 
         initWidgets(view);
         loadDetails();
+        manager = new FirebaseManager();
+        String tmdbId = String.valueOf(episode.getId());
+        databaseReference = FirebaseDatabase.getInstance().getReference("History/"+tmdbId);
         playerView2 = view.findViewById(R.id.playerViewE);
+        if (savedInstanceState != null) {
+            trackSelectionParameters =
+                    TrackSelectionParameters.fromBundle(
+                            Objects.requireNonNull(savedInstanceState.getBundle(KEY_TRACK_SELECTION_PARAMETERS)));
+            startAutoPlay = savedInstanceState.getBoolean(KEY_AUTO_PLAY);
+            startItemIndex = savedInstanceState.getInt(KEY_ITEM_INDEX);
+            startPosition = savedInstanceState.getLong(KEY_POSITION);
+
+        } else {
+            trackSelectionParameters = new TrackSelectionParameters.Builder(/* context= */ requireContext()).build();
+            clearStartPosition();
+        }
 
         super.onViewCreated(view , savedInstanceState);
+    }
+
+    private void clearStartPosition() {
+
     }
 
     private void initWidgets(View view) {
@@ -297,40 +337,7 @@ public class EpisodeDetailsFragment extends BaseFragment {
         });
         thread.start();
     }
-    private void playVideo(String videoUrl) {
-        if (player2 == null) {
-            // Initialize ExoPlayer
-            player2 = new ExoPlayer.Builder(requireContext()).build();
-            playerView2.setPlayer(player2);
 
-            // Set the media item to be played.
-            MediaItem mediaItem = MediaItem.fromUri(Uri.parse(videoUrl));
-            player2.setMediaItem(mediaItem);
-
-            // Prepare the player
-            player2.prepare();
-        }
-
-        playerView2.setVisibility(View.VISIBLE);
-        player2.play();
-
-    }
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (player2 != null) {
-            player2.release();
-            player2 = null;
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (player2 != null) {
-            player2.pause();
-        }
-    }
 
 
     private void setOnClickListner() {
@@ -460,5 +467,122 @@ public class EpisodeDetailsFragment extends BaseFragment {
             }
         });
         thread.start();
+    }
+
+    //exopplayer
+
+    private void playVideo(String videoUrl) {
+        if (player2 == null) {
+            // Initialize ExoPlayer
+            player2 = new ExoPlayer.Builder(requireContext()).build();
+            playerView2.setPlayer(player2);
+
+            // Set the media item to be played.
+            mediaItem = MediaItem.fromUri(Uri.parse(videoUrl));
+            player2.setMediaItem(mediaItem);
+
+            // Prepare the player
+            player2.prepare();
+        }
+        String userId = manager.getCurrentUser().getUid();
+        DatabaseReference userReference = databaseReference.child(userId).child("lastPosition");
+        userReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // Get the last position from the database
+                    Long lastPosition = dataSnapshot.getValue(Long.class);
+                    if (lastPosition != null) {
+                        // Update the startPosition with the retrieved value
+                        startPosition = lastPosition;
+
+                        // Seek the player to the last position
+                        player2.seekTo(startPosition);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle onCancelled event
+            }
+        });
+
+        boolean haveStartPosition = startItemIndex != C.INDEX_UNSET;
+        if (haveStartPosition) {
+            player2.seekTo(startItemIndex, startPosition);
+        }
+        player2.setMediaItem(mediaItem, /* resetPosition= */ !haveStartPosition);
+        playerView2.setVisibility(View.VISIBLE);
+        player2.play();
+
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (player2 != null) {
+            player2.pause();
+            updateTrackSelectorParameters();
+            updateStartPosition();
+        }
+    }
+    public void onResume() {
+        super.onResume();
+        if (Build.VERSION.SDK_INT <= 23 || player2 == null) {
+
+
+            if (playerView2 != null) {
+                playerView2.onResume();
+            }
+        }
+
+    }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        updateTrackSelectorParameters();
+        updateStartPosition();
+        outState.putBundle(KEY_TRACK_SELECTION_PARAMETERS, trackSelectionParameters.toBundle());
+        outState.putBoolean(KEY_AUTO_PLAY, startAutoPlay);
+        outState.putInt(KEY_ITEM_INDEX, startItemIndex);
+        outState.putLong(KEY_POSITION, startPosition);
+    }
+
+    private void updateTrackSelectorParameters() {
+        if (player2 != null) {
+            trackSelectionParameters = player2.getTrackSelectionParameters();
+        }
+    }
+
+    private void updateStartPosition() {
+        if (player2 != null) {
+            addToLastPlayed();
+            startAutoPlay = player2.getPlayWhenReady();
+            startItemIndex = player2.getCurrentMediaItemIndex();
+            startPosition = Math.max(0, player2.getContentPosition());
+            String userId = manager.getCurrentUser().getUid();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+            String currentDateTime = ZonedDateTime.now(java.time.ZoneId.of("GMT+07:00")).format(formatter);
+            DatabaseReference userReference = databaseReference.child(userId);
+            Map<String, Object> userMap = new HashMap<>();
+            userMap.put("lastPosition", startPosition);
+            userMap.put("lastPlayed", currentDateTime);
+            userReference.setValue(userMap);
+
+
+        }
+    }
+
+    public void onVisibilityChanged(int visibility) {
+        fullScreen.setVisibility(visibility == View.VISIBLE ? View.VISIBLE : View.GONE);
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (player2 != null) {
+            player2.pause();
+        }
     }
 }

@@ -76,10 +76,10 @@ import java.util.Objects;
 
 public class PlayerActivity extends AppCompatActivity implements View.OnClickListener, StyledPlayerView.ControllerVisibilityListener {
 
-    private static final String KEY_TRACK_SELECTION_PARAMETERS = "track_selection_parameters";
-    private static final String KEY_ITEM_INDEX = "item_index";
-    private static final String KEY_POSITION = "position";
-    private static final String KEY_AUTO_PLAY = "auto_play";
+    public static final String KEY_TRACK_SELECTION_PARAMETERS = "track_selection_parameters";
+    public static final String KEY_ITEM_INDEX = "item_index";
+    public static final String KEY_POSITION = "position";
+    public static final String KEY_AUTO_PLAY = "auto_play";
 
     public static final String PREFER_EXTENSION_DECODERS_EXTRA = "prefer_extension_decoders";
 
@@ -111,11 +111,12 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        decorView = getWindow().getDecorView();
         intent = getIntent();
         manager = new FirebaseManager();
         String tmdbId = intent.getStringExtra("tmdbId");
         databaseReference = FirebaseDatabase.getInstance().getReference("History/"+tmdbId);
+        decorView = getWindow().getDecorView();
+
 
         uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -450,27 +451,27 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         String userId = manager.getCurrentUser().getUid();
         DatabaseReference userReference = databaseReference.child(userId).child("lastPosition");
         userReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    // Get the last position from the database
-                    Long lastPosition = dataSnapshot.getValue(Long.class);
-                    if (lastPosition != null) {
-                        // Update the startPosition with the retrieved value
-                        startPosition = lastPosition;
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        // Get the last position from the database
+                        Long lastPosition = dataSnapshot.getValue(Long.class);
+                        if (lastPosition != null) {
+                            // Update the startPosition with the retrieved value
+                            startPosition = lastPosition;
 
-                        // Seek the player to the last position
-                        player.seekTo(startPosition);
-                        String formattedPosition = formatDuration(startPosition);
-                        Toast.makeText(getApplicationContext(), "Resuming to your last position "+ formattedPosition, Toast.LENGTH_LONG).show();
+                            // Seek the player to the last position
+                            player.seekTo(startPosition);
+                            String formattedPosition = formatDuration(startPosition);
+                            Toast.makeText(getApplicationContext(), "Resuming to your last position " + formattedPosition, Toast.LENGTH_LONG).show();
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle onCancelled event
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle onCancelled event
+                }
         });
 
         boolean haveStartPosition = startItemIndex != C.INDEX_UNSET;
