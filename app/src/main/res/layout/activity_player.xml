@@ -13,6 +13,8 @@
        android:background="@color/black"
        app:show_shuffle_button="true"
        app:show_subtitle_button="true"
+       app:show_buffering="always"
+       app:resize_mode="fit"
        />
    <RelativeLayout
        android:layout_width="match_parent"

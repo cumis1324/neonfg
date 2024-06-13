@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true">
+
+    <com.google.android.exoplayer2.ui.StyledPlayerView
+        android:id="@+id/player_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        app:show_shuffle_button="true"
+        app:show_subtitle_button="true"
+        app:show_buffering="always"
+        app:resize_mode="fit"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <TextView
+            android:id="@+id/nfgpluslogo"
+            style="@style/sizelabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="35dp"
+            android:fontFamily="@font/jost_medium"
+            android:paddingHorizontal="20dp"
+            android:textColor="#CCCCCC"
+            android:textSize="25sp"
+            android:text="nfgplus"
+            android:alpha="0.35"
+            />
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/judulUtama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/playerTitle"
+                style="@style/sizelabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="false"
+                android:fontFamily="@font/jost_medium"
+                android:paddingHorizontal="20dp"
+                android:textColor="#CCCCCC"
+                android:textSize="20sp"
+                android:text="Kung Fu panda 4 (2024)"
+                android:visibility="gone"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/judulUtama">
+            <TextView
+                android:id="@+id/playerEpsTitle"
+                style="@style/sizelabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="false"
+                android:fontFamily="@font/jost_medium"
+                android:paddingHorizontal="20dp"
+                android:textColor="#CCCCCC"
+                android:textSize="15sp"
+                android:text=""
+                android:visibility="gone"
+                />
+        </RelativeLayout>
+
+        <LinearLayout android:id="@+id/controls_root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+</FrameLayout>

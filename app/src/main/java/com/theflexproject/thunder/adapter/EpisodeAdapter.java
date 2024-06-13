@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +50,7 @@ import com.theflexproject.thunder.model.FirebaseManager;
 import com.theflexproject.thunder.model.TVShowInfo.Episode;
 import com.theflexproject.thunder.model.TVShowInfo.TVShow;
 import com.theflexproject.thunder.player.PlayerActivity;
+import com.theflexproject.thunder.player.VideoPlayer;
 import com.theflexproject.thunder.utils.StringUtils;
 
 import java.time.ZonedDateTime;
@@ -213,6 +215,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.EpisodeA
         @Override
         public void onClick(View v) {
             listener.onClick(v, getAbsoluteAdapterPosition());
+
         }
 
         private void loadAds() {

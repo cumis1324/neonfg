@@ -27,8 +27,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
-import com.google.android.ads.nativetemplates.NativeTemplateStyle;
-import com.google.android.ads.nativetemplates.TemplateView;
+
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
@@ -80,7 +79,7 @@ public class SeasonDetailsFragment extends BaseFragment {
     List<Episode> episodes;
 
     Episode nextEpisode;
-    private TemplateView template;
+
 
 
     public SeasonDetailsFragment() {

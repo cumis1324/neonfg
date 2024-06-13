@@ -5,8 +5,7 @@ import static android.content.Context.DOWNLOAD_SERVICE;
 import static com.theflexproject.thunder.Constants.TMDB_BACKDROP_IMAGE_BASE_URL;
 import static com.theflexproject.thunder.fragments.EpisodeDetailsFragment.REQUEST_WRITE_EXTERNAL_STORAGE_PERMISSION;
 
-import com.google.android.ads.nativetemplates.NativeTemplateStyle;
-import com.google.android.ads.nativetemplates.TemplateView;
+
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
@@ -186,7 +185,7 @@ public class MovieDetailsFragment extends BaseFragment{
     private RelativeLayout relativeContainer;
 
     private Button saweria;
-    private TemplateView template;
+
     private InterstitialAd mInterstitialAd;
     private RewardedAd rewardedAd;
     FirebaseManager manager;

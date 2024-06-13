@@ -37,6 +37,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.google.android.exoplayer2.ExoPlayer;
+import com.google.android.exoplayer2.MediaItem;
+import com.google.android.exoplayer2.ui.StyledPlayerView;
 import com.theflexproject.thunder.Constants;
 import com.theflexproject.thunder.R;
 import com.theflexproject.thunder.adapter.FileItemAdapter;
@@ -74,6 +77,7 @@ public class EpisodeDetailsFragment extends BaseFragment {
     ImageView ratings;
     TextView ratingsText;
     ImageButton play;
+    ImageButton fullScreen;
 
     TableRow air_date;
     TextView air_date_text;
@@ -96,6 +100,8 @@ public class EpisodeDetailsFragment extends BaseFragment {
     RecyclerView recyclerViewEpisodeFiles;
     List<Episode> episodeFileList;
     FileItemAdapter fileAdapter;
+    private StyledPlayerView playerView2;
+    protected @Nullable ExoPlayer player2;
 
     public EpisodeDetailsFragment() {
         // Required empty public constructor
@@ -124,11 +130,13 @@ public class EpisodeDetailsFragment extends BaseFragment {
 
         initWidgets(view);
         loadDetails();
+        playerView2 = view.findViewById(R.id.playerViewE);
 
         super.onViewCreated(view , savedInstanceState);
     }
 
     private void initWidgets(View view) {
+        fullScreen = view.findViewById(R.id.fullScreen);
         showName = view.findViewById(R.id.tvShowTitleInEpisodeDetails);
         logo = view.findViewById(R.id.tvLogoInEp);
         episodeName = view.findViewById(R.id.episodeNameInEpisodeDetails);
@@ -289,6 +297,40 @@ public class EpisodeDetailsFragment extends BaseFragment {
         });
         thread.start();
     }
+    private void playVideo(String videoUrl) {
+        if (player2 == null) {
+            // Initialize ExoPlayer
+            player2 = new ExoPlayer.Builder(requireContext()).build();
+            playerView2.setPlayer(player2);
+
+            // Set the media item to be played.
+            MediaItem mediaItem = MediaItem.fromUri(Uri.parse(videoUrl));
+            player2.setMediaItem(mediaItem);
+
+            // Prepare the player
+            player2.prepare();
+        }
+
+        playerView2.setVisibility(View.VISIBLE);
+        player2.play();
+
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (player2 != null) {
+            player2.release();
+            player2 = null;
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (player2 != null) {
+            player2.pause();
+        }
+    }
 
 
     private void setOnClickListner() {
@@ -307,7 +349,7 @@ public class EpisodeDetailsFragment extends BaseFragment {
         SharedPreferences sharedPreferences = mActivity.getSharedPreferences("Settings" , Context.MODE_PRIVATE);
         boolean savedEXT = sharedPreferences.getBoolean("EXTERNAL_SETTING" , false);
 
-        play.setOnClickListener(new View.OnClickListener() {
+        fullScreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (savedEXT) {
@@ -335,7 +377,24 @@ public class EpisodeDetailsFragment extends BaseFragment {
                 }
             }
         });
-
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (savedEXT) {
+                    // External Player
+                    addToLastPlayed();
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(largestFile.getUrlString()));
+                    intent.setDataAndType(Uri.parse(largestFile.getUrlString()), "video/*");
+                    startActivity(intent);
+                } else {
+                    // Play video using ExoPlayer within the fragment
+                    playVideo(largestFile.getUrlString());
+                    Toast.makeText(getContext(), "Play", Toast.LENGTH_LONG).show();
+                    addToLastPlayed();
+                    play.setVisibility(View.GONE);
+                }
+            }
+        });
 
         download.setOnClickListener(new View.OnClickListener() {
             @Override
