@@ -237,7 +237,7 @@ public class MoviePlayer extends AppCompatActivity implements View.OnClickListen
 
         initWidgets();
         fullscreenConfig();
-        //loadTitle();
+        //
         Rational aspectRatio = new Rational(playerView.getWidth(), playerView.getHeight());
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             PictureInPictureParams params = new PictureInPictureParams.Builder()
@@ -253,9 +253,9 @@ public class MoviePlayer extends AppCompatActivity implements View.OnClickListen
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
-        //playerTitle = findViewById(R.id.playerTitle);
-        //nfgpluslog = findViewById(R.id.nfgpluslogo);
-        //playerEpsTitle = findViewById(R.id.playerEpsTitle);
+        playerTitle = findViewById(R.id.playerTitle);
+        nfgpluslog = findViewById(R.id.nfgpluslogo);
+        playerEpsTitle = findViewById(R.id.playerEpsTitle);
         WebView webView = findViewById(R.id.webview);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -289,6 +289,7 @@ public class MoviePlayer extends AppCompatActivity implements View.OnClickListen
 //        changeTMDB = view.findViewById(R.id.changeTMDBId);
         loadDetails();
 
+
     }
 
     public void exitFullscreen(){
@@ -299,6 +300,8 @@ public class MoviePlayer extends AppCompatActivity implements View.OnClickListen
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         frameBackdrop.getLayoutParams().height = getResources().getDimensionPixelSize(R.dimen.framebackdrop);
         otherUIElements.setVisibility(View.VISIBLE);
+        playerTitle.setVisibility(View.GONE);
+        playerEpsTitle.setVisibility(View.GONE);
         isFullscreen = false;
     }
     public void enterFullscreen(){
@@ -310,7 +313,8 @@ public class MoviePlayer extends AppCompatActivity implements View.OnClickListen
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
         decorView.setSystemUiVisibility(uiOptions);
-
+        loadReward();
+        loadTitle();
         frameBackdrop.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
         otherUIElements.setVisibility(View.GONE);
         //fullscreenButton.setImageResource(R.drawable.baseline_fullscreen_exit_24);
@@ -406,19 +410,9 @@ public class MoviePlayer extends AppCompatActivity implements View.OnClickListen
 
     }
     private void loadTitle(){
-        String titleString = intent.getStringExtra("title");
-        String yearString = intent.getStringExtra("year");
-        String seasonString = intent.getStringExtra("season");
-        String epsnumString = intent.getStringExtra("number");
-        String titleEpisode = intent.getStringExtra("episode");
-        if (yearString!=null) {
-            playerTitle.setText(titleString + " (" + yearString + ")");
-            playerEpsTitle.setVisibility(View.GONE);
-        }else {
-            playerTitle.setText(titleString);
-            playerEpsTitle.setText("Season " + seasonString + " Episode " + epsnumString + " : " + titleEpisode);
-            playerEpsTitle.setVisibility(View.VISIBLE);
-        }
+        String titleString = movieDetails.getTitle();
+        String yearString = movieDetails.getRelease_date().substring(0, movieDetails.getRelease_date().indexOf('-'));
+        playerTitle.setText(titleString + " (" + yearString + ")");
 
         playerTitle.setVisibility(View.VISIBLE);
     }
@@ -430,7 +424,7 @@ public class MoviePlayer extends AppCompatActivity implements View.OnClickListen
         // Check if device orientation is landscape
         if (newConfig.orientation != Configuration.ORIENTATION_LANDSCAPE) {
             // Show rewarded ad if loaded
-            loadReward();
+
         }
     }
 
@@ -513,8 +507,13 @@ public class MoviePlayer extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onVisibilityChanged(int visibility) {
-       // playerTitle.setVisibility(visibility == View.VISIBLE ? View.VISIBLE : View.GONE);
-        // playerEpsTitle.setVisibility(visibility == View.VISIBLE ? View.VISIBLE : View.GONE);
+        if (isFullscreen){
+            playerTitle.setVisibility(visibility == View.VISIBLE ? View.VISIBLE : View.GONE);
+            playerEpsTitle.setVisibility(visibility == View.VISIBLE ? View.VISIBLE : View.GONE);
+            fullscreenButton.setVisibility(visibility == View.VISIBLE ? View.VISIBLE : View.GONE);
+        }else {
+            fullscreenButton.setVisibility(visibility == View.VISIBLE ? View.VISIBLE : View.GONE);
+        }
     }
     @Override
     public void onClick(View view) {
@@ -995,7 +994,7 @@ public class MoviePlayer extends AppCompatActivity implements View.OnClickListen
     private void generateAndShareDynamicLink(String itemId) {
         // Set up the dynamic link components
         DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                .setLink(Uri.parse("https://nfgplus.page.link/share/" + itemId))
+                .setLink(Uri.parse(itemId))
                 .setDomainUriPrefix("https://nfgplus.page.link/share/")
                 .buildDynamicLink();
 
@@ -1028,7 +1027,7 @@ public class MoviePlayer extends AppCompatActivity implements View.OnClickListen
         // Include movie details in the share text
         String shareText =
                 movieDetails.getTitle()
-                        + "\n \n Watch this movie in your app "
+                        + "\n \n Watch this movie"
                         + "\n \n Overview: " + movieDetails.getOverview()
                         + "\n \n" + dynamicLink;
 
