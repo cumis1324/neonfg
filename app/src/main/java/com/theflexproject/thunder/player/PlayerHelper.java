@@ -111,9 +111,6 @@ public class PlayerHelper {
         return 0;
     }
 
-    public int getContentPosition() {
-        return 0;
-    }
 
     public void setPlayWhenReady(boolean b) {
     }

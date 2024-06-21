@@ -1,3 +1,4 @@
 <resources>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="framebackdrop">250dp</dimen>
 </resources>

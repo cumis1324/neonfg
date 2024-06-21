@@ -1,6 +1,7 @@
 package com.theflexproject.thunder.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,6 +25,7 @@ import com.theflexproject.thunder.database.DatabaseClient;
 import com.theflexproject.thunder.model.Movie;
 import com.theflexproject.thunder.model.MyMedia;
 import com.theflexproject.thunder.model.TVShowInfo.TVShow;
+import com.theflexproject.thunder.player.MoviePlayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -185,16 +187,24 @@ public class SearchFragment extends BaseFragment {
         listener = (view , position) -> {
             if(matchesFound.get(position) instanceof Movie){
                 MovieDetailsFragment movieDetailsFragment;
-                if(((Movie)matchesFound.get(position)).getId()==0){
+                Movie movie = ((Movie)matchesFound.get(position));
+                int Id = movie.getId();
+                if(Id==0){
                     movieDetailsFragment = new MovieDetailsFragment(((Movie)matchesFound.get(position)).getFileName());
 
                 }else {
-                    movieDetailsFragment = new MovieDetailsFragment(((Movie)matchesFound.get(position)).getId());
+                    Intent in = new Intent(getActivity() , MoviePlayer.class);
+                    String movieId = String.valueOf(movie.getId());
+                    in.putExtra("movieId", movieId);
+                    in.putExtra("tmdbId", movieId);
+                    in.putExtra("mediaUri", movie.getUrlString());
+                    startActivity(in);
+                    // movieDetailsFragment = new MovieDetailsFragment(((Movie)matchesFound.get(position)).getId());
                 }
 
-                mActivity.getSupportFragmentManager().beginTransaction()
-                        .setCustomAnimations(R.anim.fade_in,R.anim.fade_out,R.anim.fade_in,R.anim.fade_out)
-                        .add(R.id.container,movieDetailsFragment).addToBackStack(null).commit();
+               // mActivity.getSupportFragmentManager().beginTransaction()
+                       // .setCustomAnimations(R.anim.fade_in,R.anim.fade_out,R.anim.fade_in,R.anim.fade_out)
+                       // .add(R.id.container,movieDetailsFragment).addToBackStack(null).commit();
             }
             if(matchesFound.get(position) instanceof TVShow){
                 TvShowDetailsFragment tvShowDetailsFragment = new TvShowDetailsFragment(((TVShow)matchesFound.get(position)).getId());

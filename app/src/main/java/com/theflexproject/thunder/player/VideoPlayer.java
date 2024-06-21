@@ -450,7 +450,7 @@ public class VideoPlayer extends AppCompatActivity implements View.OnClickListen
             addToPlayed();
             startAutoPlay = playerHelper.getPlayWhenReady();
             startItemIndex = playerHelper.getCurrentMediaItemIndex();
-            startPosition = Math.max(0, playerHelper.getContentPosition());
+            startPosition = Math.max(0, playerHelper.player.getContentPosition());
             String userId = manager.getCurrentUser().getUid();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
             String currentDateTime = ZonedDateTime.now(java.time.ZoneId.of("GMT+07:00")).format(formatter);

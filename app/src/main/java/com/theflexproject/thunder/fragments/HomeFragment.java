@@ -31,8 +31,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.theflexproject.thunder.MainActivity;
 import com.theflexproject.thunder.R;
 import com.theflexproject.thunder.RefreshJobService;
+import com.theflexproject.thunder.SignInActivity;
 import com.theflexproject.thunder.adapter.BannerRecyclerAdapter;
 import com.theflexproject.thunder.adapter.DrakorBannerAdapter;
 import com.theflexproject.thunder.adapter.IndexAdapter;
@@ -44,6 +46,8 @@ import com.theflexproject.thunder.model.IndexLink;
 import com.theflexproject.thunder.model.Movie;
 import com.theflexproject.thunder.model.MyMedia;
 import com.theflexproject.thunder.model.TVShowInfo.TVShow;
+import com.theflexproject.thunder.player.MoviePlayer;
+import com.theflexproject.thunder.player.VideoPlayer;
 import com.theflexproject.thunder.utils.RefreshWorker;
 
 import static com.theflexproject.thunder.utils.IndexUtils.deleteIndex;
@@ -583,11 +587,15 @@ public class HomeFragment extends BaseFragment {
         filmIndoListener = new MediaAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, int position) {
-                MovieDetailsFragment movieDetailsFragment = new MovieDetailsFragment(filmIndo.get(position).getId());
-                mActivity.getSupportFragmentManager().beginTransaction()
-                        .setCustomAnimations(R.anim.fade_in,R.anim.fade_out,R.anim.fade_in,R.anim.fade_out)
-                        .add(R.id.container,movieDetailsFragment).addToBackStack(null).commit();
-
+                //mActivity.getSupportFragmentManager().beginTransaction()
+                   //     .setCustomAnimations(R.anim.fade_in,R.anim.fade_out,R.anim.fade_in,R.anim.fade_out)
+                      //  .add(R.id.container,movieDetailsFragment).addToBackStack(null).commit();
+                Intent in = new Intent(getActivity() , MoviePlayer.class);
+                String movieId = String.valueOf(filmIndo.get(position).getId());
+                in.putExtra("movieId", movieId);
+                in.putExtra("tmdbId", movieId);
+                in.putExtra("mediaUri", filmIndo.get(position).getUrlString());
+                startActivity(in);
             }
         };
         drakorListener = new DrakorBannerAdapter.OnItemClickListener() {

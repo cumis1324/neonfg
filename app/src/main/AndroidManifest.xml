@@ -114,6 +114,14 @@
             android:hardwareAccelerated="true"
             />
         <activity
+            android:name=".player.MoviePlayer"
+            android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:supportsPictureInPicture="true"
+            android:hardwareAccelerated="true"
+            />
+        <activity
             android:name=".player.VideoPlayer"
             android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:exported="true"
